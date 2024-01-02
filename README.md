@@ -2,6 +2,6 @@
 
 Um sistema onde é possível armazenar todos as ferramentas,sites para utilizar que a prefeitura usa interno.
 
- cd intranet
-  npm install
+ cd intranet <br />
+  npm install <br />
   npm run dev
