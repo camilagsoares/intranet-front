@@ -1,7 +1,5 @@
 export default function Header() {
-    return (
-        <div>
-           Menu
-        </div>
+    return(
+        <div>Header</div>
     )
 }
