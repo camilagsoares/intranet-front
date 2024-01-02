@@ -13,7 +13,7 @@ button{
 }
 
 body{
-    background-color: #d3d3d3;
+    background-color: #ededed;
 }
 
 `
