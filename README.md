@@ -5,3 +5,6 @@ Um sistema onde é possível armazenar todos as ferramentas,sites para utilizar 
  cd intranet <br />
   npm install <br />
   npm run dev
+
+
+ReactJs + Vite e TailwindCSS
