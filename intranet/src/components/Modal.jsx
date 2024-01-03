@@ -1,3 +1,6 @@
+import '../styles/style.css'
+
+
 const Modal = () => {
     return(
         <div>
