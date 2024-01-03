@@ -122,9 +122,7 @@ const TableT = (props) => {
                             >
 
                                 <TableCell component="th" scope="row">
-                                    <FaCircleUser />
-
-                                    -
+                                    <FaCircleUser size={40} />
                                 </TableCell>
                                 <TableCell align="left">-</TableCell>
                                 <TableCell align="left">-</TableCell>
