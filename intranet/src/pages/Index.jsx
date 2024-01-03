@@ -1,11 +1,9 @@
-// import Header from '../components/Header'
 import Table from '../components/Table'
 
 
 const Index = () => {
     return (
-        <div>
-            {/* <Header /> */}
+        <div>       
             <Table />
         </div>
     )
