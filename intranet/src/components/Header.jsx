@@ -10,7 +10,7 @@ const Header = () => {
     { title: "Departamentos", src: "Chat", link: "/departamentos" },
     { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
     { title: "Telefones ", src: "Calendar", link: "/telefones" },
-    { title: "Sair", src: "Calendar", gap: true, link: "/" },
+    { title: "Sair", src: "Calendar", gap: true, link: "/login" },
 
   ];
 
