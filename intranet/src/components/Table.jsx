@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import EditOutlined from '@mui/icons-material/EditOutlined';
-import MenuOpen from '@mui/icons-material/MenuOpenOutlined';
 import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -20,6 +18,7 @@ import Pagination from '@mui/material/Pagination';
 import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
 import { createTheme } from '@mui/material/styles';
 import Modal from './Modal';
+import { FaCircleUser } from "react-icons/fa6";
 
 
 const TableT = (props) => {
@@ -93,6 +92,7 @@ const TableT = (props) => {
                             <StyledTableRow>
 
                                 <StyledTableCell align='left' width={112}>
+
                                     Nome
                                 </StyledTableCell>
 
@@ -100,6 +100,9 @@ const TableT = (props) => {
                                 <StyledTableCell width={192}>Departamento</StyledTableCell>
                                 <StyledTableCell align='left' width={180}>
                                     Secretaria
+                                </StyledTableCell>
+                                <StyledTableCell align='left' width={112}>
+                                    Cargo
                                 </StyledTableCell>
                                 <StyledTableCell align='left' width={180}>
                                     Telefone
@@ -115,15 +118,18 @@ const TableT = (props) => {
                         <TableBody>
 
                             <TableRow
-
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
+
                                 <TableCell component="th" scope="row">
-                                    999
+                                    <FaCircleUser />
+
+                                    -
                                 </TableCell>
-                                <TableCell align="left">999</TableCell>
-                                <TableCell align="left">99</TableCell>
-                                <TableCell align="left">99</TableCell>
+                                <TableCell align="left">-</TableCell>
+                                <TableCell align="left">-</TableCell>
+                                <TableCell align="left">-</TableCell>
+                                <TableCell align="left">-</TableCell>
                                 <TableCell align="left"> <Modal /></TableCell>
                             </TableRow>
 

@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Index from "../../src/pages/Index"
+import { Link } from 'react-router-dom';
+import { FaCircleUser } from "react-icons/fa6";
 
 const Header = () => {
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "Início", src: "Chart_fill" },
-    { title: "Departamentos", src: "Chat" },
-    { title: "Secretarias", src: "User", gap: true },
-    { title: "Telefones ", src: "Calendar" },
-    { title: "Sair", src: "Calendar", gap: true },
+    { title: "Início", src: "Chart_fill", link: "/departamentos" },
+    { title: "Departamentos", src: "Chat", link: "/departamentos" },
+    { title: "Secretarias", src: "User", gap: true, link: "/departamentos" },
+    { title: "Telefones ", src: "Calendar", link: "/departamentos" },
+    { title: "Sair", src: "Calendar", gap: true, link: "/departamentos" },
 
   ];
 
@@ -39,17 +41,22 @@ const Header = () => {
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <li
-              key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
+            <Link to={Menu.link}>
+              <li
+                key={index}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
-                } `}
-            >
-              <img src={`./src/assets/${Menu.src}.png`} />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
-            </li>
+                  } `}
+              >
+                <img src={`./src/assets/${Menu.src}.png`} />
+
+                <span className={`${!open && "hidden"} origin-left duration-200`}>
+
+                  {Menu.title}
+
+                </span>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
