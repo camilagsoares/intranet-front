@@ -1,78 +1,140 @@
-import '../styles/style.css'
+import React, { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import MenuOpen from '@mui/icons-material/MenuOpenOutlined';
+import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import Skeleton from '@mui/material/Skeleton';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import { Button } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
+import { createTheme } from '@mui/material/styles';
 import Modal from './Modal';
 
-const Table = () => {
 
+const TableT = (props) => {
+    const theme = createTheme({
+        palette: {
+            secondary: {
+                main: '#EC8718'
+            },
+        },
+    });
+
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+    }));
+
+
+
+    const TableRowsLoaderSkeleton = ({ rowsNum }) => {
+        return [...Array(rowsNum)].map((row, index) => (
+            <TableRow key={index}>
+                <StyledTableCell component='th' scope='row'>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+                <StyledTableCell>
+                    <Skeleton animation='wave' variant='text' height={36} />
+                </StyledTableCell>
+            </TableRow>
+        ));
+    };
 
 
     return (
-        <div className='tablePosition'>
-            <div class="relative overflow-x-auto mx-8">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Product name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Color
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Category
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Price
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                               <Modal />
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="px-6 py-4">
-                                White
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop PC
-                            </td>
-                            <td class="px-6 py-4">
-                                $1999
-                            </td>
-                        </tr>
-                        <tr class="bg-white dark:bg-gray-800">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Magic Mouse 2
-                            </th>
-                            <td class="px-6 py-4">
-                                Black
-                            </td>
-                            <td class="px-6 py-4">
-                                Accessories
-                            </td>
-                            <td class="px-6 py-4">
-                                $99
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )
-}
+        <React.Fragment>
+            <Box marginY={1} paddingY={2}>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 700 }} aria-label='customized table' >
+                        <TableHead className='borda-azul'>
+                            <StyledTableRow>
 
-export default Table;
+                                <StyledTableCell align='left' width={112}>
+                                    Nome
+                                </StyledTableCell>
+
+
+                                <StyledTableCell width={192}>Departamento</StyledTableCell>
+                                <StyledTableCell align='left' width={180}>
+                                    Secretaria
+                                </StyledTableCell>
+                                <StyledTableCell align='left' width={180}>
+                                    Telefone
+                                </StyledTableCell>
+                                <StyledTableCell align='left' width={180}>
+                                    Modal
+                                </StyledTableCell>
+
+
+
+                            </StyledTableRow>
+                        </TableHead>
+                        <TableBody>
+
+                            <TableRow
+
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    999
+                                </TableCell>
+                                <TableCell align="left">999</TableCell>
+                                <TableCell align="left">99</TableCell>
+                                <TableCell align="left">99</TableCell>
+                                <TableCell align="left"> <Modal /></TableCell>
+                            </TableRow>
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+
+        </React.Fragment>
+    );
+};
+
+
+
+export default TableT;
