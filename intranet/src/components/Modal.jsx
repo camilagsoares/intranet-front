@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
+
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -32,12 +34,25 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <div className="modal-column">
+            <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+             Foto Cliente
+            </Typography>
+          </div>
+          <div className="modal-column">
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Nome:
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Telefone:
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Secretaria:
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Departamento:
+            </Typography>
+          </div>
         </Box>
       </Modal>
     </div>
