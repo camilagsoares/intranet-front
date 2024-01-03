@@ -8,9 +8,9 @@ const Header = () => {
   const Menus = [
     { title: "Início", src: "Chart_fill", link: "/departamentos" },
     { title: "Departamentos", src: "Chat", link: "/departamentos" },
-    { title: "Secretarias", src: "User", gap: true, link: "/departamentos" },
-    { title: "Telefones ", src: "Calendar", link: "/departamentos" },
-    { title: "Sair", src: "Calendar", gap: true, link: "/departamentos" },
+    { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
+    { title: "Telefones ", src: "Calendar", link: "/telefones" },
+    { title: "Sair", src: "Calendar", gap: true, link: "/" },
 
   ];
 
