@@ -8,7 +8,8 @@ const Header = () => {
     { title: "Departamentos", src: "Chat" },
     { title: "Secretarias", src: "User", gap: true },
     { title: "Telefones ", src: "Calendar" },
-  
+    { title: "Sair", src: "Calendar", gap: true },
+
   ];
 
   return (

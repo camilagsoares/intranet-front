@@ -34,7 +34,8 @@ const TableT = (props) => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.
+                palette.info.dark,
             color: theme.palette.primary.contrastText,
         },
         [`&.${tableCellClasses.body}`]: {
