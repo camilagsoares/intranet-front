@@ -1,6 +1,9 @@
+
 const Secretarias = () => {
     return (
-        <div>Secretarias</div>
+        <div>
+            <h1>SecretariasPage</h1>
+        </div>
     )
 }
 
