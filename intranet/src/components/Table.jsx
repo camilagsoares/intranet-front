@@ -20,6 +20,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useApiRequestGet } from "../services/api"
+import { ContainerInput } from "../styles/styles"
 
 const TableT = (props) => {
 
@@ -102,6 +103,10 @@ const TableT = (props) => {
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
 
+                <Box sx={{ p: 1 }}>
+                    <ContainerInput placeholder='Pesquisar' />
+
+                </Box>
 
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label='customized table' >
@@ -114,12 +119,12 @@ const TableT = (props) => {
                                 </StyledTableCell>
 
 
-                                <StyledTableCell width={192}>Departamento</StyledTableCell>
+                                <StyledTableCell width={192}>Cargo</StyledTableCell>
                                 <StyledTableCell align='left' width={180}>
                                     Secretaria
                                 </StyledTableCell>
                                 <StyledTableCell align='left' width={112}>
-                                    Cargo
+                                    Departamento
                                 </StyledTableCell>
                                 <StyledTableCell align='left' width={180}>
                                     Telefone
@@ -130,44 +135,29 @@ const TableT = (props) => {
 
                             </StyledTableRow>
                         </TableHead>
-                        {/* <TableBody>
 
-                            <TableRow
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-
-                                <TableCell component="th" scope="row">
-                                    <FaCircleUser size={40} />
-                                </TableCell>
-                                <TableCell align="left">-</TableCell>
-                                <TableCell align="left">-</TableCell>
-                                <TableCell align="left">-</TableCell>
-                                <TableCell align="left">-</TableCell>
-                            </TableRow>
-
-                        </TableBody> */}
                         <TableBody>
 
                             {data && data.length && data
 
-                                .map((projeto) => (
-                                    <StyledTableRow key={projeto?.id}>
+                                .map((number) => (
+                                    <StyledTableRow key={number?.id}>
 
                                         <StyledTableCell align="left" >
-                                            {projeto?.numero}
+                                            -
                                         </StyledTableCell>
 
                                         <StyledTableCell align="left" >
-                                            {projeto?.situacao}
+                                            {number?.cargo.nome}
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
-                                            {projeto?.title}
+                                            -
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
-                                            {projeto?.title}
+                                            {number?.departamento.nome}
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
-                                            {projeto?.title}
+                                            {number?.numero}
                                         </StyledTableCell>
 
                                     </StyledTableRow>
