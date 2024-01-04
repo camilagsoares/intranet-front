@@ -19,8 +19,11 @@ import { createTheme } from '@mui/material/styles';
 import { FaCircleUser } from "react-icons/fa6";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useApiRequestGet } from "../services/api"
 
 const TableT = (props) => {
+
+
     const theme = createTheme({
         palette: {
             secondary: {
@@ -48,14 +51,20 @@ const TableT = (props) => {
         },
     }));
 
-    const Dados = [
-        { title: "Início", src: "Chart_fill", link: "/departamentos" },
-        { title: "Departamentos", src: "Chat", link: "/departamentos" },
-        { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
-        { title: "Telefones ", src: "Calendar", link: "/telefones" },
-        { title: "Sair", src: "Calendar", gap: true, link: "/login" },
-    ];
+    const { data } = useApiRequestGet('/telefone/listar-telefones')
 
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const projectsPerPage = 6;
+    const pagesVisited = pageNumber * projectsPerPage;
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
+
+    useEffect(() => {
+        setPageNumber(0);
+    }, [data]);
 
     const TableRowsLoaderSkeleton = ({ rowsNum }) => {
         return [...Array(rowsNum)].map((row, index) => (
@@ -92,6 +101,8 @@ const TableT = (props) => {
     return (
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
+
+
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label='customized table' >
                         <TableHead className='borda-azul'>
@@ -137,17 +148,17 @@ const TableT = (props) => {
                         </TableBody> */}
                         <TableBody>
 
-                            {Dados
+                            {data && data.length && data
 
                                 .map((projeto) => (
                                     <StyledTableRow key={projeto?.id}>
 
                                         <StyledTableCell align="left" >
-                                            {projeto?.title}
+                                            {projeto?.numero}
                                         </StyledTableCell>
 
                                         <StyledTableCell align="left" >
-                                            {projeto?.title}
+                                            {projeto?.situacao}
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
                                             {projeto?.title}
@@ -165,12 +176,21 @@ const TableT = (props) => {
                     </Table>
                 </TableContainer>
 
-                <Box display="flex" justifyContent="end" mt={2}>
-                    <Stack spacing={5}>
-                        <Pagination color="primary"
-                            count={10} variant="outlined" shape="rounded" />
-                    </Stack>
-                </Box>
+
+                {data && data.length > 0 && (
+                    <Box display="flex" justifyContent="end" mt={2} >
+                        <Pagination
+                            color="primary"
+                            count={Math.ceil(data?.length / projectsPerPage)}
+                            page={pageNumber + 1}
+                            onChange={(event, page) => {
+                                changePage({ selected: page - 1 });
+                            }}
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </Box>
+                )}
             </Box>
 
         </React.Fragment>
