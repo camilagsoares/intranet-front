@@ -6,9 +6,8 @@ const Departamentos = () => {
 
 
     return (
-
-        <div className="flex flex-col gap-4">Dptos
-        <TableT />
+        <div className="flex flex-col gap-4">
+            <TableT />
         </div>
     );
 }
