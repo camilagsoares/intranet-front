@@ -17,7 +17,6 @@ import { Button } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
 import { createTheme } from '@mui/material/styles';
-import Modal from './Modal';
 import { FaCircleUser } from "react-icons/fa6";
 
 
@@ -107,9 +106,7 @@ const TableT = (props) => {
                                 <StyledTableCell align='left' width={180}>
                                     Telefone
                                 </StyledTableCell>
-                                <StyledTableCell align='left' width={180}>
-                                    Modal
-                                </StyledTableCell>
+                            
 
 
 
@@ -128,7 +125,6 @@ const TableT = (props) => {
                                 <TableCell align="left">-</TableCell>
                                 <TableCell align="left">-</TableCell>
                                 <TableCell align="left">-</TableCell>
-                                <TableCell align="left"> <Modal /></TableCell>
                             </TableRow>
 
                         </TableBody>
