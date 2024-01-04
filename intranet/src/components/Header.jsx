@@ -2,11 +2,18 @@ import { useState } from "react";
 import Index from "../../src/pages/Index"
 import { Link } from 'react-router-dom';
 import { FaCircleUser } from "react-icons/fa6";
+import { useApiRequestGet } from "../services/api";
+
 
 const Header = () => {
+
+  const { data} = useApiRequestGet('/telefone/listar-telefones')
+
+console.log(data)
+
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "Início", src: "Chart_fill", link: "/departamentos" },
+    { title: "Início", src: "Chart_fill", link: "/" },
     { title: "Departamentos", src: "Chat", link: "/departamentos" },
     { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
     { title: "Telefones ", src: "Calendar", link: "/telefones" },
@@ -42,12 +49,13 @@ const Header = () => {
           {Menus.map((Menu, index) => (
             <Link to={Menu.link}>
               <li
-                key={index}
+                key={Menu.title}
                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
                   } `}
               >
                 <img src={`./src/assets/${Menu.src}.png`} />
+            
 
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
 
@@ -61,7 +69,7 @@ const Header = () => {
       </div>
       <div className="h-screen flex-1 p-7">
         <h1 className="text-2xl font-semibold ">
-          <Index />
+          {/* <Index /> */}
         </h1>
       </div>
     </div>

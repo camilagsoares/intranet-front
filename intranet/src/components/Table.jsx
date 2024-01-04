@@ -14,11 +14,11 @@ import TableRow from '@mui/material/TableRow';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
-import Pagination from '@mui/material/Pagination';
 import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
 import { createTheme } from '@mui/material/styles';
 import { FaCircleUser } from "react-icons/fa6";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const TableT = (props) => {
     const theme = createTheme({
@@ -48,6 +48,13 @@ const TableT = (props) => {
         },
     }));
 
+    const Dados = [
+        { title: "Início", src: "Chart_fill", link: "/departamentos" },
+        { title: "Departamentos", src: "Chat", link: "/departamentos" },
+        { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
+        { title: "Telefones ", src: "Calendar", link: "/telefones" },
+        { title: "Sair", src: "Calendar", gap: true, link: "/login" },
+    ];
 
 
     const TableRowsLoaderSkeleton = ({ rowsNum }) => {
@@ -106,13 +113,13 @@ const TableT = (props) => {
                                 <StyledTableCell align='left' width={180}>
                                     Telefone
                                 </StyledTableCell>
-                            
+
 
 
 
                             </StyledTableRow>
                         </TableHead>
-                        <TableBody>
+                        {/* <TableBody>
 
                             <TableRow
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -127,9 +134,43 @@ const TableT = (props) => {
                                 <TableCell align="left">-</TableCell>
                             </TableRow>
 
+                        </TableBody> */}
+                        <TableBody>
+
+                            {Dados
+
+                                .map((projeto) => (
+                                    <StyledTableRow key={projeto?.id}>
+
+                                        <StyledTableCell align="left" >
+                                            {projeto?.title}
+                                        </StyledTableCell>
+
+                                        <StyledTableCell align="left" >
+                                            {projeto?.title}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {projeto?.title}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {projeto?.title}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {projeto?.title}
+                                        </StyledTableCell>
+
+                                    </StyledTableRow>
+                                ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <Box display="flex" justifyContent="end" mt={2}>
+                    <Stack spacing={5}>
+                        <Pagination color="primary"
+                            count={10} variant="outlined" shape="rounded" />
+                    </Stack>
+                </Box>
             </Box>
 
         </React.Fragment>

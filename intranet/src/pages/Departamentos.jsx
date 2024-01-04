@@ -1,13 +1,16 @@
-// import Header from "../components/Header";
+import { useState, React } from "react";
+import TableT from "../components/Table";
 
 
 const Departamentos = () => {
+
+
     return (
-        <div>
-            {/* <Header /> */}
-            Departamentos
+
+        <div className="flex flex-col gap-4">Dptos
+        <TableT />
         </div>
-    )
+    );
 }
 
 export default Departamentos;

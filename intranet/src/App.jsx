@@ -7,6 +7,7 @@ import Telefones from "./pages/Telefones";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Layout from "./components/Layout";
+import { GlobalStyle } from "./styles/global";
 
 const App = () => {
 
@@ -14,16 +15,16 @@ const App = () => {
   return (
 
     <Router>
-    <Routes>
+      <Routes>
         <Route path="/" element={<Layout />}>
-            <Route path="/departamentos" element={<Departamentos />} />
-            <Route path="/secretarias" element={<Secretarias />} />
-            <Route path="/telefones" element={<Telefones />} />
-        <Route path="/login" element={<Login />} />
+          <Route path="/departamentos" element={<Departamentos />} />
+          <Route path="/secretarias" element={<Secretarias />} />
+          <Route path="/telefones" element={<Telefones />} />
+          <Route path="/login" element={<Login />} />
         </Route>
-   
-    </Routes>
-</Router>
+
+      </Routes>
+    </Router>
   );
 };
 
