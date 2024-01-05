@@ -17,7 +17,7 @@ const Header = () => {
     { title: "Departamentos", src: "Chat", link: "/departamentos" },
     { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
     { title: "Telefones ", src: "Calendar", link: "/telefones" },
-    { title: "Sair", src: "Calendar", gap: true, link: "/login" },
+    { title: "Painel Administrador", src: "Calendar", gap: true, link: "/login" },
   ];
 
   return (
@@ -42,7 +42,7 @@ const Header = () => {
             className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"
               }`}
           >
-            Intranet
+            Lista Telefônica
           </h1>
         </div>
         <ul className="pt-6">
