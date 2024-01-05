@@ -7,9 +7,9 @@ import { useApiRequestGet } from "../services/api";
 
 const Header = () => {
 
-  const { data} = useApiRequestGet('/telefone/listar-telefones')
+  const { data } = useApiRequestGet('/telefone/listar-telefones')
 
-console.log(data)
+  // console.log(data)
 
   const [open, setOpen] = useState(true);
   const Menus = [
@@ -55,7 +55,7 @@ console.log(data)
                   } `}
               >
                 <img src={`./src/assets/${Menu.src}.png`} />
-            
+
 
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
 

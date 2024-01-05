@@ -54,7 +54,9 @@ const TableT = (props) => {
 
     const { data } = useApiRequestGet('/telefone/listar-telefones')
 
-    // console.log("telefone ", data.numero);
+    const DataNumero = data?.map(res => res.numero)
+    console.log(DataNumero)
+    
 
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
