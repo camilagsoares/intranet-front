@@ -67,7 +67,7 @@ const Header = () => {
           ))}
         </ul>
       </div>
-      <div className="h-screen flex-1 p-7">
+      <div className="h-screen flex-1">
         <h1 className="text-2xl font-semibold ">
           {/* <Index /> */}
         </h1>
