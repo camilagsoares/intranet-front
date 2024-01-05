@@ -7,8 +7,6 @@ export const PaginationSecretary = () => {
 
     const { data } = useApiRequestGet('/secretaria/listar-secretarias')
 
-    console.log(data)
-
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
