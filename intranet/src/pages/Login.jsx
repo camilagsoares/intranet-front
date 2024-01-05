@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { ContainerLogin } from "../styles/styles"
 
 const defaultTheme = createTheme();
 
@@ -23,9 +23,10 @@ export default function Login() {
     <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
+          <ContainerLogin>
           <Box
             sx={{
-              marginTop: 8,
+              // marginTop: '50%',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -35,7 +36,7 @@ export default function Login() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Acesso Admnistrador
+              Acesso Administrador
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
@@ -74,6 +75,7 @@ export default function Login() {
               </Grid>
             </Box>
           </Box>
+          </ContainerLogin>
         </Container>
     </ThemeProvider>
   );
