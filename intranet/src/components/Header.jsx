@@ -7,17 +7,15 @@ import { useApiRequestGet } from "../services/api";
 
 const Header = () => {
 
-  const { data } = useApiRequestGet('/telefone/listar-telefones')
-
-  // console.log(data)
 
   const [open, setOpen] = useState(true);
+
   const Menus = [
-    { title: "Início", src: "Chart_fill", link: "/" },
-    { title: "Departamentos", src: "Chat", link: "/departamentos" },
-    { title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
-    { title: "Telefones ", src: "Calendar", link: "/telefones" },
-    { title: "Painel Administrador", src: "Calendar", gap: true, link: "/login" },
+    { id: 1, title: "Início", src: "Chart_fill", link: "/" },
+    { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos" },
+    { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
+    { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones" },
+    { id: 5, title: "Painel Administrador", src: "Calendar", gap: true, link: "/login" },
   ];
 
   return (
@@ -47,9 +45,8 @@ const Header = () => {
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <Link to={Menu.link}>
+            <Link to={Menu.link}  key={index}>
               <li
-                key={Menu.title}
                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
                   } `}

@@ -13,7 +13,7 @@ import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../uti
 const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
-    console.log(data)
+
 
     return (
         <React.Fragment>
