@@ -1,94 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined';
+import React from 'react';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
-import Skeleton from '@mui/material/Skeleton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Tooltip from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
-import { Button } from '@mui/material';
-import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
-import { createTheme } from '@mui/material/styles';
-import { FaCircleUser } from "react-icons/fa6";
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
 import { useApiRequestGet } from "../../../services/api"
 // import { ContainerInput } from "../styles/styles"
 import { PaginationSecretary } from "./PaginationSecretary"
+import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 
 const TableSecretary = (props) => {
 
-
-    const theme = createTheme({
-        palette: {
-            secondary: {
-                main: '#EC8718'
-            },
-        },
-    });
-
-
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.
-                palette.info.dark,
-            color: theme.palette.primary.contrastText,
-        },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 14,
-        },
-
-    }));
-
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-    }));
-
-    const { data } = useApiRequestGet('/secretaria/listar-secretarias')
-
-
-
-
-    const TableRowsLoaderSkeleton = ({ rowsNum }) => {
-        return [...Array(rowsNum)].map((row, index) => (
-            <TableRow key={index}>
-                <StyledTableCell component='th' scope='row'>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-                <StyledTableCell>
-                    <Skeleton animation='wave' variant='text' height={36} />
-                </StyledTableCell>
-            </TableRow>
-        ));
-    };
-
+    const { data, loading } = useApiRequestGet('/secretaria/listar-secretarias')
 
     return (
         <React.Fragment>
@@ -104,51 +28,47 @@ const TableSecretary = (props) => {
                         <TableHead className='borda-azul'>
                             <StyledTableRow>
 
-
                                 <StyledTableCell width={192}>Id</StyledTableCell>
+
                                 <StyledTableCell align='left' width={180}>
                                     Nome
                                 </StyledTableCell>
+
                                 <StyledTableCell align='left' width={112}>
                                     Secretaria
                                 </StyledTableCell>
-
-
-
 
                             </StyledTableRow>
                         </TableHead>
 
                         <TableBody>
+                            {
+                                loading ? (<TableRowsLoaderSkeleton rowsNum={5} />) : (data && data.length && data
+                                    .map((secretary) => (
+                                        <StyledTableRow key={secretary?.id}>
 
-                            {data && data.length && data
-
-                                .map((secretary) => (
-                                    <StyledTableRow key={secretary?.id}>
-
-                                        <StyledTableCell align="left" >
-                                            {secretary.id}
-                                        </StyledTableCell>
+                                            <StyledTableCell align="left" >
+                                                {secretary.id}
+                                            </StyledTableCell>
 
 
-                                        <StyledTableCell align="left" >
-                                            {secretary.sigla}
-                                        </StyledTableCell>
+                                            <StyledTableCell align="left" >
+                                                {secretary.sigla}
+                                            </StyledTableCell>
 
-                                        <StyledTableCell align="left" >
-                                            {secretary.nome}
-                                        </StyledTableCell>
+                                            <StyledTableCell align="left" >
+                                                {secretary.nome}
+                                            </StyledTableCell>
 
-                                    </StyledTableRow>
-                                ))}
+                                        </StyledTableRow>
+                                    )))
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
 
-
                 <PaginationSecretary />
             </Box>
-
         </React.Fragment>
     );
 };
