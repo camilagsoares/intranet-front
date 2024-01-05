@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
-import { ContainerLogin } from "../styles/styles"
+import { ContainerLogin, AlignContainerCenter } from "../styles/styles"
 
 const defaultTheme = createTheme();
 
@@ -17,7 +17,8 @@ export default function Login() {
 
 
   return (
-        <Container component="main" maxWidth="xs" sx={{marginTop: '40px'}}>
+    <AlignContainerCenter>
+        <Container component="main" maxWidth="xs">
           <ContainerLogin>
           <Box
             sx={{
@@ -72,5 +73,6 @@ export default function Login() {
           </Box>
           </ContainerLogin>
         </Container>
+        </AlignContainerCenter>
   );
 }
