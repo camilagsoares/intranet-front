@@ -55,7 +55,6 @@ const TableT = (props) => {
     const { data } = useApiRequestGet('/telefone/listar-telefones')
 
     const DataNumero = data?.map(res => res.numero)
-    console.log(DataNumero)
     
 
     const [pageNumber, setPageNumber] = useState(0);
