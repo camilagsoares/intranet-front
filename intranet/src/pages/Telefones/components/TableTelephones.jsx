@@ -35,11 +35,11 @@ const TableTelephones = (props) => {
 
                                 <StyledTableCell width={192}>Nome</StyledTableCell>
 
-                                <StyledTableCell align='left' width={180}>
+                                <StyledTableCell align='left' width={200}>
                                     Cargo
                                 </StyledTableCell>
 
-                                <StyledTableCell align='left' width={112}>
+                                <StyledTableCell align='left' width={200}>
                                     Secretaria
                                 </StyledTableCell>
 
