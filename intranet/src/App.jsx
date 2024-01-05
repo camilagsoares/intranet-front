@@ -2,7 +2,7 @@
 import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Departamentos from "./pages/Departamentos";
-import Secretarias from "./pages/Secretarias";
+import Secretarias from "../src/pages/Secretarias/Secretarias";
 import Telefones from "./pages/Telefones";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
