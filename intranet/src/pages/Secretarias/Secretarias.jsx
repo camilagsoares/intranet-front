@@ -1,11 +1,11 @@
-import Table from "./components/Table"
+import TableSecretary from "./components/TableSecretary"
 
 
 const Secretarias = () => {
     return (
-        <div>
-                <Table />
-        </div>
+        <>
+                <TableSecretary/>
+        </>
     )
 }
 
