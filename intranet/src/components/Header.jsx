@@ -1,21 +1,29 @@
 import { useState } from "react";
 import Index from "../../src/pages/Index"
 import { Link } from 'react-router-dom';
-import { FaCircleUser } from "react-icons/fa6";
-import { useApiRequestGet } from "../services/api";
+import { RiAdminLine } from "react-icons/ri";
+import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
+import { BiFolderMinus } from "react-icons/bi";
+import { BiSpreadsheet } from "react-icons/bi";
+import { BsTelephone } from "react-icons/bs";
 
+
+
+
+import Box from '@mui/material/Box';
 
 const Header = () => {
 
 
   const [open, setOpen] = useState(true);
 
+
   const Menus = [
-    { id: 1, title: "Início", src: "Chart_fill", link: "/" },
-    { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos" },
-    { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias" },
-    { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones" },
-    { id: 5, title: "Painel Administrador", src: "Calendar", gap: true, link: "/login" },
+    { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsReverseLayoutSidebarInsetReverse />) },
+    { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos", icon: (<BiFolderMinus />) },
+    { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias", icon: (<BiSpreadsheet />) },
+    { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones", icon: (<BsTelephone />) },
+    { id: 5, title: "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: (<RiAdminLine />) },
   ];
 
   return (
@@ -45,14 +53,15 @@ const Header = () => {
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <Link to={Menu.link}  key={index}>
+            <Link to={Menu.link} key={index}>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
                   } `}
               >
-                <img src={`./src/assets/${Menu.src}.png`} />
-
+                <i style={{ color: "white" }}>
+                  {Menu.icon}
+                </i>
 
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
 
