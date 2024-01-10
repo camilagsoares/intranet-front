@@ -1,6 +1,7 @@
 
 import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
+import { AuthContextProvider } from './contexts/auth.context.jsx'
 
 import Departamentos from "./pages/Departamentos/Departamentos";
 import Secretarias from "../src/pages/Secretarias/Secretarias";
@@ -17,6 +18,8 @@ const App = () => {
   return (
       <Router>
         <GlobalStyle />
+        <AuthContextProvider>
+
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/departamentos" element={<Departamentos />} />
@@ -26,6 +29,7 @@ const App = () => {
           </Route>
 
         </Routes>
+        </AuthContextProvider>
       </Router>
   );
 };
