@@ -132,12 +132,7 @@ export default function Login() {
                 {!loading ? 'Entrar' : <CircularProgress color='success' size={26} />}
 
               </Button>
-              <Grid container>
-                <Grid item xs>
-                </Grid>
-                <Grid item>
-                </Grid>
-              </Grid>
+           
             </Box>
           </Box>
         </ContainerLogin>
