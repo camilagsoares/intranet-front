@@ -7,7 +7,7 @@ import Departamentos from "./pages/Departamentos/Departamentos";
 import Secretarias from "../src/pages/Secretarias/Secretarias";
 import Telefones from "../src/pages/Telefones/Telefones";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login.jsx";
 import Layout from "./components/Layout";
 import { GlobalStyle } from "./styles/global";
 import './index.css'
