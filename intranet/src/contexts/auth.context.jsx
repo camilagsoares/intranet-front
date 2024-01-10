@@ -7,22 +7,21 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem('token'));
-   const [session, setSession] = useState(JSON.parse(localStorage.getItem('session')) || null);
+  const [session, setSession] = useState(JSON.parse(localStorage.getItem('session')) || null);
   const [profileLoaded, setProfileLoaded] = useState(false);
 
   const criarPerfil = (objectUser) => {
-    localStorage.setItem('session', JSON.stringify(objectUser.content.session));
-    setSession(objectUser.content.session);
+    localStorage.setItem('session', JSON.stringify(objectUser.content?.session));
+    setSession(objectUser.content?.session);
     setProfileLoaded(true);
   };
 
   const criarSessao = (objectSessionUser) => {
-
     const { content } = objectSessionUser;
     localStorage.setItem('token', content?.token);
-    // localStorage.setItem('session', JSON.stringify(content?.session));
+    localStorage.setItem('session', JSON.stringify(content?.session));
     setSession(content?.session);
-    setToken(content?.token);
+    setToken(content?.token); 
     setProfileLoaded(true);
     navigate('/');
     window.location.reload(); 
@@ -31,7 +30,6 @@ export const AuthContextProvider = ({ children }) => {
   const encerrarSessao = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('session'); 
-    localStorage.removeItem('projetos'); // Limpe o cache dos projetos
     setToken(null);
     setSession(null);
     navigate('/login');
