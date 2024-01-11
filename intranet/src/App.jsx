@@ -9,6 +9,7 @@ import Telefones from "../src/pages/Telefones/Telefones";
 import Index from "./pages/Index";
 import Login from "./pages/Login/Login.jsx";
 import Layout from "./components/Layout";
+import Error from './pages/Error/Error.jsx'
 import { GlobalStyle } from "./styles/global";
 import './index.css'
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/secretarias" element={<Secretarias />} />
             <Route path="/telefones" element={<Telefones />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Error />}></Route>
           </Route>
         </Routes>
         </AuthContextProvider>
