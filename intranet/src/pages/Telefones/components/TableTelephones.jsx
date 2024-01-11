@@ -33,7 +33,7 @@ const TableTelephones = (props) => {
             <Box marginY={1} paddingY={2}>
 
 
-                <Box  sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
                         <SearchIcon />
                         <ContainerInput
@@ -117,12 +117,15 @@ const TableTelephones = (props) => {
                                             {number.situacao}
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
-                                        <MdOutlineEdit size={18} color='#68739C'/>
 
+                                            <Button>
+                                                <MdOutlineEdit size={18} color='#68739C' />
+                                            </Button>
+                                            
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
                                             <Button>
-                                                <MdOutlineClose size={18} color='#68739C'/>
+                                                <MdOutlineClose size={18} color='#68739C' />
 
                                             </Button>
                                         </StyledTableCell>
