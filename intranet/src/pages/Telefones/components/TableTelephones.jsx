@@ -9,6 +9,11 @@ import { useApiRequestGet } from "../../../services/api"
 import { PaginationTelephones } from "./PaginationTelephones"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
+import Grid from '@mui/material/Grid';
+import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
+import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
 
 const TableTelephones = (props) => {
 
@@ -28,7 +33,7 @@ const TableTelephones = (props) => {
             <Box marginY={1} paddingY={2}>
 
 
-                <Box sx={{ p: 1 }}>
+                <Box  sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
                         <SearchIcon />
                         <ContainerInput
@@ -38,6 +43,10 @@ const TableTelephones = (props) => {
                             onChange={(e) => setSearchText(e.target.value)}
                         />
                     </Container>
+
+                    <Grid container justifyContent="flex-end">
+                        <Button variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
+                    </Grid>
                 </Box>
 
 
@@ -69,7 +78,12 @@ const TableTelephones = (props) => {
                                 <StyledTableCell align='left' width={112}>
                                     Situação
                                 </StyledTableCell>
-
+                                <StyledTableCell align='left' width={180}>
+                                    Editar
+                                </StyledTableCell>
+                                <StyledTableCell align='left' width={180}>
+                                    Deletar
+                                </StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
 
@@ -101,6 +115,16 @@ const TableTelephones = (props) => {
 
                                         <StyledTableCell align="left" >
                                             {number.situacao}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                        <MdOutlineEdit size={18} color='#68739C'/>
+
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            <Button>
+                                                <MdOutlineClose size={18} color='#68739C'/>
+
+                                            </Button>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))
