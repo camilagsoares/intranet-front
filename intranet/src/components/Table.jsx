@@ -16,7 +16,11 @@ import Stack from '@mui/material/Stack';
 import { useApiRequestGet } from "../services/api"
 import { ContainerInput, Container, SearchIcon } from "../styles/styles"
 import Skeleton from '@mui/material/Skeleton';
-
+import BasicModal from '../components/ModalEditar'
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import AddIcon from '@mui/icons-material/Add';
+import { MdOutlineClose } from "react-icons/md";
 
 const TableT = (props) => {
 
@@ -100,7 +104,8 @@ const TableT = (props) => {
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
 
-                <Box sx={{ p: 1 }}>
+
+                <Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
                         <SearchIcon />
                         <ContainerInput
@@ -110,6 +115,10 @@ const TableT = (props) => {
                             onChange={(e) => setSearchText(e.target.value)}
                         />
                     </Container>
+
+                    <Grid container justifyContent="flex-end">
+                        <Button variant='outlined' startIcon={<AddIcon />}>Criar departamento</Button>
+                    </Grid>
                 </Box>
 
 
@@ -117,7 +126,6 @@ const TableT = (props) => {
                     <Table sx={{ minWidth: 700 }} aria-label='customized table' >
                         <TableHead className='borda-azul'>
                             <StyledTableRow>
-
                                 <StyledTableCell align='left' width={112}>
 
                                     Nome
@@ -134,9 +142,12 @@ const TableT = (props) => {
                                 <StyledTableCell align='left' width={180}>
                                     Telefone
                                 </StyledTableCell>
-
-
-
+                                <StyledTableCell align='left' width={180}>
+                                    Editar
+                                </StyledTableCell>
+                                <StyledTableCell align='left' width={180}>
+                                    Deletar
+                                </StyledTableCell>
 
                             </StyledTableRow>
                         </TableHead>
@@ -161,11 +172,20 @@ const TableT = (props) => {
                                         <StyledTableCell align="left" >
                                             {number?.numero}
                                         </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            <BasicModal />
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            <Button>
+                                                <MdOutlineClose size={18} color='#68739C'/>
+
+                                            </Button>
+                                        </StyledTableCell>
                                     </StyledTableRow>
                                 ))
                             ) : (
                                 <StyledTableRow >
-                                    <StyledTableCell  colSpan={7}>
+                                    <StyledTableCell colSpan={7}>
 
                                         Nenhum resultado encontrado.
 
@@ -178,7 +198,6 @@ const TableT = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-
 
                 {filteredData && filteredData.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
@@ -195,7 +214,6 @@ const TableT = (props) => {
                     </Box>
                 )}
             </Box>
-
         </React.Fragment>
     );
 };

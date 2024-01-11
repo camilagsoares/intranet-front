@@ -9,6 +9,11 @@ import { useApiRequestGet } from "../../../services/api"
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
 import { PaginationSecretary } from "./PaginationSecretary"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
+import Grid from '@mui/material/Grid';
+import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
+import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
 
 const TableSecretary = (props) => {
 
@@ -28,7 +33,7 @@ const TableSecretary = (props) => {
             <Box marginY={1} paddingY={2}>
 
 
-                <Box sx={{ p: 1 }}>
+                <Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
                         <SearchIcon />
                         <ContainerInput
@@ -38,6 +43,10 @@ const TableSecretary = (props) => {
                             onChange={(e) => setSearchText(e.target.value)}
                         />
                     </Container>
+
+                    <Grid container justifyContent="flex-end">
+                        <Button variant='outlined' startIcon={<AddIcon />}>Criar secretaria</Button>
+                    </Grid>
                 </Box>
 
 
@@ -56,6 +65,12 @@ const TableSecretary = (props) => {
                                     Secretaria
                                 </StyledTableCell>
 
+                                <StyledTableCell align='left' width={180}>
+                                    Editar
+                                </StyledTableCell>
+                                <StyledTableCell align='left' width={180}>
+                                    Deletar
+                                </StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
 
@@ -78,6 +93,15 @@ const TableSecretary = (props) => {
                                             <StyledTableCell align="left" >
                                                 {number.nome}
                                             </StyledTableCell>
+                                            <StyledTableCell align="left" >
+                                            <MdOutlineEdit size={18} color='#68739C' />
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            <Button>
+                                                <MdOutlineClose size={18} color='#68739C'/>
+
+                                            </Button>
+                                        </StyledTableCell>
                                     </StyledTableRow>
                                 ))
                             ) : (
