@@ -17,21 +17,22 @@ import './index.css'
 const App = () => {
 
   return (
-      <Router>
-        <GlobalStyle />
-        <AuthContextProvider>
-
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/departamentos" element={<Departamentos />} />
-            <Route path="/secretarias" element={<Secretarias />} />
-            <Route path="/telefones" element={<Telefones />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Error />}></Route>
-          </Route>
-        </Routes>
-        </AuthContextProvider>
-      </Router>
+    <Router>
+    <GlobalStyle />
+    <AuthContextProvider>
+      
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Index />} />
+          <Route path="/departamentos" element={<Departamentos />} />
+          <Route path="/secretarias" element={<Secretarias />} />
+          <Route path="/telefones" element={<Telefones />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Error />} />
+        </Route>
+      </Routes>
+    </AuthContextProvider>
+  </Router>
   );
 };
 
