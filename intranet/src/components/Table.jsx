@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,27 +11,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import { Button } from '@mui/material';
-import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
-import { createTheme } from '@mui/material/styles';
-import { FaCircleUser } from "react-icons/fa6";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useApiRequestGet } from "../services/api"
-import { ContainerInput } from "../styles/styles"
+import { ContainerInput, Container, SearchIcon } from "../styles/styles"
 import Skeleton from '@mui/material/Skeleton';
+import { IoMdSearch } from "react-icons/io";
 
 
 const TableT = (props) => {
-
-
-    const theme = createTheme({
-        palette: {
-            secondary: {
-                main: '#EC8718'
-            },
-        },
-    });
 
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -86,7 +73,6 @@ const TableT = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones')
 
-    const DataNumero = data?.map(res => res.numero)
 
 
     const [pageNumber, setPageNumber] = useState(0);
@@ -102,16 +88,31 @@ const TableT = (props) => {
     }, [data]);
 
 
+    //
+
+    const [searchText, setSearchText] = useState('');
+
+    const filteredData = data && data.filter((number) => {
+        const searchableText = `${number?.cargo.nome} ${number?.departamento.nome} ${number?.numero}`;
+        return searchableText.trim().toLowerCase().includes(searchText.trim().toLowerCase());
+    });
 
     return (
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
 
                 <Box sx={{ p: 1 }}>
-                    {/* <ContainerInput placeholder='Pesquisar' /> */}
-                    <input placeholder='Pesquisar' />
-
+                    <Container>
+                        <SearchIcon />
+                        <ContainerInput
+                            type="text"
+                            placeholder="Digite para filtrar..."
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                        />
+                    </Container>
                 </Box>
+
 
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label='customized table' >
@@ -142,46 +143,49 @@ const TableT = (props) => {
                         </TableHead>
 
                         <TableBody>
-                            {
-                                loading ? (
-                                    <TableRowsLoaderSkeleton rowsNum={5} />
-                                ) : (
-                                    data && data.length && data
+                            {filteredData && filteredData.length ? (
+                                filteredData.map((number) => (
+                                    <StyledTableRow key={number?.id}>
+                                        <StyledTableCell align="left" >
+                                            -
+                                        </StyledTableCell>
 
-                                        .map((number) => (
-                                            <StyledTableRow key={number?.id}>
+                                        <StyledTableCell align="left" >
+                                            {number?.cargo.nome}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            -
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number?.departamento.nome}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number?.numero}
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                            ) : (
+                                <StyledTableRow >
+                                    <StyledTableCell  colSpan={7}>
 
-                                                <StyledTableCell align="left" >
-                                                    -
-                                                </StyledTableCell>
+                                        Nenhum resultado encontrado.
 
-                                                <StyledTableCell align="left" >
-                                                    {number?.cargo.nome}
-                                                </StyledTableCell>
-                                                <StyledTableCell align="left" >
-                                                    -
-                                                </StyledTableCell>
-                                                <StyledTableCell align="left" >
-                                                    {number?.departamento.nome}
-                                                </StyledTableCell>
-                                                <StyledTableCell align="left" >
-                                                    {number?.numero}
-                                                </StyledTableCell>
+                                    </StyledTableCell>
 
-                                            </StyledTableRow>
-                                        ))
-                                )
-                            }
+
+                                </StyledTableRow>
+
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
 
 
-                {data && data.length > 0 && (
+                {filteredData && filteredData.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
                         <Pagination
                             color="primary"
-                            count={Math.ceil(data?.length / projectsPerPage)}
+                            count={Math.ceil(filteredData?.length / projectsPerPage)}
                             page={pageNumber + 1}
                             onChange={(event, page) => {
                                 changePage({ selected: page - 1 });
