@@ -13,7 +13,6 @@ import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../uti
 const TableSecretary = (props) => {
 
     const { data, loading } = useApiRequestGet('/secretaria/listar-secretarias')
-    console.log(data)
 
     const [searchText, setSearchText] = useState('')
 

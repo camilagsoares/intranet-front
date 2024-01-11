@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -6,7 +6,6 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import { useApiRequestGet } from "../../../services/api"
-// import { ContainerInput } from "../styles/styles"
 import { PaginationTelephones } from "./PaginationTelephones"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
@@ -14,6 +13,14 @@ import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
 const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
+
+    const [searchText, setSearchText] = useState('')
+
+    const dadosFiltrados = data && data.filter((number) => {
+        const textoFiltrado = `${number.numero} ${number.nome} ${number.cargo} ${number.departamento.secretaria.nome} ${number.departamento.nome} ${number.situacao}`
+
+        return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
+    })
 
 
     return (
@@ -27,8 +34,8 @@ const TableTelephones = (props) => {
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."
-                        // value={searchText}
-                        // onChange={(e) => setSearchText(e.target.value)}
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
                         />
                     </Container>
                 </Box>
@@ -67,38 +74,49 @@ const TableTelephones = (props) => {
                         </TableHead>
 
                         <TableBody>
-                            {
-                                loading ? (<TableRowsLoaderSkeleton rowsNum={5} />) : (data && data.length && data
-                                    .map((person) => (
-                                        <StyledTableRow key={person?.id}>
-                                            <StyledTableCell align="left" >
-                                                {person.numero}
-                                            </StyledTableCell>
+                            {dadosFiltrados && dadosFiltrados.length ? (
+                                dadosFiltrados.map((number) => (
+                                    <StyledTableRow key={number?.id}>
 
-                                            <StyledTableCell align="left" >
-                                                {person.nome}
-                                            </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number.numero}
+                                        </StyledTableCell>
 
-                                            <StyledTableCell align="left" >
-                                                {person.cargo.nome}
-                                            </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number.nome}
+                                        </StyledTableCell>
 
-                                            <StyledTableCell align="left" >
-                                                {person.departamento.secretaria.nome}
-                                            </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number.cargo.nome}
+                                        </StyledTableCell>
 
-                                            <StyledTableCell align="left" >
-                                                {person.departamento.nome}
-                                            </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number.departamento.secretaria.nome}
+                                        </StyledTableCell>
+
+                                        <StyledTableCell align="left" >
+                                            {number.departamento.nome}
+                                        </StyledTableCell>
 
 
-                                            <StyledTableCell align="left" >
-                                                {person.situacao}
-                                            </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number.situacao}
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                            ) : (
+                                <StyledTableRow >
+                                    <StyledTableCell colSpan={7}>
 
-                                        </StyledTableRow>
-                                    )))
-                            }
+                                        Nenhum resultado encontrado.
+
+                                    </StyledTableCell>
+
+
+                                </StyledTableRow>
+
+                            )}
+
                         </TableBody>
                     </Table>
                 </TableContainer>
