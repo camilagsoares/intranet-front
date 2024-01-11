@@ -16,7 +16,6 @@ import Stack from '@mui/material/Stack';
 import { useApiRequestGet } from "../services/api"
 import { ContainerInput, Container, SearchIcon } from "../styles/styles"
 import Skeleton from '@mui/material/Skeleton';
-import { IoMdSearch } from "react-icons/io";
 
 
 const TableT = (props) => {

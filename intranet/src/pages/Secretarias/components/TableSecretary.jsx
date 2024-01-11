@@ -6,7 +6,7 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import { useApiRequestGet } from "../../../services/api"
-// import { ContainerInput } from "../styles/styles"
+import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
 import { PaginationSecretary } from "./PaginationSecretary"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 
@@ -18,10 +18,19 @@ const TableSecretary = (props) => {
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
 
-                <Box sx={{ p: 1 }}>
-                    {/* <ContainerInput placeholder='Pesquisar' /> */}
 
+                <Box sx={{ p: 1 }}>
+                    <Container>
+                        <SearchIcon />
+                        <ContainerInput
+                            type="text"
+                            placeholder="Digite para filtrar..."
+                            // value={searchText}
+                            // onChange={(e) => setSearchText(e.target.value)}
+                        />
+                    </Container>
                 </Box>
+
 
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label='customized table' >

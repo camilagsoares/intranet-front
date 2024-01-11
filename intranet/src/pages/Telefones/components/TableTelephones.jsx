@@ -9,6 +9,7 @@ import { useApiRequestGet } from "../../../services/api"
 // import { ContainerInput } from "../styles/styles"
 import { PaginationTelephones } from "./PaginationTelephones"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
+import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
 
 const TableTelephones = (props) => {
 
@@ -19,10 +20,19 @@ const TableTelephones = (props) => {
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
 
-                <Box sx={{ p: 1 }}>
-                    {/* <ContainerInput placeholder='Pesquisar' /> */}
 
+                <Box sx={{ p: 1 }}>
+                    <Container>
+                        <SearchIcon />
+                        <ContainerInput
+                            type="text"
+                            placeholder="Digite para filtrar..."
+                        // value={searchText}
+                        // onChange={(e) => setSearchText(e.target.value)}
+                        />
+                    </Container>
                 </Box>
+
 
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label='customized table' >
@@ -74,7 +84,7 @@ const TableTelephones = (props) => {
                                             </StyledTableCell>
 
                                             <StyledTableCell align="left" >
-                                            {person.departamento.secretaria.nome}
+                                                {person.departamento.secretaria.nome}
                                             </StyledTableCell>
 
                                             <StyledTableCell align="left" >
