@@ -27,7 +27,6 @@ const App = () => {
             <Route path="/telefones" element={<Telefones />} />
             <Route path="/login" element={<Login />} />
           </Route>
-
         </Routes>
         </AuthContextProvider>
       </Router>
