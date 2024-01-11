@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -13,6 +13,16 @@ import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../uti
 const TableSecretary = (props) => {
 
     const { data, loading } = useApiRequestGet('/secretaria/listar-secretarias')
+    console.log(data)
+
+    const [searchText, setSearchText] = useState('')
+
+    const dadosFiltrados = data && data.filter((number) => {
+        const textoFiltrado = `${number.id} ${number.nome} ${number.sigla}`
+
+        return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
+    })
+
 
     return (
         <React.Fragment>
@@ -25,8 +35,8 @@ const TableSecretary = (props) => {
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."
-                            // value={searchText}
-                            // onChange={(e) => setSearchText(e.target.value)}
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
                         />
                     </Container>
                 </Box>
@@ -50,28 +60,39 @@ const TableSecretary = (props) => {
                             </StyledTableRow>
                         </TableHead>
 
+                     
                         <TableBody>
-                            {
-                                loading ? (<TableRowsLoaderSkeleton rowsNum={5} />) : (data && data.length && data
-                                    .map((secretary) => (
-                                        <StyledTableRow key={secretary?.id}>
-
-                                            <StyledTableCell align="left" >
-                                                {secretary.id}
+                            {dadosFiltrados && dadosFiltrados.length ? (
+                                dadosFiltrados.map((number) => (
+                                    <StyledTableRow key={number?.id}>
+                                     
+                                   
+                                        <StyledTableCell align="left" >
+                                                {number.id}
                                             </StyledTableCell>
 
 
                                             <StyledTableCell align="left" >
-                                                {secretary.sigla}
+                                                {number.sigla}
                                             </StyledTableCell>
 
                                             <StyledTableCell align="left" >
-                                                {secretary.nome}
+                                                {number.nome}
                                             </StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                            ) : (
+                                <StyledTableRow >
+                                    <StyledTableCell  colSpan={7}>
 
-                                        </StyledTableRow>
-                                    )))
-                            }
+                                        Nenhum resultado encontrado.
+
+                                    </StyledTableCell>
+
+
+                                </StyledTableRow>
+
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
