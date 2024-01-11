@@ -74,31 +74,33 @@ const TableSecretary = (props) => {
                             </StyledTableRow>
                         </TableHead>
 
-                     
+
                         <TableBody>
                             {dadosFiltrados && dadosFiltrados.length ? (
                                 dadosFiltrados.map((number) => (
                                     <StyledTableRow key={number?.id}>
-                                     
-                                   
+
+
                                         <StyledTableCell align="left" >
-                                                {number.id}
-                                            </StyledTableCell>
+                                            {number.id}
+                                        </StyledTableCell>
 
 
-                                            <StyledTableCell align="left" >
-                                                {number.sigla}
-                                            </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            {number.sigla}
+                                        </StyledTableCell>
 
-                                            <StyledTableCell align="left" >
-                                                {number.nome}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="left" >
-                                            <MdOutlineEdit size={18} color='#68739C' />
+                                        <StyledTableCell align="left" >
+                                            {number.nome}
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
                                             <Button>
-                                                <MdOutlineClose size={18} color='#68739C'/>
+                                                <MdOutlineEdit size={18} color='#68739C' />
+                                            </Button>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left" >
+                                            <Button>
+                                                <MdOutlineClose size={18} color='#68739C' />
 
                                             </Button>
                                         </StyledTableCell>
@@ -106,7 +108,7 @@ const TableSecretary = (props) => {
                                 ))
                             ) : (
                                 <StyledTableRow >
-                                    <StyledTableCell  colSpan={7}>
+                                    <StyledTableCell colSpan={7}>
 
                                         Nenhum resultado encontrado.
 
