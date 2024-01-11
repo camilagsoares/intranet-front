@@ -4,7 +4,6 @@ import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
-import Skeleton from '@mui/material/Skeleton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -21,6 +20,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useApiRequestGet } from "../services/api"
 import { ContainerInput } from "../styles/styles"
+import Skeleton from '@mui/material/Skeleton';
+
 
 const TableT = (props) => {
 
@@ -51,23 +52,6 @@ const TableT = (props) => {
             backgroundColor: theme.palette.action.hover,
         },
     }));
-
-    const { data } = useApiRequestGet('/telefone/listar-telefones')
-
-    const DataNumero = data?.map(res => res.numero)
-    
-
-    const [pageNumber, setPageNumber] = useState(0);
-    const projectsPerPage = 6;
-    const pagesVisited = pageNumber * projectsPerPage;
-
-    const changePage = ({ selected }) => {
-        setPageNumber(selected);
-    };
-
-    useEffect(() => {
-        setPageNumber(0);
-    }, [data]);
 
     const TableRowsLoaderSkeleton = ({ rowsNum }) => {
         return [...Array(rowsNum)].map((row, index) => (
@@ -100,13 +84,32 @@ const TableT = (props) => {
         ));
     };
 
+    const { data, loading } = useApiRequestGet('/telefone/listar-telefones')
+
+    const DataNumero = data?.map(res => res.numero)
+
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const projectsPerPage = 6;
+    const pagesVisited = pageNumber * projectsPerPage;
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
+
+    useEffect(() => {
+        setPageNumber(0);
+    }, [data]);
+
+
 
     return (
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
 
                 <Box sx={{ p: 1 }}>
-                    <ContainerInput placeholder='Pesquisar' />
+                    {/* <ContainerInput placeholder='Pesquisar' /> */}
+                    <input placeholder='Pesquisar' />
 
                 </Box>
 
@@ -139,31 +142,36 @@ const TableT = (props) => {
                         </TableHead>
 
                         <TableBody>
+                            {
+                                loading ? (
+                                    <TableRowsLoaderSkeleton rowsNum={5} />
+                                ) : (
+                                    data && data.length && data
 
-                            {data && data.length && data
+                                        .map((number) => (
+                                            <StyledTableRow key={number?.id}>
 
-                                .map((number) => (
-                                    <StyledTableRow key={number?.id}>
+                                                <StyledTableCell align="left" >
+                                                    -
+                                                </StyledTableCell>
 
-                                        <StyledTableCell align="left" >
-                                            -
-                                        </StyledTableCell>
+                                                <StyledTableCell align="left" >
+                                                    {number?.cargo.nome}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="left" >
+                                                    -
+                                                </StyledTableCell>
+                                                <StyledTableCell align="left" >
+                                                    {number?.departamento.nome}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="left" >
+                                                    {number?.numero}
+                                                </StyledTableCell>
 
-                                        <StyledTableCell align="left" >
-                                            {number?.cargo.nome}
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            -
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            {number?.departamento.nome}
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            {number?.numero}
-                                        </StyledTableCell>
-
-                                    </StyledTableRow>
-                                ))}
+                                            </StyledTableRow>
+                                        ))
+                                )
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
