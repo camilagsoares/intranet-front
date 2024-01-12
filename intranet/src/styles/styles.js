@@ -4,14 +4,14 @@ import { IoMdSearch } from "react-icons/io";
 
 export const Container = styled.div`
 position: relative;
-width: 200px; 
+width: 400px; 
 `;
 
 export const ContainerInput = styled.input`
 font-size: 15px;
 padding: 5px 10px;
 width: 100%;
-padding-left: 35px;
+padding-left: 32px;
 outline: none;
 background: #FFFFFF;
 color: #000000;

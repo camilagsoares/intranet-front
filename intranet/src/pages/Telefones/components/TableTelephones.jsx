@@ -19,7 +19,7 @@ const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
 
-    
+
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
@@ -40,7 +40,10 @@ const TableTelephones = (props) => {
         return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
     })
 
+    //
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
+    const isAuthenticated = !!token;
     return (
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
@@ -58,8 +61,13 @@ const TableTelephones = (props) => {
                     </Container>
 
                     <Grid container justifyContent="flex-end">
-                        <Button variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
-                    </Grid>
+                        {
+                            isAuthenticated && (
+                                <Button variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
+
+                            )
+                        }  
+                     </Grid>
                 </Box>
 
 
@@ -162,19 +170,19 @@ const TableTelephones = (props) => {
                 </TableContainer>
 
                 {dadosFiltrados && dadosFiltrados.length > 0 && (
-                <Box display="flex" justifyContent="end" mt={2} >
-                    <Pagination
-                        color="primary"
-                        count={Math.ceil(dadosFiltrados?.length / projectsPerPage)}
-                        page={pageNumber + 1}
-                        onChange={(event, page) => {
-                            changePage({ selected: page - 1 });
-                        }}
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </Box>
-            )}
+                    <Box display="flex" justifyContent="end" mt={2} >
+                        <Pagination
+                            color="primary"
+                            count={Math.ceil(dadosFiltrados?.length / projectsPerPage)}
+                            page={pageNumber + 1}
+                            onChange={(event, page) => {
+                                changePage({ selected: page - 1 });
+                            }}
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </Box>
+                )}
             </Box>
         </React.Fragment>
     );
