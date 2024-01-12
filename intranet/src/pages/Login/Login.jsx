@@ -37,7 +37,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const { token, criarSessao }  = useContext(AuthContext);
-  console.log('token', token);
+
 
   const { register, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
