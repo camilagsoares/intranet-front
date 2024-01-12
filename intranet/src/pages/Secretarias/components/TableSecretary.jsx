@@ -27,7 +27,6 @@ const TableSecretary = (props) => {
         return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
     })
 
-
     return (
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
