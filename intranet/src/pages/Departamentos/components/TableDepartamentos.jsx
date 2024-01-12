@@ -13,15 +13,44 @@ import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { useApiRequestGet } from "../services/api"
-import { ContainerInput, Container, SearchIcon } from "../styles/styles"
+import { useApiRequestGet } from "../../../services/api"
+import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import AddIcon from '@mui/icons-material/Add';
 import { MdOutlineClose } from "react-icons/md";
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import Close from '@mui/icons-material/CloseOutlined';
+import Save from '@mui/icons-material/SaveAltOutlined';
 
-const TableT = (props) => {
+
+const TableDepartamentos = (props) => {
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [searchText, setSearchText] = useState('');
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        borderRadius: '5px',
+        boxShadow: 24,
+        p: 4,
+    };
 
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -73,11 +102,9 @@ const TableT = (props) => {
         ));
     };
 
-    const { data, loading } = useApiRequestGet('/telefone/listar-telefones')
+    const { data, loading } = useApiRequestGet('/departamento/listar-departamentos')
+    console.log(data)
 
-
-
-    const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
 
@@ -90,13 +117,11 @@ const TableT = (props) => {
     }, [data]);
 
 
-    //
-    const [searchText, setSearchText] = useState('');
-
     const filteredData = data && data.filter((number) => {
-        const searchableText = `${number?.cargo.nome} ${number?.departamento.nome} ${number?.numero}`;
+        const searchableText = `${number?.nome} ${number?.id}`;
         return searchableText.trim().toLowerCase().includes(searchText.trim().toLowerCase());
     });
+
 
     return (
         <React.Fragment>
@@ -115,7 +140,70 @@ const TableT = (props) => {
                     </Container>
 
                     <Grid container justifyContent="flex-end">
-                        <Button variant='outlined' startIcon={<AddIcon />}>Criar departamento</Button>
+                        <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar departamento</Button>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <Box component='form' noValidate>
+                                    <DialogContent dividers sx={{ paddingTop: 1 }}>
+                                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
+
+
+                                            <Grid item xs={12} sm={12} md={12}>
+                                                <TextField
+                                                    // {...register('titulo')}
+                                                    fullWidth
+                                                    required
+                                                    label='Título'
+                                                    type='text'
+                                                // error={!!errors.titulo}
+                                                // helperText={errors.titulo?.message}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={12} sm={12} md={12}>
+                                                <TextField
+                                                    // {...register('valor')}
+                                                    fullWidth
+                                                    required
+                                                    label='Valor estimado. Exemplo: 31.000,98'
+                                                    type='text'
+                                                // error={!!errors.valor}
+                                                // helperText={valorError ? 'Não coloque ponto ou vírgula no campo de valor,se precisar arredonde' : errors.valor?.message}
+                                                />
+                                            </Grid>
+
+                                        </Grid>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button
+                                            // disabled={loading}
+                                            startIcon={<Close width={24} />}
+                                            variant='outlined'
+                                            color='info'
+                                            // onClick={handleFecharModalForm}
+                                            sx={{ minWidth: 156, height: '100%' }}
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <Button
+                                            type='submit'
+                                            // disabled={loading || isButtonDisabled}
+                                            // startIcon={<Save width={24} />}
+                                            variant='outlined'
+                                            color='success'
+                                            sx={{ minWidth: 156, height: '100%' }}
+                                        >
+                                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
+                                        </Button>
+                                    </DialogActions>
+                                </Box>
+                            </Box>
+                        </Modal>
                     </Grid>
                 </Box>
 
@@ -126,20 +214,12 @@ const TableT = (props) => {
                             <StyledTableRow>
                                 <StyledTableCell align='left' width={112}>
 
-                                    Nome
+                                    Id
                                 </StyledTableCell>
 
 
-                                <StyledTableCell width={192}>Cargo</StyledTableCell>
-                                <StyledTableCell align='left' width={180}>
-                                    Secretaria
-                                </StyledTableCell>
-                                <StyledTableCell align='left' width={112}>
-                                    Departamento
-                                </StyledTableCell>
-                                <StyledTableCell align='left' width={180}>
-                                    Telefone
-                                </StyledTableCell>
+                                <StyledTableCell width={192}>Departamento</StyledTableCell>
+
                                 <StyledTableCell align='left' width={180}>
                                     Editar
                                 </StyledTableCell>
@@ -155,27 +235,20 @@ const TableT = (props) => {
                                 filteredData?.slice(pagesVisited, pagesVisited + projectsPerPage).map((number) => (
                                     <StyledTableRow key={number?.id}>
                                         <StyledTableCell align="left" >
-                                            -
+                                            {number?.id}
                                         </StyledTableCell>
 
                                         <StyledTableCell align="left" >
-                                            {number?.cargo.nome}
+                                            {number?.nome}
                                         </StyledTableCell>
+
+
                                         <StyledTableCell align="left" >
                                             -
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
-                                            {number?.departamento.nome}
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            {number?.numero}
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            {/* <BasicModal /> */}
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
                                             <Button>
-                                                <MdOutlineClose size={18} color='#68739C'/>
+                                                <MdOutlineClose size={18} color='#68739C' />
 
                                             </Button>
                                         </StyledTableCell>
@@ -218,4 +291,4 @@ const TableT = (props) => {
 
 
 
-export default TableT;
+export default TableDepartamentos;
