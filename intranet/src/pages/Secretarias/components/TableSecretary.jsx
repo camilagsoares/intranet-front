@@ -7,13 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import { useApiRequestGet } from "../../../services/api"
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
-import { PaginationSecretary } from "./PaginationSecretary"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 import Grid from '@mui/material/Grid';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import { MdOutlineClose } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
+import Pagination from '@mui/material/Pagination';
+import { useEffect } from 'react';
 
 const TableSecretary = (props) => {
 
@@ -26,6 +27,19 @@ const TableSecretary = (props) => {
 
         return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
     })
+
+    
+    const [pageNumber, setPageNumber] = useState(0);
+    const projectsPerPage = 6;
+    const pagesVisited = pageNumber * projectsPerPage;
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
+
+    useEffect(() => {
+        setPageNumber(0);
+    }, [data]);
 
     return (
         <React.Fragment>
@@ -76,7 +90,7 @@ const TableSecretary = (props) => {
 
                         <TableBody>
                             {dadosFiltrados && dadosFiltrados.length ? (
-                                dadosFiltrados.map((number) => (
+                                dadosFiltrados?.slice(pagesVisited, pagesVisited + projectsPerPage).map((number) => (
                                     <StyledTableRow key={number?.id}>
 
 
@@ -121,7 +135,20 @@ const TableSecretary = (props) => {
                     </Table>
                 </TableContainer>
 
-                <PaginationSecretary />
+                {data && data.length > 0 && (
+                <Box display="flex" justifyContent="end" mt={2} >
+                    <Pagination
+                        color="primary"
+                        count={Math.ceil(data?.length / projectsPerPage)}
+                        page={pageNumber + 1}
+                        onChange={(event, page) => {
+                            changePage({ selected: page - 1 });
+                        }}
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </Box>
+            )}
             </Box>
         </React.Fragment>
     );

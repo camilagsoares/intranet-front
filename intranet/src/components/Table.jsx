@@ -92,7 +92,6 @@ const TableT = (props) => {
 
 
     //
-
     const [searchText, setSearchText] = useState('');
 
     const filteredData = data && data.filter((number) => {
@@ -154,7 +153,7 @@ const TableT = (props) => {
 
                         <TableBody>
                             {filteredData && filteredData.length ? (
-                                filteredData.map((number) => (
+                                filteredData?.slice(pagesVisited, pagesVisited + projectsPerPage).map((number) => (
                                     <StyledTableRow key={number?.id}>
                                         <StyledTableCell align="left" >
                                             -
