@@ -99,10 +99,10 @@ const TableTelephones = (props) => {
                                 <StyledTableCell align='left' width={112}>
                                     Situação
                                 </StyledTableCell>
-                                <StyledTableCell align='left' width={180}>
+                                <StyledTableCell align='left' width={30}>
                                     Editar
                                 </StyledTableCell>
-                                <StyledTableCell align='left' width={180}>
+                                <StyledTableCell align='left' width={30}>
                                     Deletar
                                 </StyledTableCell>
                             </StyledTableRow>

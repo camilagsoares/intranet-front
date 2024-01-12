@@ -78,10 +78,10 @@ const TableSecretary = (props) => {
                                     Secretaria
                                 </StyledTableCell>
 
-                                <StyledTableCell align='left' width={180}>
+                                <StyledTableCell align='left' width={20}>
                                     Editar
                                 </StyledTableCell>
-                                <StyledTableCell align='left' width={180}>
+                                <StyledTableCell align='left' width={20}>
                                     Deletar
                                 </StyledTableCell>
                             </StyledTableRow>
