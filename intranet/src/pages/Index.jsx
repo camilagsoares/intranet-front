@@ -1,10 +1,9 @@
-import Table from '../components/Table'
-
+import TableTelephones from "./Telefones/components/TableTelephones"
 
 const Index = () => {
     return (
-        <div>       
-            <Table />
+        <div>
+            <TableTelephones />
         </div>
     )
 }

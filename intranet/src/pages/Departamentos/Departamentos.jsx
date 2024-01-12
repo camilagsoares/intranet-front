@@ -1,12 +1,13 @@
 import { React } from "react";
-import TableT from "../../components/Table";
+import TableDepartamentos from "./components/TableDepartamentos";
 
 
 const Departamentos = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            <TableT />
+            <TableDepartamentos />
+
         </div>
     );
 }

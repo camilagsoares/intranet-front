@@ -5,7 +5,6 @@ import { AuthContextProvider } from './contexts/auth.context.jsx'
 
 import Departamentos from "./pages/Departamentos/Departamentos";
 import Secretarias from "../src/pages/Secretarias/Secretarias";
-import Telefones from "../src/pages/Telefones/Telefones";
 import Index from "./pages/Index";
 import Login from "./pages/Login/Login.jsx";
 import Layout from "./components/Layout";
@@ -26,7 +25,6 @@ const App = () => {
           <Route index element={<Index />} />
           <Route path="/departamentos" element={<Departamentos />} />
           <Route path="/secretarias" element={<Secretarias />} />
-          <Route path="/telefones" element={<Telefones />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Error />} />
         </Route>

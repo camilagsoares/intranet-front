@@ -19,10 +19,10 @@ const Header = () => {
 
 
   const Menus = [
-    { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsReverseLayoutSidebarInsetReverse />) },
+    { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsTelephone />) },
     { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos", icon: (<BiFolderMinus />) },
     { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias", icon: (<BiSpreadsheet />) },
-    { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones", icon: (<BsTelephone />) },
+    // { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones", icon: (<BsTelephone />) },
     { id: 5, title: "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: (<RiAdminLine />) },
   ];
 
