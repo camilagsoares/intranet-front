@@ -13,10 +13,12 @@ import { BsTelephone } from "react-icons/bs";
 import Box from '@mui/material/Box';
 
 const Header = () => {
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  const isAuthenticated = !!token;
 
 
   const [open, setOpen] = useState(true);
-
 
   const Menus = [
     { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsTelephone />) },
@@ -25,6 +27,10 @@ const Header = () => {
     // { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones", icon: (<BsTelephone />) },
     { id: 5, title: "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: (<RiAdminLine />) },
   ];
+
+  const filteredMenus = isAuthenticated ?  Menus : Menus.filter(menu => menu.link === "/" || menu.link === "/login");
+
+
 
   return (
     <div className="flex">
@@ -52,7 +58,7 @@ const Header = () => {
           </h1>
         </div>
         <ul className="pt-6">
-          {Menus.map((Menu, index) => (
+          {filteredMenus.map((Menu, index) => (
             <Link to={Menu.link} key={index}>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
