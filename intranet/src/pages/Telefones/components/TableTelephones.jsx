@@ -78,9 +78,7 @@ const TableTelephones = (props) => {
                         {
                             isAuthenticated && (
                                 <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
-
                             )
-
                         }
                         <ModalCriarTelefone isOpen={modalOpen} onClose={handleClose} />
                     </Grid>
@@ -115,12 +113,21 @@ const TableTelephones = (props) => {
                                 <StyledTableCell align='left' width={112}>
                                     Situação
                                 </StyledTableCell>
-                                <StyledTableCell align='left' width={30}>
-                                    Editar
-                                </StyledTableCell>
-                                <StyledTableCell align='left' width={30}>
-                                    Deletar
-                                </StyledTableCell>
+                                {
+                                    isAuthenticated && (
+                                        <StyledTableCell align='left' width={30}>
+                                            Editar
+                                        </StyledTableCell>
+                                    )
+                                }
+
+                                {
+                                    isAuthenticated && (
+                                        <StyledTableCell align='left' width={30}>
+                                            Deletar
+                                        </StyledTableCell>
+                                    )
+                                }
                             </StyledTableRow>
                         </TableHead>
 
@@ -153,19 +160,28 @@ const TableTelephones = (props) => {
                                         <StyledTableCell align="left" >
                                             {number.situacao}
                                         </StyledTableCell>
-                                        <StyledTableCell align="left" >
 
-                                            <Button>
-                                                <MdOutlineEdit size={18} color='#68739C' />
-                                            </Button>
+                                        {
+                                            isAuthenticated && (
+                                                <StyledTableCell align="left">
+                                                    <Button>
+                                                        <MdOutlineEdit size={18} color='#68739C' />
+                                                    </Button>
+                                                </StyledTableCell>
+                                            )
+                                        }
 
-                                        </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            <Button>
-                                                <MdOutlineClose size={18} color='#68739C' />
+                                        {
+                                            isAuthenticated && (
+                                                <StyledTableCell align="left" >
+                                                    <Button>
+                                                        <MdOutlineClose size={18} color='#68739C' />
 
-                                            </Button>
-                                        </StyledTableCell>
+                                                    </Button>
+                                                </StyledTableCell>
+                                            )
+                                        }
+
                                     </StyledTableRow>
                                 ))
                             ) : (
@@ -175,12 +191,8 @@ const TableTelephones = (props) => {
                                         Nenhum resultado encontrado.
 
                                     </StyledTableCell>
-
-
                                 </StyledTableRow>
-
                             )}
-
                         </TableBody>
                     </Table>
                 </TableContainer>
