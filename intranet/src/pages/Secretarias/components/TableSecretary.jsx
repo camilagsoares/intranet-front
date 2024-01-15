@@ -15,7 +15,12 @@ import { MdOutlineClose } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
 import { useEffect } from 'react';
-import ModalCriarSecretaria  from './modalCriarSecretaria.jsx/index';
+import ModalCriarSecretaria  from './modalCriarSecretaria/index';
+import ModalEditarSecretaria from './modalEditarSecretaria/index'
+import ModalDeletarSecretaria from './ModalDeletarSecretaria/index';
+import { useModal } from '../components/modalUtils';
+import Tooltip from '@mui/material/Tooltip';
+import { MdOutlineModeEditOutline } from "react-icons/md";
 
 const TableSecretary = (props) => {
 
@@ -42,17 +47,17 @@ const TableSecretary = (props) => {
         setPageNumber(0);
     }, [data]);
 
-    //
-    const [modalOpen, setModalOpen] = useState(false);
 
-    const handleOpen = () => {
-        setModalOpen(true);
-    };
 
-    const handleClose = () => {
-        setModalOpen(false);
-    };
-
+    const { modalOpen,
+        handleOpen,
+        handleClose,
+        modalDeleteOpen,
+        handleDeleteOpen,
+        handleDeleteClose,
+        modalEditOpen,
+        handleEditOpen,
+        handleEditClose } = useModal();
 
 
     return (
@@ -124,15 +129,20 @@ const TableSecretary = (props) => {
                                             {number.nome}
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
-                                            <Button>
-                                                <MdOutlineEdit size={18} color='#68739C' />
-                                            </Button>
+                                                <Tooltip title="Editar" arrow>
+                                                    <Button onClick={handleEditOpen}>
+                                                        <MdOutlineModeEditOutline size={18} color='#68739C' />
+                                                    </Button>
+                                                </Tooltip>
                                         </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            <Button>
-                                                <MdOutlineClose size={18} color='#68739C' />
 
-                                            </Button>
+                                        <StyledTableCell align="left" >
+                                            <Tooltip title='Deletar' arrow>
+                                                <Button onClick={handleDeleteOpen}>
+                                                    <MdOutlineClose size={18} color='#68739C' />
+
+                                                </Button>
+                                            </Tooltip>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))
@@ -151,6 +161,10 @@ const TableSecretary = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <ModalDeletarSecretaria isOpen={modalDeleteOpen} onClose={handleDeleteClose} />
+                <ModalEditarSecretaria 
+                isOpen={modalEditOpen} onClose={handleEditClose} />
 
                 {data && data.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
