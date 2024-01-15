@@ -50,29 +50,22 @@ const ModalDeletarDepartamento = ({ isOpen, onClose }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate>
-                    <h2>Deletar dpto</h2>
+                {/* <Typography
+                        sx={{
+                            fontSize: {
+                                lg: 20,
+                                md: 20,
+                                sm: 15,
+                                xs: 10
+                            }
+                        }}
+                    >
+                        Deletar departamento
+                    </Typography> */}
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            {/* <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Título'
-                                    type='text'
-                            
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Valor estimado. Exemplo: 31.000,98'
-                                    type='text'
-                             
-                                />
-                            </Grid> */}
-Conteudo deletar
+                 
+                        Deseja definir deletar esse departamento?
                         </Grid>
                     </DialogContent>
                     <DialogActions>

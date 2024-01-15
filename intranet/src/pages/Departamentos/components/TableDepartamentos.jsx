@@ -180,7 +180,7 @@ const TableDepartamentos = (props) => {
 
                                         <StyledTableCell align="left" >
                                                 <Tooltip title="Editar" arrow>
-                                                    <Button onClick={handleEditOpen}>
+                                                    <Button onClick={() => handleEditOpen(number?.id)}>
                                                         <MdOutlineModeEditOutline size={18} color='#68739C' />
                                                     </Button>
                                                 </Tooltip>
@@ -188,7 +188,9 @@ const TableDepartamentos = (props) => {
 
                                         <StyledTableCell align="left" >
                                             <Tooltip title='Deletar' arrow>
-                                                <Button onClick={handleDeleteOpen}>
+                                                <Button 
+                                                 onClick={() => handleDeleteOpen(number?.id)}
+                                             >
                                                     <MdOutlineClose size={18} color='#68739C' />
 
                                                 </Button>

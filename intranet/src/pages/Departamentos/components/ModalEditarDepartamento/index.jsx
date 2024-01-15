@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 
 
 const ModalEditarDepartamento = ({ isOpen, onClose }) => {
-    
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -28,16 +28,6 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
         p: 4,
     };
 
-
-    /*
-{
-    "id": 1,
-    "nome": "Administração",
-    "criadoEm": "2024-01-05T12:29:59.500Z",
-    "atualizadoEm": "2024-01-05T12:29:59.500Z",
-    "situacao": "ATIVADO",
-    "secretariaId": 6
-} */
 
 
     return (
@@ -53,13 +43,13 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
                     <h2>Editar dpto</h2>
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            {/* <Grid item xs={12} sm={12} md={12}>
+                            <Grid item xs={12} sm={12} md={12}>
                                 <TextField
                                     fullWidth
                                     required
-                                    label='Título'
+                                    label='Id'
                                     type='text'
-                            
+
                                 />
                             </Grid>
 
@@ -67,12 +57,20 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
                                 <TextField
                                     fullWidth
                                     required
-                                    label='Valor estimado. Exemplo: 31.000,98'
+                                    label='Departamento'
                                     type='text'
-                             
+
                                 />
-                            </Grid> */}
-Conteudo editar
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    label='Secretaria'
+                                    type='text'
+
+                                />
+                            </Grid>
                         </Grid>
                     </DialogContent>
                     <DialogActions>
