@@ -18,13 +18,17 @@ import ModalCriarTelefone from './ModalCriarTelefone/index';
 import ModalDeletarTelefone from './ModalDeletarTelefone/index';
 import ModalEditarTelefone from './ModalEditarTelefone/index';
 import Tooltip from '@mui/material/Tooltip';
+import { useModal } from './modalUtils';
 
 const TableTelephones = (props) => {
+
+    const [searchText, setSearchText] = useState('')
+    const [pageNumber, setPageNumber] = useState(0);
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
 
 
-    const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
 
@@ -36,7 +40,6 @@ const TableTelephones = (props) => {
         setPageNumber(0);
     }, [data]);
 
-    const [searchText, setSearchText] = useState('')
 
     const dadosFiltrados = data && data.filter((number) => {
         const textoFiltrado = `${number.numero} ${number.nome} ${number.cargo} ${number.departamento.secretaria.nome} ${number.departamento.nome} ${number.situacao}`
@@ -44,44 +47,11 @@ const TableTelephones = (props) => {
         return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
     })
 
-    //
-    const [token, setToken] = useState(localStorage.getItem('token'));
 
     const isAuthenticated = !!token;
 
-    // MODAL CRIAR TELEFONE
-    const [modalOpen, setModalOpen] = useState(false);
 
-    const handleOpen = () => {
-        setModalOpen(true);
-    };
-
-    const handleClose = () => {
-        setModalOpen(false);
-    };
-
-    // MODAL DELETAR TELEFONE
-    const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
-
-    const handleDeleteOpen = () => {
-        setModalDeleteOpen(true);
-    }
-
-
-    const handleDeleteClose = () => {
-        setModalDeleteOpen(false);
-    }
-
-    // MODAL EDITAR TELEFONE
-    const [modalEditOpen, setModalEditOpen] = useState(false);
-
-    const handleEditOpen = () => {
-        setModalEditOpen(true);
-    }
-
-    const handleEditClose = () => {
-        setModalEditOpen(false);
-    }
+    const { modalOpen, handleOpen, handleClose, modalDeleteOpen, handleDeleteOpen, handleDeleteClose, modalEditOpen, handleEditOpen, handleEditClose } = useModal();
 
     return (
         <React.Fragment>
@@ -117,7 +87,6 @@ const TableTelephones = (props) => {
                                 <StyledTableCell align='left' width={112}>
                                     Número
                                 </StyledTableCell>
-
 
                                 <StyledTableCell width={192}>Nome</StyledTableCell>
 

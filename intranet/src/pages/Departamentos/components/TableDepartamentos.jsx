@@ -32,6 +32,7 @@ const TableDepartamentos = (props) => {
 
     const [pageNumber, setPageNumber] = useState(0);
     const [searchText, setSearchText] = useState('');
+    const [dadoSelecionado, setDadoSelecionado] = useState(null);
 
 
 
@@ -85,7 +86,7 @@ const TableDepartamentos = (props) => {
     };
 
     const { data, loading } = useApiRequestGet('/departamento/listar-departamentos')
-    console.log(data)
+    // console.log(data)
 
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
@@ -132,6 +133,8 @@ const TableDepartamentos = (props) => {
 
     const handleEditOpen = () => {
         setModalEditOpen(true);
+        // setDadoSelecionado(idProjeto)
+        console.log("Cliquei no btn de editar")
     }
 
     const handleEditClose = () => {
@@ -224,8 +227,6 @@ const TableDepartamentos = (props) => {
                                         Nenhum resultado encontrado.
 
                                     </StyledTableCell>
-
-
                                 </StyledTableRow>
 
                             )}
