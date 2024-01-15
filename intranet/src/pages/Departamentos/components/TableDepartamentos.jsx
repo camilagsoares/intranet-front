@@ -27,12 +27,11 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 const TableDepartamentos = (props) => {
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
     const [pageNumber, setPageNumber] = useState(0);
     const [searchText, setSearchText] = useState('');
 
- 
+
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -84,6 +83,7 @@ const TableDepartamentos = (props) => {
     };
 
     const { data, loading } = useApiRequestGet('/departamento/listar-departamentos')
+    console.log(data)
 
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
@@ -102,6 +102,18 @@ const TableDepartamentos = (props) => {
         return searchableText.trim().toLowerCase().includes(searchText.trim().toLowerCase());
     });
 
+    //
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleOpen = () => {
+        setModalOpen(true);
+    };
+
+    const handleClose = () => {
+        setModalOpen(false);
+    };
+
+
 
     return (
         <React.Fragment>
@@ -119,7 +131,7 @@ const TableDepartamentos = (props) => {
 
                     <Grid container justifyContent="flex-end">
                         <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar departamento</Button>
-                        <ModalCriarDepartamento onClick={handleOpen} />
+                        <ModalCriarDepartamento isOpen={modalOpen} onClose={handleClose} />
                     </Grid>
                 </Box>
 
@@ -157,9 +169,8 @@ const TableDepartamentos = (props) => {
 
 
                                         <StyledTableCell align="left" >
-                                        <Button>
-                                                <MdOutlineModeEditOutline  size={18} color='#68739C' />
-
+                                            <Button>
+                                                <MdOutlineModeEditOutline size={18} color='#68739C' />
                                             </Button>
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
