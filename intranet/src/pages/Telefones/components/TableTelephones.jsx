@@ -18,6 +18,7 @@ import ModalCriarTelefone from './ModalCriarTelefone/index';
 import ModalDeletarTelefone from './ModalDeletarTelefone/index';
 import ModalEditarTelefone from './ModalEditarTelefone/index';
 import Tooltip from '@mui/material/Tooltip';
+import { useModal } from '../modalUtils';
 
 const TableTelephones = (props) => {
 
@@ -49,39 +50,17 @@ const TableTelephones = (props) => {
 
     const isAuthenticated = !!token;
 
-    // MODAL CRIAR TELEFONE
-    const [modalOpen, setModalOpen] = useState(false);
 
-    const handleOpen = () => {
-        setModalOpen(true);
-    };
+    const { modalOpen,
+        handleOpen,
+        handleClose,
+        modalDeleteOpen,
+        handleDeleteOpen,
+        handleDeleteClose,
+        modalEditOpen,
+        handleEditOpen,
+        handleEditClose } = useModal();
 
-    const handleClose = () => {
-        setModalOpen(false);
-    };
-
-    // MODAL DELETAR TELEFONE
-    const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
-
-    const handleDeleteOpen = () => {
-        setModalDeleteOpen(true);
-    }
-
-
-    const handleDeleteClose = () => {
-        setModalDeleteOpen(false);
-    }
-
-    // MODAL EDITAR TELEFONE
-    const [modalEditOpen, setModalEditOpen] = useState(false);
-
-    const handleEditOpen = () => {
-        setModalEditOpen(true);
-    }
-
-    const handleEditClose = () => {
-        setModalEditOpen(false);
-    }
 
     return (
         <React.Fragment>
