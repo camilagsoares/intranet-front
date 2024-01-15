@@ -34,7 +34,6 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
         <Modal
             open={isOpen}
             onClose={onClose}
-            contentLabel="Exemplo Modal"
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >

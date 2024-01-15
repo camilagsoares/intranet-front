@@ -16,7 +16,6 @@ export const useModal = () => {
   const [selectedDeleteId,setSelectedDeleteId ] = useState(null);
 
   const handleDeleteOpen = (id) => {
-    console.log(id)
     setSelectedDeleteId(id)
     setModalDeleteOpen(true);
   }
@@ -32,8 +31,6 @@ export const useModal = () => {
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   const handleEditOpen = (id) => {
-    console.log(id)
-
     setSelectedItemId(id);
     setModalEditOpen(true);
   }

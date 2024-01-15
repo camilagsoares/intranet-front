@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -12,10 +12,65 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { axiosApi } from "../../../../services/api";
+import { toast } from 'react-toastify';
+
+const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
 
-const ModalCriarTelefone = ({ isOpen, onClose }) => {
-    
+    const requiredField = 'Campo obrigatorio';
+
+    const schema = yup
+        .object({
+            id: yup.number().required(),
+            nome: yup.string().required(),
+            situacao: yup.string().max(45, 'Máximo de 45 caracteres').required(requiredField),
+            secretariaId: yup.number().required(requiredField),
+        })
+        .required();
+
+    const [loading, setLoading] = useState(false);
+
+
+    const { register, handleSubmit, formState, control, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            id: null,
+            nome: '',
+            situacao: '',
+            secretariaId: '',
+        },
+    });
+    const { errors } = formState;
+
+    const handleCriarTelefone = (data) => {
+
+
+        setLoading(true);
+        axiosApi
+            .post('/criar-telefone', data)
+            .then(() => {
+                toast('Telefone criado com sucesso', {
+                    type: 'success',
+                });
+
+                reset();
+                window.location.reload();
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -44,36 +99,57 @@ const ModalCriarTelefone = ({ isOpen, onClose }) => {
         <Modal
             open={isOpen}
             onClose={onClose}
-            contentLabel="Exemplo Modal"
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
+                <Box component='form' noValidate onSubmit={handleSubmit(handleCriarTelefone)}>
                     <h2>Criar telefone</h2>
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    // {...register('titulo')}
+                                    {...register('id')}
                                     fullWidth
                                     required
-                                    label='Título'
+                                    label='Id'
                                     type='text'
-                                // error={!!errors.titulo}
-                                // helperText={errors.titulo?.message}
+                                    error={!!errors.id}
+                                    helperText={errors.id?.message}
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    // {...register('valor')}
+                                    {...register('nome')}
                                     fullWidth
                                     required
-                                    label='Valor estimado. Exemplo: 31.000,98'
+                                    label='Nome'
                                     type='text'
-                                // error={!!errors.valor}
-                                // helperText={valorError ? 'Não coloque ponto ou vírgula no campo de valor,se precisar arredonde' : errors.valor?.message}
+                                    error={!!errors.nome}
+                                    helperText={errors.nome?.message}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    {...register('situacao')}
+                                    fullWidth
+                                    required
+                                    label='Situação'
+                                    type='text'
+                                    error={!!errors.situacao}
+                                    helperText={errors.situacao?.message}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    {...register('secretariaId')}
+                                    fullWidth
+                                    required
+                                    label='Secretaria Id'
+                                    type='text'
+                                    error={!!errors.secretariaId}
+                                    helperText={errors.secretariaId?.message}
                                 />
                             </Grid>
 
@@ -98,11 +174,9 @@ const ModalCriarTelefone = ({ isOpen, onClose }) => {
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Salvar
-                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
-                        </Button>
-                        {/* <button onClick={onClose}>Fechar Modal</button> */}
 
+                            {!loading ? 'Criar' : <CircularProgress color='success' size={23} />}
+                        </Button>
                     </DialogActions>
                 </Box>
             </Box>

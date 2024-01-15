@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -14,7 +14,19 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
 
-const ModalEditarTelefone = ({ isOpen, onClose }) => {
+const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
+
+    const [loading, setLoading] = useState(false);
+    const [numero, setNumero] = useState('');
+    const [nome, setNome] = useState('');
+    const [secretaria, setSecretaria] = useState('');
+    const [departamento, setDepartamento] = useState('');
+    const [situacai, setSituacao] = useState('');
+
+    useEffect(() => { 
+        
+    }, [])
+
 
     const style = {
         position: 'absolute',
@@ -44,7 +56,6 @@ const ModalEditarTelefone = ({ isOpen, onClose }) => {
         <Modal
             open={isOpen}
             onClose={onClose}
-            contentLabel="Exemplo Modal"
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >

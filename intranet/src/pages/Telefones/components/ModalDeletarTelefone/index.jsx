@@ -12,10 +12,12 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 
-const ModalDeletarTelefone = ({ isOpen, onClose }) => {
-    
+
+const ModalDeletarTelefone = ({ isOpen, onClose, data }) => {
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -28,6 +30,7 @@ const ModalDeletarTelefone = ({ isOpen, onClose }) => {
         p: 4,
     };
 
+    // console.log("data que recebo por props",data)
 
     /*
 {
@@ -44,13 +47,13 @@ const ModalDeletarTelefone = ({ isOpen, onClose }) => {
         <Modal
             open={isOpen}
             onClose={onClose}
-            contentLabel="Exemplo Modal"
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
                 <Box component='form' noValidate>
-                    <h2>Deletar telefone</h2>
+                    {/* <h2>Deletar telefone</h2> */}
+
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             {/* <Grid item xs={12} sm={12} md={12}>
@@ -72,7 +75,7 @@ const ModalDeletarTelefone = ({ isOpen, onClose }) => {
                              
                                 />
                             </Grid> */}
-Conteudo deletar
+                            Deseja deletar o telefone?
                         </Grid>
                     </DialogContent>
                     <DialogActions>
@@ -94,7 +97,7 @@ Conteudo deletar
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Salvar
+                            Deletar
                             {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
                         </Button>
                         {/* <button onClick={onClose}>Fechar Modal</button> */}
