@@ -26,8 +26,9 @@ export const useModal = () => {
    // MODAL EDITAR TELEFONE
    const [modalEditOpen, setModalEditOpen] = useState(false);
 
-   const handleEditOpen = () => {
+   const handleEditOpen = (idProjeto) => {
        setModalEditOpen(true);
+       console.log("btn clicado")
    }
 
    const handleEditClose = () => {

@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 
 
 const ModalEditarTelefone = ({ isOpen, onClose }) => {
-    
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -50,16 +50,30 @@ const ModalEditarTelefone = ({ isOpen, onClose }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate>
-                    <h2>Editar telefone</h2>
+
+
+                    <Typography
+                        sx={{
+                            fontSize: {
+                                lg: 20,
+                                md: 20,
+                                sm: 15,
+                                xs: 10
+                            }
+                        }}
+                    >
+                        Editar telefone
+                    </Typography>
+
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            {/* <Grid item xs={12} sm={12} md={12}>
+                            <Grid item xs={12} sm={12} md={12}>
                                 <TextField
                                     fullWidth
                                     required
-                                    label='Título'
+                                    label='Número'
                                     type='text'
-                            
+
                                 />
                             </Grid>
 
@@ -67,12 +81,47 @@ const ModalEditarTelefone = ({ isOpen, onClose }) => {
                                 <TextField
                                     fullWidth
                                     required
-                                    label='Valor estimado. Exemplo: 31.000,98'
+                                    label='Nome'
                                     type='text'
-                             
+
                                 />
-                            </Grid> */}
-Conteudo editar
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    label='Cargo'
+                                    type='text'
+
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    label='Secretaria'
+                                    type='text'
+
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    label='Departamento'
+                                    type='text'
+
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    label='Situação'
+                                    type='text'
+
+                                />
+                            </Grid>
                         </Grid>
                     </DialogContent>
                     <DialogActions>
@@ -94,7 +143,7 @@ Conteudo editar
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Salvar
+                            Editar
                             {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
                         </Button>
                         {/* <button onClick={onClose}>Fechar Modal</button> */}
