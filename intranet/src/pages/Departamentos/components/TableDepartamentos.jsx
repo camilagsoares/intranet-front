@@ -22,7 +22,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { MdOutlineClose } from "react-icons/md";
 import ModalCriarDepartamento from './modalCriarDepartamento';
 import { MdOutlineModeEditOutline } from "react-icons/md";
-
+import ModalEditarDepartamento from './ModalEditarDepartamento';
+import ModalDeletarDepartamento from './ModalDeletarDepartamento';
+import { MdOutlineEdit } from "react-icons/md";
 
 const TableDepartamentos = (props) => {
 
@@ -113,6 +115,29 @@ const TableDepartamentos = (props) => {
         setModalOpen(false);
     };
 
+    // MODAL DELETAR DPTO
+    const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+
+    const handleDeleteOpen = () => {
+        setModalDeleteOpen(true);
+    }
+
+
+    const handleDeleteClose = () => {
+        setModalDeleteOpen(false);
+    }
+
+    // MODAL EDITAR DPTO
+    const [modalEditOpen, setModalEditOpen] = useState(false);
+
+    const handleEditOpen = () => {
+        setModalEditOpen(true);
+    }
+
+    const handleEditClose = () => {
+        setModalEditOpen(false);
+    }
+
 
 
     return (
@@ -175,15 +200,20 @@ const TableDepartamentos = (props) => {
 
 
                                         <StyledTableCell align="left" >
-                                            <Button>
-                                                <MdOutlineModeEditOutline size={18} color='#68739C' />
-                                            </Button>
+                                                <Tooltip title="Editar" arrow>
+                                                    <Button onClick={handleEditOpen}>
+                                                        <MdOutlineModeEditOutline size={18} color='#68739C' />
+                                                    </Button>
+                                                </Tooltip>
                                         </StyledTableCell>
-                                        <StyledTableCell align="left" >
-                                            <Button>
-                                                <MdOutlineClose size={18} color='#68739C' />
 
-                                            </Button>
+                                        <StyledTableCell align="left" >
+                                            <Tooltip title='Deletar' arrow>
+                                                <Button onClick={handleDeleteOpen}>
+                                                    <MdOutlineClose size={18} color='#68739C' />
+
+                                                </Button>
+                                            </Tooltip>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))
@@ -202,6 +232,9 @@ const TableDepartamentos = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <ModalDeletarDepartamento isOpen={modalDeleteOpen} onClose={handleDeleteClose} />
+                <ModalEditarDepartamento isOpen={modalEditOpen} onClose={handleEditClose} />
 
                 {filteredData && filteredData.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
