@@ -25,6 +25,7 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 import ModalEditarDepartamento from './ModalEditarDepartamento';
 import ModalDeletarDepartamento from './ModalDeletarDepartamento';
 import { MdOutlineEdit } from "react-icons/md";
+import { useModal } from '../components/modalUtils';
 
 const TableDepartamentos = (props) => {
 
@@ -105,38 +106,16 @@ const TableDepartamentos = (props) => {
     });
 
     //
-    const [modalOpen, setModalOpen] = useState(false);
-
-    const handleOpen = () => {
-        setModalOpen(true);
-    };
-
-    const handleClose = () => {
-        setModalOpen(false);
-    };
-
-    // MODAL DELETAR DPTO
-    const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
-
-    const handleDeleteOpen = () => {
-        setModalDeleteOpen(true);
-    }
-
-
-    const handleDeleteClose = () => {
-        setModalDeleteOpen(false);
-    }
-
-    // MODAL EDITAR DPTO
-    const [modalEditOpen, setModalEditOpen] = useState(false);
-
-    const handleEditOpen = () => {
-        setModalEditOpen(true);
-    }
-
-    const handleEditClose = () => {
-        setModalEditOpen(false);
-    }
+  
+    const { modalOpen,
+        handleOpen,
+        handleClose,
+        modalDeleteOpen,
+        handleDeleteOpen,
+        handleDeleteClose,
+        modalEditOpen,
+        handleEditOpen,
+        handleEditClose } = useModal();
 
 
 
