@@ -15,8 +15,10 @@ import Button from '@mui/material/Button';
 import * as yup from 'yup';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { axiosApi } from "../../../../services/api";
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
 import { toast } from 'react-toastify';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ModalCriarDepartamento = ({ isOpen, onClose }) => {
 
@@ -25,33 +27,30 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
 
     const schema = yup
         .object({
-            id: yup.number().required(),
-            nome: yup.string().required(),
-            situacao: yup.string().max(45, 'Máximo de 45 caracteres').required(requiredField),
+           situacao: yup.string(),
+            nome: yup.string().required(requiredField),
             secretariaId: yup.number().required(requiredField),
         })
         .required();
 
     const [loading, setLoading] = useState(false);
-    
+
     const { register, handleSubmit, formState, control, reset } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            id: null,
             nome: '',
-            situacao: '',
+            situacao: 'ATIVADO',
             secretariaId: '',
         },
     });
     const { errors } = formState;
+    const { data, loadingSecretaria } = useApiRequestGet('/secretaria/listar-secretarias')
 
-    
+
     const handleCriarDepartamento = (data) => {
-
-
         setLoading(true);
         axiosApi
-            .post('/criar-departamento', data)
+            .post('/departamento/criar-departamento', data)
             .then(() => {
                 toast('Departamento criado com sucesso', {
                     type: 'success',
@@ -103,21 +102,11 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
+                <Box component='form' noValidate onSubmit={handleSubmit(handleCriarDepartamento)}>
                     <h2>Criar departamento</h2>
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
-                    <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('id')}
-                                    fullWidth
-                                    required
-                                    label='Id'
-                                    type='text'
-                                    error={!!errors.id}
-                                    helperText={errors.id?.message}
-                                />
-                            </Grid>
+                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
+
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
@@ -130,26 +119,43 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
                                     helperText={errors.nome?.message}
                                 />
                             </Grid>
+
                             <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('situacao')}
-                                    fullWidth
-                                    required
-                                    label='Situação'
-                                    type='text'
-                                    error={!!errors.situacao}
-                                    helperText={errors.situacao?.message}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('secretariaId')}
-                                    fullWidth
-                                    required
-                                    label='Secretaria Id'
-                                    type='text'
-                                    error={!!errors.secretariaId}
-                                    helperText={errors.secretariaId?.message}
+                                <Controller
+                                    name='secretariaId'
+                                    control={control}
+                                    render={({ field }) => {
+                                        const { onChange, name, onBlur, value, ref } = field;
+                                        return (
+                                            <TextField
+                                                required
+                                                ref={ref}
+                                                select
+                                                fullWidth
+                                                key='secretaria'
+                                                variant='outlined'
+                                                onBlur={onBlur}
+                                                name={name}
+                                                label='Secretária'
+                                                value={value}
+                                                onChange={onChange}
+                                                error={!!errors.secretariaId}
+                                                helperText={errors.secretariaId?.message}
+                                            >
+                                                <MenuItem disabled value=''>
+                                                    <em>Nenhuma</em>
+                                                </MenuItem>
+                                                {!loadingSecretaria &&
+                                                    data &&
+                                                    data.length &&
+                                                    data.map((secretaria) => (
+                                                        <MenuItem key={secretaria.id} value={secretaria.id}>
+                                                            {secretaria.nome}
+                                                        </MenuItem>
+                                                    ))}
+                                            </TextField>
+                                        );
+                                    }}
                                 />
                             </Grid>
 
@@ -157,7 +163,7 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
                     </DialogContent>
                     <DialogActions>
                         <Button
-                            // disabled={loading}
+                            // disabled={loading}            
                             startIcon={<Close width={24} />}
                             variant='outlined'
                             color='info'
@@ -174,8 +180,8 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Salvar
-                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
+                            
+                            {!loading ? 'Criar' : <CircularProgress color='success' size={23} />}
                         </Button>
                         {/* <button onClick={onClose}>Fechar Modal</button> */}
 

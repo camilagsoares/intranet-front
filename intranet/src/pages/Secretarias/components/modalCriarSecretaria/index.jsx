@@ -106,18 +106,7 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
                 <Box component='form' noValidate onSubmit={handleSubmit(handleCriarTelefone)}>
                     <h2>Criar secretaria</h2>
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
-                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('id')}
-                                    fullWidth
-                                    required
-                                    label='Id'
-                                    type='text'
-                                    error={!!errors.id}
-                                    helperText={errors.id?.message}
-                                />
-                            </Grid>
+                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>        
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
@@ -160,7 +149,7 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
                             // disabled={loading}
                             startIcon={<Close width={24} />}
                             variant='outlined'
-                            color='info'
+                            color='error'
                             onClick={onClose}
                             sx={{ minWidth: 156, height: '100%' }}
                         >
@@ -169,13 +158,12 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
                         <Button
                             type='submit'
                             // disabled={loading || isButtonDisabled}
-                            // startIcon={<Save width={24} />}
+                            startIcon={<Save width={24} />}
                             variant='outlined'
-                            color='success'
+                            color='info'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Salvar
-                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
+                            {!loading ? 'Criar' : <CircularProgress color='success' size={23} />}
                         </Button>
                         {/* <button onClick={onClose}>Fechar Modal</button> */}
 

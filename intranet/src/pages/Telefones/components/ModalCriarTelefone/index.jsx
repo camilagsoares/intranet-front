@@ -68,6 +68,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
             .finally(() => {
                 setLoading(false);
             });
+            console.log("Oq estou enviando",data)
     };
 
 
@@ -121,35 +122,13 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    {...register('nome')}
+                                    // {...register('valor')}
                                     fullWidth
                                     required
-                                    label='Nome'
+                                    label='Valor estimado. Exemplo: 31.000,98'
                                     type='text'
-                                    error={!!errors.nome}
-                                    helperText={errors.nome?.message}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('situacao')}
-                                    fullWidth
-                                    required
-                                    label='Situação'
-                                    type='text'
-                                    error={!!errors.situacao}
-                                    helperText={errors.situacao?.message}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('secretariaId')}
-                                    fullWidth
-                                    required
-                                    label='Secretaria Id'
-                                    type='text'
-                                    error={!!errors.secretariaId}
-                                    helperText={errors.secretariaId?.message}
+                                // error={!!errors.valor}
+                                // helperText={valorError ? 'Não coloque ponto ou vírgula no campo de valor,se precisar arredonde' : errors.valor?.message}
                                 />
                             </Grid>
 
@@ -174,9 +153,11 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-
-                            {!loading ? 'Criar' : <CircularProgress color='success' size={23} />}
+                            Salvar
+                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
                         </Button>
+                        {/* <button onClick={onClose}>Fechar Modal</button> */}
+
                     </DialogActions>
                 </Box>
             </Box>
