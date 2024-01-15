@@ -24,7 +24,6 @@ const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
 
-
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
