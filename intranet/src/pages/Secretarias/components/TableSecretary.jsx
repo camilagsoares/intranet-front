@@ -15,6 +15,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
 import { useEffect } from 'react';
+import ModalCriarSecretaria  from './modalCriarSecretaria.jsx/index';
 
 const TableSecretary = (props) => {
 
@@ -28,7 +29,7 @@ const TableSecretary = (props) => {
         return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
     })
 
-    
+
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
@@ -40,6 +41,19 @@ const TableSecretary = (props) => {
     useEffect(() => {
         setPageNumber(0);
     }, [data]);
+
+    //
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleOpen = () => {
+        setModalOpen(true);
+    };
+
+    const handleClose = () => {
+        setModalOpen(false);
+    };
+
+
 
     return (
         <React.Fragment>
@@ -58,7 +72,10 @@ const TableSecretary = (props) => {
                     </Container>
 
                     <Grid container justifyContent="flex-end">
-                        <Button variant='outlined' startIcon={<AddIcon />}>Criar secretaria</Button>
+                    <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar secretaria</Button>
+
+                        <ModalCriarSecretaria isOpen={modalOpen} onClose={handleClose} />
+
                     </Grid>
                 </Box>
 
@@ -136,19 +153,19 @@ const TableSecretary = (props) => {
                 </TableContainer>
 
                 {data && data.length > 0 && (
-                <Box display="flex" justifyContent="end" mt={2} >
-                    <Pagination
-                        color="primary"
-                        count={Math.ceil(data?.length / projectsPerPage)}
-                        page={pageNumber + 1}
-                        onChange={(event, page) => {
-                            changePage({ selected: page - 1 });
-                        }}
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </Box>
-            )}
+                    <Box display="flex" justifyContent="end" mt={2} >
+                        <Pagination
+                            color="primary"
+                            count={Math.ceil(data?.length / projectsPerPage)}
+                            page={pageNumber + 1}
+                            onChange={(event, page) => {
+                                changePage({ selected: page - 1 });
+                            }}
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </Box>
+                )}
             </Box>
         </React.Fragment>
     );

@@ -20,7 +20,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import AddIcon from '@mui/icons-material/Add';
 import { MdOutlineClose } from "react-icons/md";
-import ModalCriarDepartamento from './modalCriarDepartamento/ModalCriarDepartamento';
+import ModalCriarDepartamento from './modalCriarDepartamento';
 import { MdOutlineModeEditOutline } from "react-icons/md";
 
 
@@ -145,6 +145,8 @@ const TableDepartamentos = (props) => {
 
                                 <StyledTableCell width={300}>Departamento</StyledTableCell>
 
+                                <StyledTableCell width={300}>Secretaria</StyledTableCell>
+
                                 <StyledTableCell align='left' width={20}>
                                     Editar
                                 </StyledTableCell>
@@ -165,6 +167,10 @@ const TableDepartamentos = (props) => {
 
                                         <StyledTableCell align="left" >
                                             {number?.nome}
+                                        </StyledTableCell>
+
+                                        <StyledTableCell align="left" >
+                                            {number?.secretaria.nome}
                                         </StyledTableCell>
 
 
