@@ -79,7 +79,7 @@ const TableSecretary = (props) => {
                     <Grid container justifyContent="flex-end">
                     <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar secretaria</Button>
 
-                        <ModalCriarSecretaria isOpen={modalOpen} onClose={handleClose} />
+                        <ModalCriarSecretaria isOpen={modalOpen} onClose={handleClose} data={data} />
 
                     </Grid>
                 </Box>
