@@ -23,6 +23,7 @@ import { useModal } from '../modalUtils';
 const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
+    console.log(data)
 
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
