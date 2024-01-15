@@ -14,7 +14,10 @@ import Button from '@mui/material/Button';
 import { MdOutlineClose } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
-import ModalCriarTelefone from './ModalCriarTelefone/index'
+import ModalCriarTelefone from './ModalCriarTelefone/index';
+import ModalDeletarTelefone from './ModalDeletarTelefone/index';
+import ModalEditarTelefone from './ModalEditarTelefone/index';
+import Tooltip from '@mui/material/Tooltip';
 
 const TableTelephones = (props) => {
 
@@ -46,7 +49,7 @@ const TableTelephones = (props) => {
 
     const isAuthenticated = !!token;
 
-    //
+    // MODAL CRIAR TELEFONE
     const [modalOpen, setModalOpen] = useState(false);
 
     const handleOpen = () => {
@@ -57,6 +60,28 @@ const TableTelephones = (props) => {
         setModalOpen(false);
     };
 
+    // MODAL DELETAR TELEFONE
+    const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+
+    const handleDeleteOpen = () => {
+        setModalDeleteOpen(true);
+    }
+
+
+    const handleDeleteClose = () => {
+        setModalDeleteOpen(false);
+    }
+
+    // MODAL EDITAR TELEFONE
+    const [modalEditOpen, setModalEditOpen] = useState(false);
+
+    const handleEditOpen = () => {
+        setModalEditOpen(true);
+    }
+
+    const handleEditClose = () => {
+        setModalEditOpen(false);
+    }
 
     return (
         <React.Fragment>
@@ -164,9 +189,11 @@ const TableTelephones = (props) => {
                                         {
                                             isAuthenticated && (
                                                 <StyledTableCell align="left">
-                                                    <Button>
-                                                        <MdOutlineEdit size={18} color='#68739C' />
-                                                    </Button>
+                                                    <Tooltip title="Editar" arrow>
+                                                        <Button onClick={handleEditOpen}>
+                                                            <MdOutlineEdit size={18} color='#68739C' />
+                                                        </Button>
+                                                    </Tooltip>
                                                 </StyledTableCell>
                                             )
                                         }
@@ -174,10 +201,12 @@ const TableTelephones = (props) => {
                                         {
                                             isAuthenticated && (
                                                 <StyledTableCell align="left" >
-                                                    <Button>
-                                                        <MdOutlineClose size={18} color='#68739C' />
+                                                    <Tooltip title='Deletar' arrow>
+                                                        <Button onClick={handleDeleteOpen}>
+                                                            <MdOutlineClose size={18} color='#68739C' />
 
-                                                    </Button>
+                                                        </Button>
+                                                    </Tooltip>
                                                 </StyledTableCell>
                                             )
                                         }
@@ -196,6 +225,9 @@ const TableTelephones = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} />
+                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} />
 
                 {dadosFiltrados && dadosFiltrados.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
