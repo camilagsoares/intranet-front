@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 import { MdOutlineClose } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
+import ModalCriarTelefone from './ModalCriarTelefone/index'
 
 const TableTelephones = (props) => {
 
@@ -44,6 +45,19 @@ const TableTelephones = (props) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
 
     const isAuthenticated = !!token;
+
+    //
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleOpen = () => {
+        setModalOpen(true);
+    };
+
+    const handleClose = () => {
+        setModalOpen(false);
+    };
+
+
     return (
         <React.Fragment>
             <Box marginY={1} paddingY={2}>
@@ -63,11 +77,13 @@ const TableTelephones = (props) => {
                     <Grid container justifyContent="flex-end">
                         {
                             isAuthenticated && (
-                                <Button variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
+                                <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
 
                             )
-                        }  
-                     </Grid>
+
+                        }
+                        <ModalCriarTelefone isOpen={modalOpen} onClose={handleClose} />
+                    </Grid>
                 </Box>
 
 
