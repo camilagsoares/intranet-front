@@ -11,28 +11,37 @@ export const useModal = () => {
     setModalOpen(false);
   };
 
-   // MODAL DELETAR TELEFONE
-   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+  // MODAL DELETAR TELEFONE
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+  const [selectedDeleteId,setSelectedDeleteId ] = useState(null);
 
-   const handleDeleteOpen = () => {
-       setModalDeleteOpen(true);
-   }
+  const handleDeleteOpen = (id) => {
+    console.log(id)
+    setSelectedDeleteId(id)
+    setModalDeleteOpen(true);
+  }
 
 
-   const handleDeleteClose = () => {
-       setModalDeleteOpen(false);
-   }
+  const handleDeleteClose = () => {
+    setModalDeleteOpen(false);
+    setSelectedDeleteId(null)
+  }
 
-   // MODAL EDITAR TELEFONE
-   const [modalEditOpen, setModalEditOpen] = useState(false);
+  // MODAL EDITAR TELEFONE
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
-   const handleEditOpen = () => {
-       setModalEditOpen(true);
-   }
+  const handleEditOpen = (id) => {
+    console.log(id)
 
-   const handleEditClose = () => {
-       setModalEditOpen(false);
-   }
+    setSelectedItemId(id);
+    setModalEditOpen(true);
+  }
+
+  const handleEditClose = () => {
+    setSelectedItemId(null);
+    setModalEditOpen(false);
+  }
 
   return {
     modalOpen,
