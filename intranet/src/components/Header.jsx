@@ -6,6 +6,7 @@ import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
 import { BiFolderMinus } from "react-icons/bi";
 import { BiSpreadsheet } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
+import { FiLogOut } from "react-icons/fi";
 
 
 
@@ -25,7 +26,7 @@ const Header = () => {
     { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos", icon: (<BiFolderMinus />) },
     { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias", icon: (<BiSpreadsheet />) },
     // { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones", icon: (<BsTelephone />) },
-    { id: 5, title: "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: (<RiAdminLine />) },
+    { id: 5, title: isAuthenticated ? 'Sair' : "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: isAuthenticated ? (<FiLogOut />) : (<RiAdminLine />) },
   ];
 
   const filteredMenus = isAuthenticated ?  Menus : Menus.filter(menu => menu.link === "/" || menu.link === "/login");
