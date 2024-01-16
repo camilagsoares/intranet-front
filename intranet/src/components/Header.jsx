@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Index from "../../src/pages/Index"
 import { Link } from 'react-router-dom';
 import { RiAdminLine } from "react-icons/ri";
@@ -7,7 +7,9 @@ import { BiFolderMinus } from "react-icons/bi";
 import { BiSpreadsheet } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
-
+import Button from '@mui/material/Button';
+import { AuthContext } from '../contexts/auth.context'
+import ExitToApp from '@mui/icons-material/ExitToAppOutlined';
 
 
 
@@ -17,6 +19,7 @@ const Header = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   const isAuthenticated = !!token;
+  const { encerrarSessao } = useContext(AuthContext);
 
 
   const [open, setOpen] = useState(true);
@@ -26,11 +29,19 @@ const Header = () => {
     { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos", icon: (<BiFolderMinus />) },
     { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias", icon: (<BiSpreadsheet />) },
     // { id: 4, title: "Telefones ", src: "Calendar", link: "/telefones", icon: (<BsTelephone />) },
-    { id: 5, title: isAuthenticated ? 'Sair' : "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: isAuthenticated ? (<FiLogOut />) : (<RiAdminLine />) },
+    { id: 5, title: isAuthenticated ? 'Sair' : "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: isAuthenticated ? (<FiLogOut />) : (<RiAdminLine />) }
+    
   ];
 
   const filteredMenus = isAuthenticated ?  Menus : Menus.filter(menu => menu.link === "/" || menu.link === "/login");
 
+  const handleClick = (id) => {
+    if (id === 5) {
+      encerrarSessao();
+    } else {
+      console.log(`Clicou no menu com ID ${id}`);
+    }
+  };
 
 
   return (
@@ -70,14 +81,25 @@ const Header = () => {
                   {Menu.icon}
                 </i>
 
-                <span className={`${!open && "hidden"} origin-left duration-200`}>
+                <Button 
+                className={`${!open && "hidden"} origin-left duration-200 `} 
+                key={Menu.id} 
+                onClick={() => handleClick(Menu.id)}
+                style={{ 
+                  color: '#F3F4F7', 
+                  textTransform: 'lowercase' ,
+                  fontWeight: 'normal'
+              
+              }}
 
-                  {Menu.title}
-
-                </span>
+                >
+              {Menu.title}
+            </Button>
               </li>
             </Link>
           ))}
+          
+         
         </ul>
       </div>
       <div className="h-screen flex-1">
