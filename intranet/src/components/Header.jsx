@@ -39,7 +39,7 @@ const Header = () => {
     if (id === 5) {
       encerrarSessao();
     } else {
-      console.log(`Clicou no menu com ID ${id}`);
+      // console.log(`Clicou no menu com ID ${id}`);
     }
   };
 
@@ -80,8 +80,8 @@ const Header = () => {
                 <i style={{ color: "white" }}>
                   {Menu.icon}
                 </i>
-
-                <Button 
+<ul>
+                <li 
                 className={`${!open && "hidden"} origin-left duration-200 `} 
                 key={Menu.id} 
                 onClick={() => handleClick(Menu.id)}
@@ -94,7 +94,8 @@ const Header = () => {
 
                 >
               {Menu.title}
-            </Button>
+            </li>
+            </ul>
               </li>
             </Link>
           ))}
