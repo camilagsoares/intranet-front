@@ -49,6 +49,7 @@ export const useModal = () => {
     handleDeleteClose,
     modalEditOpen,
     handleEditOpen,
-    handleEditClose
+    handleEditClose,
+    selectedDeleteId
   };
 };

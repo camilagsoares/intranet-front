@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -12,10 +12,57 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
+import { toast } from 'react-toastify';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
-const ModalDeletarSecretaria = ({ isOpen, onClose }) => {
+const ModalDeletarSecretaria = ({ isOpen, onClose,selectedDeleteId }) => {
+
     
+    const schema = yup
+        .object({
+            situacao: yup.string(),
+        })
+        .required();
+
+    const [loading, setLoading] = useState(false);
+
+    const { register, handleSubmit, formState, control, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            situacao: 'ATIVADO',
+        },
+    });
+    const { errors } = formState;
+
+    const handleDeletarSec = (data) => {
+        data.situacao = 'DESATIVADO';
+
+        setLoading(true);
+        axiosApi
+            .put(`/secretaria/atualizar-secretaria/${selectedDeleteId}`, data)
+            .then(() => {
+                toast('Telefone criado com sucesso', {
+                    type: 'success',
+                });
+
+                reset();
+                window.location.reload();
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
     const style = {
         position: 'absolute',
         top: '50%',
@@ -48,30 +95,12 @@ const ModalDeletarSecretaria = ({ isOpen, onClose }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
-                    <h2>Deletar secretaria</h2>
+                <Box component='form' noValidate onSubmit={handleSubmit(handleDeletarSec)}>
+                    {/* <h2>Deletar secretaria</h2> */}
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            {/* <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Título'
-                                    type='text'
-                            
-                                />
-                            </Grid>
 
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Valor estimado. Exemplo: 31.000,98'
-                                    type='text'
-                             
-                                />
-                            </Grid> */}
-Conteudo deletar
+                            Deseja definir deletar essa secretaria?
                         </Grid>
                     </DialogContent>
                     <DialogActions>
