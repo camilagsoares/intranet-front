@@ -15,8 +15,10 @@ import Button from '@mui/material/Button';
 import * as yup from 'yup';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { axiosApi } from "../../../../services/api";
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
 import { toast } from 'react-toastify';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
@@ -25,10 +27,11 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
     const schema = yup
         .object({
-            id: yup.number().required(),
+            numero: yup.string().required(),
             nome: yup.string().required(),
             situacao: yup.string().max(45, 'Máximo de 45 caracteres').required(requiredField),
-            secretariaId: yup.number().required(requiredField),
+            departamentoId: yup.number().required(requiredField),
+            cargoId: yup.number().required(requiredField),
         })
         .required();
 
@@ -38,10 +41,11 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
     const { register, handleSubmit, formState, control, reset } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            id: null,
+            numero: '',
             nome: '',
-            situacao: '',
-            secretariaId: '',
+            situacao: 'ATIVADO',
+            departamentoId: '',
+            cargoId: ''
         },
     });
     const { errors } = formState;
@@ -51,7 +55,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
         setLoading(true);
         axiosApi
-            .post('/criar-telefone', data)
+            .post('/telefone/criar-telefone', data)
             .then(() => {
                 toast('Telefone criado com sucesso', {
                     type: 'success',
@@ -68,7 +72,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
             .finally(() => {
                 setLoading(false);
             });
-            console.log("Oq estou enviando",data)
+        console.log("Oq estou enviando", data)
     };
 
 
@@ -95,6 +99,8 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
     "secretariaId": 6
 } */
 
+    const { data: listarCargos, loading: loadingListarCargos } = useApiRequestGet('/cargo/listar-cargos');
+    const { data: listarDptos, loading: loadingListarDptos } = useApiRequestGet('/departamento/listar-departamentos');
 
     return (
         <Modal
@@ -110,10 +116,10 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    {...register('id')}
+                                    {...register('numero')}
                                     fullWidth
                                     required
-                                    label='Id'
+                                    label='Número'
                                     type='text'
                                     error={!!errors.id}
                                     helperText={errors.id?.message}
@@ -122,15 +128,95 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    // {...register('valor')}
+                                    {...register('nome')}
                                     fullWidth
                                     required
-                                    label='Valor estimado. Exemplo: 31.000,98'
+                                    label='Nome'
                                     type='text'
-                                // error={!!errors.valor}
-                                // helperText={valorError ? 'Não coloque ponto ou vírgula no campo de valor,se precisar arredonde' : errors.valor?.message}
+                                    error={!!errors.nome}
+                                    helperText={errors.nome?.message}
                                 />
                             </Grid>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <Controller
+                                    name='departamentoId'
+                                    control={control}
+                                    render={({ field }) => {
+                                        const { onChange, name, onBlur, value, ref } = field;
+                                        return (
+                                            <TextField
+                                                required
+                                                ref={ref}
+                                                select
+                                                fullWidth
+                                                key='secretaria'
+                                                variant='outlined'
+                                                onBlur={onBlur}
+                                                name={name}
+                                                label='Departamento'
+                                                value={value}
+                                                onChange={onChange}
+                                                error={!!errors.departamentoId}
+                                                helperText={errors.departamentoId?.message}
+                                            >
+                                                <MenuItem disabled value=''>
+                                                    <em>Nenhuma</em>
+                                                </MenuItem>
+                                                {!loadingListarDptos &&
+                                                    listarDptos &&
+                                                    listarDptos.length &&
+                                                    listarDptos.map((secretaria) => (
+                                                        <MenuItem key={secretaria.id} value={secretaria.id}>
+                                                            {secretaria.nome}
+                                                        </MenuItem>
+                                                    ))}
+                                            </TextField>
+                                        );
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={12}>
+                                <Controller
+                                    name='cargoId'
+                                    control={control}
+                                    render={({ field }) => {
+                                        const { onChange, name, onBlur, value, ref } = field;
+                                        return (
+                                            <TextField
+                                                required
+                                                ref={ref}
+                                                select
+                                                fullWidth
+                                                key='secretaria'
+                                                variant='outlined'
+                                                onBlur={onBlur}
+                                                name={name}
+                                                label='Cargo'
+                                                value={value}
+                                                onChange={onChange}
+                                                error={!!errors.cargoId}
+                                                helperText={errors.cargoId?.message}
+                                            >
+                                                <MenuItem disabled value=''>
+                                                    <em>Nenhuma</em>
+                                                </MenuItem>
+                                                {!loadingListarCargos &&
+                                                    listarCargos &&
+                                                    listarCargos.length &&
+                                                    listarCargos.map((secretaria) => (
+                                                        <MenuItem key={secretaria.id} value={secretaria.id}>
+                                                            {secretaria.nome}
+                                                        </MenuItem>
+                                                    ))}
+                                            </TextField>
+                                        );
+                                    }}
+                                />
+                            </Grid>
+
+
+
 
                         </Grid>
                     </DialogContent>
