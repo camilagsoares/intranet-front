@@ -17,6 +17,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { axiosApi } from "../../../../services/api";
 import { toast } from 'react-toastify';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ModalCriarSecretaria = ({ isOpen, onClose }) => {
 
@@ -24,10 +25,8 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
 
     const schema = yup
         .object({
-            id: yup.number().required(),
             nome: yup.string().required(),
-            situacao: yup.string().max(45, 'Máximo de 45 caracteres').required(requiredField),
-            secretariaId: yup.number().required(requiredField),
+            sigla: yup.string().required(requiredField),
         })
         .required();
 
@@ -37,10 +36,8 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
     const { register, handleSubmit, formState, control, reset } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            id: null,
             nome: '',
-            situacao: '',
-            secretariaId: '',
+            sigla: '',
         },
     });
     const { errors } = formState;
@@ -50,9 +47,9 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
 
         setLoading(true);
         axiosApi
-            .post('/criar-telefone', data)
+            .post('/secretaria/criar-secretaria', data)
             .then(() => {
-                toast('Telefone criado com sucesso', {
+                toast('Secretaria criado com sucesso', {
                     type: 'success',
                 });
 
@@ -67,6 +64,7 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
             .finally(() => {
                 setLoading(false);
             });
+            console.log("oq to enviando",data)
     };
 
 
@@ -121,27 +119,16 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    {...register('situacao')}
+                                    {...register('sigla')}
                                     fullWidth
                                     required
-                                    label='Situação'
+                                    label='Sigla'
                                     type='text'
-                                    error={!!errors.situacao}
-                                    helperText={errors.situacao?.message}
+                                    error={!!errors.sigla}
+                                    helperText={errors.sigla?.message}
                                 />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    {...register('secretariaId')}
-                                    fullWidth
-                                    required
-                                    label='Secretaria Id'
-                                    type='text'
-                                    error={!!errors.secretariaId}
-                                    helperText={errors.secretariaId?.message}
-                                />
-                            </Grid>
-
+                        
+                        </Grid>
                         </Grid>
                     </DialogContent>
                     <DialogActions>
@@ -165,7 +152,6 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
                         >
                             {!loading ? 'Criar' : <CircularProgress color='success' size={23} />}
                         </Button>
-                        {/* <button onClick={onClose}>Fechar Modal</button> */}
 
                     </DialogActions>
                 </Box>
