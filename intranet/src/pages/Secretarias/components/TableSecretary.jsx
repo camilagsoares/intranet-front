@@ -57,7 +57,9 @@ const TableSecretary = (props) => {
         handleDeleteClose,
         modalEditOpen,
         handleEditOpen,
-        handleEditClose } = useModal();
+        handleEditClose,
+        selectedDeleteId
+    } = useModal();
 
 
     return (
@@ -162,7 +164,7 @@ const TableSecretary = (props) => {
                     </Table>
                 </TableContainer>
 
-                <ModalDeletarSecretaria isOpen={modalDeleteOpen} onClose={handleDeleteClose} />
+                <ModalDeletarSecretaria isOpen={modalDeleteOpen} onClose={handleDeleteClose} selectedDeleteId={selectedDeleteId} />
                 <ModalEditarSecretaria 
                 isOpen={modalEditOpen} onClose={handleEditClose} />
 
