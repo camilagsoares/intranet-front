@@ -23,7 +23,6 @@ import { useModal } from '../modalUtils';
 const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
-    console.log(data)
 
     const [pageNumber, setPageNumber] = useState(0);
     const projectsPerPage = 6;
@@ -59,7 +58,8 @@ const TableTelephones = (props) => {
         handleDeleteClose,
         modalEditOpen,
         handleEditOpen,
-        handleEditClose } = useModal();
+        handleEditClose,
+        selectedDeleteId} = useModal();
 
 
     return (
@@ -205,8 +205,9 @@ const TableTelephones = (props) => {
                     </Table>
                 </TableContainer>
 
-                <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data} />
-                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data} />
+                <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data}  selectedDeleteId={selectedDeleteId}/>
+                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data}   
+/>
 
                 {dadosFiltrados && dadosFiltrados.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >

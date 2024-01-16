@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -13,10 +13,60 @@ import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
+import { toast } from 'react-toastify';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useModal } from '../../modalUtils';
 
 
+const ModalDeletarTelefone = ({ isOpen, onClose, data, selectedDeleteId  }) => {
 
-const ModalDeletarTelefone = ({ isOpen, onClose, data }) => {
+
+    const schema = yup
+        .object({
+            situacao: yup.string(),
+        })
+        .required();
+
+    const [loading, setLoading] = useState(false);
+
+    const { register, handleSubmit, formState, control, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            situacao: 'ATIVADO',
+        },
+    });
+    const { errors } = formState;
+
+    const handleDeletarTelefone = (data) => {
+        data.situacao = 'DESATIVADO';
+
+        setLoading(true);
+        axiosApi
+            .put(`/telefone/atualizar-telefone/${selectedDeleteId}`, data)
+            .then(() => {
+                toast('Telefone criado com sucesso', {
+                    type: 'success',
+                });
+
+                reset();
+                window.location.reload();
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+
 
     const style = {
         position: 'absolute',
@@ -30,17 +80,7 @@ const ModalDeletarTelefone = ({ isOpen, onClose, data }) => {
         p: 4,
     };
 
-    // console.log("data que recebo por props",data)
 
-    /*
-{
-    "id": 1,
-    "nome": "Administração",
-    "criadoEm": "2024-01-05T12:29:59.500Z",
-    "atualizadoEm": "2024-01-05T12:29:59.500Z",
-    "situacao": "ATIVADO",
-    "secretariaId": 6
-} */
 
 
     return (
@@ -51,30 +91,12 @@ const ModalDeletarTelefone = ({ isOpen, onClose, data }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
+                <Box component='form' noValidate onSubmit={handleSubmit(handleDeletarTelefone)}>
                     {/* <h2>Deletar telefone</h2> */}
 
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            {/* <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Título'
-                                    type='text'
-                            
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Valor estimado. Exemplo: 31.000,98'
-                                    type='text'
-                             
-                                />
-                            </Grid> */}
+                          
                             Deseja deletar o telefone?
                         </Grid>
                     </DialogContent>
@@ -97,11 +119,9 @@ const ModalDeletarTelefone = ({ isOpen, onClose, data }) => {
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Deletar
-                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
+                            
+                            {!loading ? 'Deletar' : <CircularProgress color='success' size={23} />}
                         </Button>
-                        {/* <button onClick={onClose}>Fechar Modal</button> */}
-
                     </DialogActions>
                 </Box>
             </Box>
