@@ -101,6 +101,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
     const { data: listarCargos, loading: loadingListarCargos } = useApiRequestGet('/cargo/listar-cargos');
     const { data: listarDptos, loading: loadingListarDptos } = useApiRequestGet('/departamento/listar-departamentos');
+    console.log(listarDptos)
 
     return (
         <Modal
@@ -167,7 +168,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                                                     listarDptos.length &&
                                                     listarDptos.map((secretaria) => (
                                                         <MenuItem key={secretaria.id} value={secretaria.id}>
-                                                            {secretaria.nome}
+                                                       {secretaria.secretaria.sigla}  -   {secretaria.nome}
                                                         </MenuItem>
                                                     ))}
                                             </TextField>
