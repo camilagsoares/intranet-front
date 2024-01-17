@@ -76,8 +76,7 @@ const ModalDeletarTelefone = ({ isOpen, onClose, data, selectedDeleteId  }) => {
         width: 600,
         bgcolor: 'background.paper',
         borderRadius: '5px',
-        boxShadow: 24,
-        p: 4,
+        boxShadow: 24
     };
 
 
@@ -95,7 +94,7 @@ const ModalDeletarTelefone = ({ isOpen, onClose, data, selectedDeleteId  }) => {
                     {/* <h2>Deletar telefone</h2> */}
 
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
-                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
+                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5} padding={2}>
                           
                             Deseja deletar o telefone?
                         </Grid>

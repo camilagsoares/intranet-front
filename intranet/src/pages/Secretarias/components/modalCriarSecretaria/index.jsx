@@ -78,7 +78,7 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
         bgcolor: 'background.paper',
         borderRadius: '5px',
         boxShadow: 24,
-        p: 4,
+        // p: 4,
     };
 
 
@@ -102,7 +102,22 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate onSubmit={handleSubmit(handleCriarTelefone)}>
-                    <h2>Criar secretaria</h2>
+                       <Typography
+                        sx={{
+                            fontSize: {
+                                lg: 18,
+                                md: 20,
+                                sm: 15,
+                                xs: 10
+                            },
+                            padding: 2,
+                            marginLeft: 1,
+                            color: "#27272F"
+                        }}
+                    >
+                      Criar secretaria
+                    </Typography>
+                   
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>        
 

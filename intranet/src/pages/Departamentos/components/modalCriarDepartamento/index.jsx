@@ -79,7 +79,6 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
         bgcolor: 'background.paper',
         borderRadius: '5px',
         boxShadow: 24,
-        p: 4,
     };
 
 
@@ -103,7 +102,20 @@ const ModalCriarDepartamento = ({ isOpen, onClose }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate onSubmit={handleSubmit(handleCriarDepartamento)}>
-                    <h2>Criar departamento</h2>
+                       <Typography
+                        sx={{
+                            fontSize: {
+                                lg: 18,
+                                md: 18,
+                                sm: 15,
+                                xs: 10
+                            },
+                            padding: 2,
+                            color: "#27272F"
+                        }}
+                    >Criar departamento
+                    </Typography>
+                  
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
 

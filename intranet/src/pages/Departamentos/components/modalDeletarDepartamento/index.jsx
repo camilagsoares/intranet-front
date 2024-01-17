@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -12,10 +12,60 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
+import { toast } from 'react-toastify';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useModal } from '../modalUtils';
+
+const ModalDeletarDepartamento = ({ isOpen, onClose, selectedDeleteId }) => {
+
+    const schema = yup
+        .object({
+            situacao: yup.string(),
+        })
+        .required();
+
+    const [loading, setLoading] = useState(false);
+
+    const { register, handleSubmit, formState, control, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            situacao: 'ATIVADO',
+        },
+    });
+    const { errors } = formState;
 
 
-const ModalDeletarDepartamento = ({ isOpen, onClose }) => {
-    
+    const handleDeletarDpto = (data) => {
+        data.situacao = 'DESATIVADO';
+
+        setLoading(true);
+        axiosApi
+            .put(`/departamento/atualizar-departamento/${selectedDeleteId}`, data)
+            .then(() => {
+                toast('Telefone criado com sucesso', {
+                    type: 'success',
+                });
+
+                reset();
+                // window.location.reload();
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+        // console.log("data",data)
+    };
+
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -24,8 +74,7 @@ const ModalDeletarDepartamento = ({ isOpen, onClose }) => {
         width: 600,
         bgcolor: 'background.paper',
         borderRadius: '5px',
-        boxShadow: 24,
-        p: 4,
+        boxShadow: 24
     };
 
 
@@ -40,6 +89,7 @@ const ModalDeletarDepartamento = ({ isOpen, onClose }) => {
 } */
 
 
+
     return (
         <Modal
             open={isOpen}
@@ -48,23 +98,14 @@ const ModalDeletarDepartamento = ({ isOpen, onClose }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
-                {/* <Typography
-                        sx={{
-                            fontSize: {
-                                lg: 20,
-                                md: 20,
-                                sm: 15,
-                                xs: 10
-                            }
-                        }}
-                    >
-                        Deletar departamento
-                    </Typography> */}
+                <Box component='form' noValidate onSubmit={handleSubmit(handleDeletarDpto)}>
+
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
-                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                 
-                        Deseja definir deletar esse departamento?
+                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5} padding={2}>
+
+                            Deseja deletar esse departamento?
+
+
                         </Grid>
                     </DialogContent>
                     <DialogActions>
@@ -86,10 +127,10 @@ const ModalDeletarDepartamento = ({ isOpen, onClose }) => {
                             color='success'
                             sx={{ minWidth: 156, height: '100%' }}
                         >
-                            Salvar
-                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
+
+                            Deletar
+                            {/* {!loading ? 'Deletar' : <CircularProgress color='success' size={23} />} */}
                         </Button>
-                        {/* <button onClick={onClose}>Fechar Modal</button> */}
 
                     </DialogActions>
                 </Box>
