@@ -24,6 +24,8 @@ export const AuthContextProvider = ({ children }) => {
     setToken(content?.token); 
     setProfileLoaded(true);
     navigate('/');
+    window.location.reload(); // Força a recarga da página
+
   };
 
   const encerrarSessao = () => {
