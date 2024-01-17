@@ -104,11 +104,9 @@ const Header = () => {
           {isAuthenticated ? 'Sair' : 'Painel Administrador'}
 
         </Button>
-        {/* <Button onClick={encerrarSessao}>Sair</Button> */}
       </div>
       <div className="h-screen flex-1">
         <h1 className="text-2xl font-semibold ">
-          {/* <Index /> */}
         </h1>
       </div>
     </div>
