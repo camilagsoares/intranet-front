@@ -72,7 +72,6 @@ const ModalDeletarSecretaria = ({ isOpen, onClose,selectedDeleteId }) => {
         bgcolor: 'background.paper',
         borderRadius: '5px',
         boxShadow: 24,
-        p: 4,
     };
 
 
@@ -96,10 +95,24 @@ const ModalDeletarSecretaria = ({ isOpen, onClose,selectedDeleteId }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate onSubmit={handleSubmit(handleDeletarSec)}>
-                    {/* <h2>Deletar secretaria</h2> */}
-                    <DialogContent dividers sx={{ paddingTop: 1 }}>
-                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
+                <Typography
+                        sx={{
+                            fontSize: {
+                                lg: 18,
+                                md: 20,
+                                sm: 15,
+                                xs: 10
+                            },
+                            padding: 2,
+                            
+                            color: "#27272F"
+                        }}
+                    >
+                        Deletar secretaria
+                    </Typography>
 
+                    <DialogContent dividers sx={{ paddingTop: 1 }}>
+                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5} paddingLeft={1}>
                             Deseja definir deletar essa secretaria?
                         </Grid>
                     </DialogContent>

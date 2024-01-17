@@ -25,7 +25,7 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
         bgcolor: 'background.paper',
         borderRadius: '5px',
         boxShadow: 24,
-        p: 4,
+     
     };
 
 
@@ -39,7 +39,20 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate>
-                    <h2>Editar dpto</h2>
+                <Typography
+                        sx={{
+                            fontSize: {
+                                lg: 18,
+                                md: 18,
+                                sm: 15,
+                                xs: 10
+                            },
+                            padding: 2,
+                            color: "#27272F"
+                        }}
+                    >Editar dpto
+                    </Typography>
+                 
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             <Grid item xs={12} sm={12} md={12}>

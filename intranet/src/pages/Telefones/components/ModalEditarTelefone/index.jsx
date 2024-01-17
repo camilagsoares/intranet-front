@@ -12,20 +12,80 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
 
 
-const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
+const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
 
     const [loading, setLoading] = useState(false);
     const [numero, setNumero] = useState('');
+    const [cargo, setCargo] = useState('');
     const [nome, setNome] = useState('');
     const [secretaria, setSecretaria] = useState('');
     const [departamento, setDepartamento] = useState('');
-    const [situacai, setSituacao] = useState('');
+    const [situacao, setSituacao] = useState('');
 
-    useEffect(() => { 
-        
-    }, [])
+
+    const { data: dataTelefone, loading: loadingTelefones } = useApiRequestGet(`/telefone/listar-telefone/${selectedItemId}`);
+
+    // const { data, loading: loadingTelefones } = useApiRequestGet(`/telefone/listar-telefones/${selectedItemId}`);
+    // const { data: dataTelefone, loading: loadingTelefones } = useApiRequestGet(
+    //     selectedItemId ? `/telefone/listar-telefone/${selectedItemId}` : null
+    //   );
+      
+
+
+    // console.log(dataTelefone)
+    // console.log(selectedItemId)
+
+
+
+    // useEffect(() => {
+    //     if (!loadingTelefones && dataTelefone) {
+    //         setNumero(dataTelefone.numero);
+    //         setNome(dataTelefone.nome);
+    //         setCargo(dataTelefone.cargo.nome)
+    //         setSecretaria(dataTelefone.secretaria);
+    //         setDepartamento(dataTelefone.departamento.nome);
+    //         setSituacao(dataTelefone.situacao);
+    //     }
+    // }, [loadingTelefones, dataTelefone]);
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     const data = {
+    //         numero: numero,
+    //         nome: nome,
+    //         cargo: cargo,
+    //         secretaria: secretaria,
+    //         observacao: observacao,
+    //         departamento: departamento,
+    //         situacao: situacao,
+    //     };
+
+    //     axiosApi
+    //         .put(`/telefone/atualizar-telefone/${selectedItemId}`, data)
+    //         .then(() => {
+    //             toast('Telefone atualizado com sucesso', {
+    //                 type: 'success',
+    //                 autoClose: 3000,
+    //             });
+
+    //             setTimeout(() => {
+    //                 setLoading(false);
+    //                 window.location.reload();
+    //             }, 3000);
+    //         })
+    //         .catch((error) => {
+    //             toast(error.message, {
+    //                 type: 'error',
+    //             });
+    //             setLoading(false);
+    //         });
+
+    // };
+
 
 
     const style = {
@@ -36,8 +96,7 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
         width: 600,
         bgcolor: 'background.paper',
         borderRadius: '5px',
-        boxShadow: 24,
-        p: 4,
+        boxShadow: 24
     };
 
 
@@ -63,23 +122,27 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
                 <Box component='form' noValidate>
 
 
-                    <Typography
+                <Typography
                         sx={{
                             fontSize: {
-                                lg: 20,
+                                lg: 18,
                                 md: 20,
                                 sm: 15,
                                 xs: 10
-                            }
+                            },
+                            padding: 2,
+                            marginLeft: 1,
+                            color: "#27272F"
                         }}
                     >
                         Editar telefone
                     </Typography>
-
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={numero}
+                                    onChange={(e) => setNumero(e.target.value)}
                                     fullWidth
                                     required
                                     label='Número'
@@ -90,6 +153,8 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
                                     fullWidth
                                     required
                                     label='Nome'
@@ -99,6 +164,8 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={cargo}
+                                    onChange={(e) => setCargo(e.target.value)}
                                     fullWidth
                                     required
                                     label='Cargo'
@@ -108,6 +175,8 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={secretaria}
+                                    onChange={(e) => setSecretaria(e.target.value)}
                                     fullWidth
                                     required
                                     label='Secretaria'
@@ -117,6 +186,8 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={departamento}
+                                    onChange={(e) => setDepartamento(e.target.value)}
                                     fullWidth
                                     required
                                     label='Departamento'
@@ -126,6 +197,8 @@ const ModalEditarTelefone = ({ isOpen, onClose, data }) => {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={situacao}
+                                    onChange={(e) => setSituacao(e.target.value)}
                                     fullWidth
                                     required
                                     label='Situação'
