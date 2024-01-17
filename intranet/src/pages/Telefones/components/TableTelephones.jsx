@@ -39,7 +39,7 @@ const TableTelephones = (props) => {
     const [searchText, setSearchText] = useState('')
 
     const dadosFiltrados = data && data.filter((number) => {
-        const textoFiltrado = `${number.numero} ${number.nome} ${number.cargo} ${number.departamento.secretaria.nome} ${number.departamento.nome} ${number.situacao}`
+        const textoFiltrado = `${number.numero} ${number.nome} ${number.cargo.nome} ${number.departamento.secretaria.nome} ${number.departamento.nome} ${number.situacao}`
 
         return textoFiltrado.trim().toLowerCase().includes(searchText.trim().toLowerCase())
     })
@@ -59,7 +59,12 @@ const TableTelephones = (props) => {
         modalEditOpen,
         handleEditOpen,
         handleEditClose,
-        selectedDeleteId} = useModal();
+        selectedDeleteId,
+        selectedItemId,
+        setSelectedItemId
+    } = useModal();
+
+
 
 
     return (
@@ -169,7 +174,7 @@ const TableTelephones = (props) => {
                                             isAuthenticated && (
                                                 <StyledTableCell align="left">
                                                     <Tooltip title="Editar" arrow>
-                                                        <Button onClick={() => handleEditOpen(number?.id)}>
+                                                        <Button  onClick={() => number?.id && handleEditOpen(number.id)}>
                                                             <MdOutlineEdit size={18} color='#68739C' />
                                                         </Button>
                                                     </Tooltip>
@@ -206,8 +211,7 @@ const TableTelephones = (props) => {
                 </TableContainer>
 
                 <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data}  selectedDeleteId={selectedDeleteId}/>
-                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data}   
-/>
+                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data}  selectedItemId={selectedItemId}/>
 
                 {dadosFiltrados && dadosFiltrados.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
