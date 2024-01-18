@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import Index from "../../src/pages/Index"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RiAdminLine } from "react-icons/ri";
 import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
 import { BiFolderMinus } from "react-icons/bi";
@@ -17,6 +17,7 @@ const Header = () => {
 
   const isAuthenticated = !!token;
   const { encerrarSessao } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
 
@@ -27,11 +28,23 @@ const Header = () => {
     // { id: 5, title: isAuthenticated ? 'Sair' : "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: isAuthenticated ? (<FiLogOut />) : (<RiAdminLine />) }
   ];
 
-  const filteredMenus = isAuthenticated ? Menus : Menus.filter(menu => menu.link === "/" || menu.link === "/login");
+  const updatedMenus = Menus.map(menu => {
+    if (isAuthenticated) {
+      if (menu.id === 2) {
+        return { ...menu, title: "Sair", link: "/", icon: <FiLogOut /> };
+      }
+      return menu;
+    }
+    return menu;
+  });
+
+  const filteredMenus = isAuthenticated ? updatedMenus : Menus.filter(menu => menu.link === "/" || menu.link === "/login");
+
 
   const handleClick = (id) => {
     if (id === 5) {
       encerrarSessao();
+      window.location.reload();
     } else {
 
     }
@@ -67,43 +80,52 @@ const Header = () => {
             <Link to={Menu.link} key={index}>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
-                  } `}
+        ${Menu.gap ? 'mt-9' : 'mt-2'} ${index === 0 && 'bg-light-white'}
+      ${!open && isAuthenticated ? 'hidden' : ''}`}
               >
-                <i style={{ color: "white" }}>
-                  {Menu.icon}
-                </i>
+                <i style={{ color: 'white' }}>{Menu.icon}</i>
                 <ul>
                   <li
-                    className={`${!open && "hidden"} origin-left duration-200 `}
+                    className={`${!open && 'hidden'} origin-left duration-200 `}
                     key={Menu.id}
                     onClick={() => handleClick(Menu.id)}
                     style={{
                       color: '#F3F4F7',
                       textTransform: 'lowercase',
                       fontWeight: 'normal'
-
                     }}
                   >
-                    {Menu.title}
+                    {open ? Menu.title : ''}
                   </li>
                 </ul>
               </li>
             </Link>
           ))}
+
         </ul>
         <br />
         <Button
           startIcon={isAuthenticated ? <FiLogOut /> : <RiAdminLine />}
-          onClick={isAuthenticated ? encerrarSessao : () => navigate('/login')}
+          onClick={() => {
+            if (isAuthenticated) {
+              encerrarSessao();
+              window.location.reload();
+            } else {
+              navigate('/login');
+            }
+          }}
+          className={`${!open && isAuthenticated ? 'hidden ' : ''
+            }`}
           style={{
             color: '#F3F4F7',
             textTransform: 'lowercase',
-            fontWeight: 'normal'
-          }}>
-          {isAuthenticated ? 'Sair' : 'Painel Administrador'}
-
+            paddingRight: !open  ? '210px' : ''
+          }}
+        >
+          {isAuthenticated && open ? 'Sair' : ''}
+          {!isAuthenticated && open ? 'Painel Administrador' : ''}
         </Button>
+
       </div>
       <div className="h-screen flex-1">
         <h1 className="text-2xl font-semibold ">
