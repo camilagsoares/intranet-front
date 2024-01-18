@@ -17,7 +17,9 @@ const App = () => {
 
   return (
     <Router>
+      
     <GlobalStyle />
+
     <AuthContextProvider>
       
       <Routes>
@@ -29,6 +31,7 @@ const App = () => {
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
+
     </AuthContextProvider>
   </Router>
   );
