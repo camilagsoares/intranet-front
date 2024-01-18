@@ -99,7 +99,7 @@ const Header = () => {
         <br />
      
 <Button
-  startIcon={isAuthenticated ? <FiLogOut /> : <RiAdminLine />}
+  startIcon={isAuthenticated ? <FiLogOut style={{ fontSize: '17px' }} /> : <RiAdminLine style={{ fontSize: '17px' }}/>}
   onClick={() => {
     if (isAuthenticated) {
       encerrarSessao();
