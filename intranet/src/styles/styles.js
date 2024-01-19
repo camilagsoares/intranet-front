@@ -5,6 +5,7 @@ import { IoMdSearch } from "react-icons/io";
 export const Container = styled.div`
 position: relative;
 width: 400px; 
+/* margin: 0 auto;  */
 `;
 
 export const ContainerInput = styled.input`
@@ -43,16 +44,17 @@ color: #999;
 
 
 export const AlignContainerCenter = styled.div`
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
 `
 
 export const ContainerLogin = styled.div`
 background: white;
-box-shadow: 0 0.250em 0.375em rgba(50,50,93,.09), 0 0.063em 0.188em rgba(0,0,0,.08);
-border-radius: 4px;
-width: 600px;
-padding: 10px;
+  box-shadow: 0 0.250em 0.375em rgba(50,50,93,.09), 0 0.063em 0.188em rgba(0,0,0,.08);
+  border-radius: 4px;
+  width: 600px; 
+  margin: 0 auto; 
+  padding: 10px;
 `
