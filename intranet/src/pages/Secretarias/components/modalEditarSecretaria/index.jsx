@@ -15,6 +15,8 @@ import Button from '@mui/material/Button';
 
 
 const ModalEditarSecretaria = ({ isOpen, onClose }) => {
+
+    // const { data, loading: loadingTelefones,refetchData  } = useApiRequestGet(`/secretaria/atualizar-secretaria/${selectedItemId}`);
     
     const style = {
         position: 'absolute',
