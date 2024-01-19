@@ -86,6 +86,7 @@ const TableDepartamentos = (props) => {
     };
 
     const { data, loading } = useApiRequestGet('/departamento/listar-departamentos')
+    console.log(data)
 
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
@@ -114,7 +115,10 @@ const TableDepartamentos = (props) => {
         handleDeleteClose,
         modalEditOpen,
         handleEditOpen,
-        handleEditClose } = useModal();
+        handleEditClose,
+        selectedItemId,
+        selectedDeleteId
+    } = useModal();
 
 
 
@@ -213,8 +217,8 @@ const TableDepartamentos = (props) => {
                     </Table>
                 </TableContainer>
 
-                <ModalDeletarDepartamento isOpen={modalDeleteOpen} onClose={handleDeleteClose} />
-                <ModalEditarDepartamento isOpen={modalEditOpen} onClose={handleEditClose} />
+                <ModalDeletarDepartamento isOpen={modalDeleteOpen} onClose={handleDeleteClose} selectedDeleteId={selectedDeleteId} />
+                <ModalEditarDepartamento isOpen={modalEditOpen} onClose={handleEditClose} selectedItemId={selectedItemId}/>
 
                 {filteredData && filteredData.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >

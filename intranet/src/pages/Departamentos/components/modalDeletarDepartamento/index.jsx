@@ -52,7 +52,7 @@ const ModalDeletarDepartamento = ({ isOpen, onClose, selectedDeleteId }) => {
                 });
 
                 reset();
-                // window.location.reload();
+                window.location.reload();
             })
             .catch((error) => {
                 toast(error.message, {
@@ -62,7 +62,7 @@ const ModalDeletarDepartamento = ({ isOpen, onClose, selectedDeleteId }) => {
             .finally(() => {
                 setLoading(false);
             });
-        // console.log("data",data)
+        console.log("data",data)
     };
 
 

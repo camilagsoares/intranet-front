@@ -50,6 +50,8 @@ export const useModal = () => {
     handleDeleteClose,
     modalEditOpen,
     handleEditOpen,
-    handleEditClose
+    handleEditClose,
+    selectedItemId,
+    selectedDeleteId
   };
 };
