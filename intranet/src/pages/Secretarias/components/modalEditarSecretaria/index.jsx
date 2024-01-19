@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -12,12 +12,78 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import { axiosApi, useApiRequestGet } from "../../../../services/api";
+import { toast } from 'react-toastify';
 
 
-const ModalEditarSecretaria = ({ isOpen, onClose }) => {
+const ModalEditarSecretaria = ({ isOpen, onClose, selectedItemId }) => {
 
-    // const { data, loading: loadingTelefones,refetchData  } = useApiRequestGet(`/secretaria/atualizar-secretaria/${selectedItemId}`);
-    
+    const { data, loadingSecretaria, refetchData } = useApiRequestGet(`/secretaria/listar-secretaria/${selectedItemId}`)
+
+
+    const [loading, setLoading] = useState(false);
+    const [nome, setNome] = useState('');
+    const [sigla, setSigla] = useState('');
+
+
+    // console.log(selectedItemId)
+
+
+    useEffect(() => {
+        if (selectedItemId) {
+            refetchData();
+        }
+    }, [selectedItemId]);
+
+    console.log(data)
+
+
+
+      useEffect(() => {
+        if (!loadingSecretaria && data) {
+
+            setNome(data?.nome || '');
+            setSigla(data?.sigla || '');
+
+        }
+    }, [loadingSecretaria, data]);
+
+
+    const editaTelefone = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const data = {
+
+            nome: nome,
+            sigla: sigla,
+
+        };
+
+        axiosApi
+            .put(`/secretaria/atualizar-secretaria/${selectedItemId}`, data)
+            .then(() => {
+                toast('Secretaria atualizado com sucesso', {
+                    type: 'success',
+                    autoClose: 3000,
+                });
+
+                setTimeout(() => {
+                    setLoading(false);
+                    window.location.reload();
+                }, 3000);
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+                setLoading(false);
+            })
+        console.log("oq to mandando", data)
+
+    };
+
+
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -27,7 +93,7 @@ const ModalEditarSecretaria = ({ isOpen, onClose }) => {
         bgcolor: 'background.paper',
         borderRadius: '5px',
         boxShadow: 24,
-      
+
     };
 
 
@@ -50,8 +116,8 @@ const ModalEditarSecretaria = ({ isOpen, onClose }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
-                <Typography
+                <Box component='form' noValidate onSubmit={editaTelefone}>
+                    <Typography
                         sx={{
                             fontSize: {
                                 lg: 18,
@@ -66,29 +132,35 @@ const ModalEditarSecretaria = ({ isOpen, onClose }) => {
                         Editar secretaria
                     </Typography>
 
-                 
+
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
-                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5} paddingLeft={1}>
-                            {/* <Grid item xs={12} sm={12} md={12}>
+                        <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
+                            <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
                                     fullWidth
                                     required
-                                    label='Título'
+                                    label='Nome'
                                     type='text'
-                            
+
                                 />
                             </Grid>
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={sigla}
+                                    onChange={(e) => setSigla(e.target.value)}
                                     fullWidth
                                     required
-                                    label='Valor estimado. Exemplo: 31.000,98'
+                                    label='Sigla'
                                     type='text'
-                             
+
                                 />
-                            </Grid> */}
-Conteudo editar
+                            </Grid>
+
+
+
                         </Grid>
                     </DialogContent>
                     <DialogActions>

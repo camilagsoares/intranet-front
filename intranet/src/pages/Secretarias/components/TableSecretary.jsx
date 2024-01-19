@@ -58,7 +58,8 @@ const TableSecretary = (props) => {
         modalEditOpen,
         handleEditOpen,
         handleEditClose,
-        selectedDeleteId
+        selectedDeleteId,
+        selectedItemId
     } = useModal();
 
 
@@ -165,8 +166,9 @@ const TableSecretary = (props) => {
                 </TableContainer>
 
                 <ModalDeletarSecretaria isOpen={modalDeleteOpen} onClose={handleDeleteClose} selectedDeleteId={selectedDeleteId} />
+
                 <ModalEditarSecretaria 
-                isOpen={modalEditOpen} onClose={handleEditClose} />
+                isOpen={modalEditOpen} onClose={handleEditClose} selectedItemId={selectedItemId} />
 
                 {data && data.length > 0 && (
                     <Box display="flex" justifyContent="end" mt={2} >
