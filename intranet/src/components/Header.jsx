@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import { AuthContext } from '../contexts/auth.context'
 import ExitToApp from '@mui/icons-material/ExitToAppOutlined';
 import Box from '@mui/material/Box';
+import { MdExitToApp } from "react-icons/md";
 
 const Header = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -19,7 +20,7 @@ const Header = () => {
   const { encerrarSessao } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const Menus = [
     { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsTelephone />) },
@@ -95,7 +96,7 @@ const Header = () => {
         <br />
 
         <Button
-          startIcon={isAuthenticated ? <FiLogOut style={{ fontSize: '17px' }} /> : <RiAdminLine style={{ fontSize: '17px' }} />}
+          startIcon={isAuthenticated ? <MdExitToApp style={{ fontSize: '15px', marginLeft: '5px' }} /> : <RiAdminLine style={{ fontSize: '16px' }} />}
           onClick={() => {
             if (isAuthenticated) {
               encerrarSessao();
@@ -109,11 +110,14 @@ const Header = () => {
             color: '#F3F4F7',
             textTransform: 'lowercase',
             paddingRight: !open ? '210px' : '',
+            fontWeight: '300',
+            textAlign: 'center',
           }}
         >
+
           {isAuthenticated && open && 'Sair'}
           {!isAuthenticated && open && 'Painel Administrador'}
-          {/* {isAuthenticated && open ? 'Sair' : 'Painel Administrador'} */}
+
         </Button>
 
       </div>
