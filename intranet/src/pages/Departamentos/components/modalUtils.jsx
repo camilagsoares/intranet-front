@@ -31,7 +31,7 @@ export const useModal = () => {
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   const handleEditOpen = (id) => {
-    console.log("id",id)
+    // console.log("id",id)
     setSelectedItemId(id);
     setModalEditOpen(true);
   }
