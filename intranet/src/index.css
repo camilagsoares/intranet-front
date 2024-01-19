@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.alignButton{
+    padding-left: 8px;
+}

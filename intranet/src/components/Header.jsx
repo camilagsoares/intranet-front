@@ -12,6 +12,7 @@ import { AuthContext } from '../contexts/auth.context'
 import ExitToApp from '@mui/icons-material/ExitToAppOutlined';
 import Box from '@mui/material/Box';
 import { MdExitToApp } from "react-icons/md";
+import '../../src/index.css'
 
 const Header = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -96,7 +97,7 @@ const Header = () => {
         <br />
 
         <Button
-          startIcon={isAuthenticated ? <MdExitToApp style={{ fontSize: '15px', marginLeft: '5px' }} /> : <RiAdminLine style={{ fontSize: '16px' }} />}
+          startIcon={isAuthenticated ? <MdExitToApp style={{ fontSize: '15px', marginLeft: '3px' }} /> : <RiAdminLine style={{ fontSize: '16px' }} />}
           onClick={() => {
             if (isAuthenticated) {
               encerrarSessao();
@@ -114,9 +115,9 @@ const Header = () => {
             textAlign: 'center',
           }}
         >
-
-          {isAuthenticated && open && 'Sair'}
-          {!isAuthenticated && open && 'Painel Administrador'}
+          <span className="alignButton">  {isAuthenticated && open && 'Sair'}
+            {!isAuthenticated && open && 'Painel Administrador'}
+          </span>
 
         </Button>
 
