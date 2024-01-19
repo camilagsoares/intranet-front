@@ -72,7 +72,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
             .finally(() => {
                 setLoading(false);
             });
-        console.log("Oq estou enviando", data)
+      
     };
 
 
@@ -100,7 +100,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
     const { data: listarCargos, loading: loadingListarCargos } = useApiRequestGet('/cargo/listar-cargos');
     const { data: listarDptos, loading: loadingListarDptos } = useApiRequestGet('/departamento/listar-departamentos');
-    console.log(listarDptos)
+
 
     return (
         <Modal

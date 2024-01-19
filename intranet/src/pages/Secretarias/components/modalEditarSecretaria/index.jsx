@@ -35,7 +35,7 @@ const ModalEditarSecretaria = ({ isOpen, onClose, selectedItemId }) => {
         }
     }, [selectedItemId]);
 
-    console.log(data)
+   
 
 
 
@@ -78,7 +78,7 @@ const ModalEditarSecretaria = ({ isOpen, onClose, selectedItemId }) => {
                 });
                 setLoading(false);
             })
-        console.log("oq to mandando", data)
+      
 
     };
 

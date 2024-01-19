@@ -38,7 +38,7 @@ const ModalEditarDepartamento = ({ isOpen, onClose, selectedItemId }) => {
         }
     }, [selectedItemId]);
 
-    console.log(data)
+   
 
 
 
@@ -82,7 +82,7 @@ const ModalEditarDepartamento = ({ isOpen, onClose, selectedItemId }) => {
                 });
                 setLoading(false);
             })
-        console.log("oq to mandando", data)
+    
 
     };
 

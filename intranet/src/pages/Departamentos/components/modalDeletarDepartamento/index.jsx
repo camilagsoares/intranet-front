@@ -62,7 +62,7 @@ const ModalDeletarDepartamento = ({ isOpen, onClose, selectedDeleteId }) => {
             .finally(() => {
                 setLoading(false);
             });
-        console.log("data",data)
+     
     };
 
 
