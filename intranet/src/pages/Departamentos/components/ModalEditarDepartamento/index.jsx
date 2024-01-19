@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -12,9 +12,81 @@ import Save from '@mui/icons-material/SaveAltOutlined';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import { useApiRequestGet, axiosApi } from "../../../../services/api";
+import { toast } from 'react-toastify';
 
 
-const ModalEditarDepartamento = ({ isOpen, onClose }) => {
+const ModalEditarDepartamento = ({ isOpen, onClose, selectedItemId }) => {
+
+
+    const [loading, setLoading] = useState(false);
+    const [nome, setNome] = useState('');
+    const [secretariaId, setSecretariaId] = useState('');
+    const [cargoId, setCargoId] = useState('');
+    // const [secretaria, setSecretaria] = useState('');
+    // const [departamentoId, setDepartamentoId] = useState('');
+    // const [situacao, setSituacao] = useState('');
+
+    // console.log(selectedItemId)
+
+    const { data, loadingDpto, refetchData } = useApiRequestGet(`/departamento/listar-departamentos/${selectedItemId}`)
+
+
+    useEffect(() => {
+        if (selectedItemId) {
+            refetchData();
+        }
+    }, [selectedItemId]);
+
+    console.log(data)
+
+
+
+    useEffect(() => {
+        if (!loadingDpto && data) {
+            setNome(data?.nome || '');
+            setSecretariaId(data?.secretariaId || '');
+
+        }
+    }, [loadingDpto, data]);
+
+
+    const editaTelefone = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const data = {
+            nome: nome,
+            // cargoId: parseInt(cargoId, 10),
+            // secretaria: secretaria,
+            // observacao: observacao,
+            secretariaId: parseInt(secretariaId, 10),
+            // situacao: situacao,
+        };
+
+        axiosApi
+            .put(`/departamento/atualizar-departamento/${selectedItemId}`, data)
+            .then(() => {
+                toast('Departamento atualizado com sucesso', {
+                    type: 'success',
+                    autoClose: 3000,
+                });
+
+                setTimeout(() => {
+                    setLoading(false);
+                    window.location.reload();
+                }, 3000);
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+                setLoading(false);
+            })
+        console.log("oq to mandando", data)
+
+    };
+
+
 
     const style = {
         position: 'absolute',
@@ -25,7 +97,7 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
         bgcolor: 'background.paper',
         borderRadius: '5px',
         boxShadow: 24,
-     
+
     };
 
 
@@ -38,8 +110,8 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
-                <Typography
+                <Box component='form' noValidate onSubmit={editaTelefone}>
+                    <Typography
                         sx={{
                             fontSize: {
                                 lg: 18,
@@ -52,37 +124,34 @@ const ModalEditarDepartamento = ({ isOpen, onClose }) => {
                         }}
                     >Editar dpto
                     </Typography>
-                 
+
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label='Id'
-                                    type='text'
 
-                                />
-                            </Grid>
 
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
                                     fullWidth
                                     required
-                                    label='Departamento'
+                                    label='Nome'
                                     type='text'
 
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
+                                    value={secretariaId}
+                                    onChange={(e) => setSecretariaId(e.target.value)}
                                     fullWidth
                                     required
-                                    label='Secretaria'
+                                    label='Cargo'
                                     type='text'
 
                                 />
                             </Grid>
+
                         </Grid>
                     </DialogContent>
                     <DialogActions>
