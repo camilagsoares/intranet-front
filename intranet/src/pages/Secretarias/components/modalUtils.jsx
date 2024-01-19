@@ -13,7 +13,7 @@ export const useModal = () => {
 
   // MODAL DELETAR TELEFONE
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
-  const [selectedDeleteId,setSelectedDeleteId ] = useState(null);
+  const [selectedDeleteId, setSelectedDeleteId] = useState(null);
 
   const handleDeleteOpen = (id) => {
     setSelectedDeleteId(id)
@@ -50,6 +50,7 @@ export const useModal = () => {
     modalEditOpen,
     handleEditOpen,
     handleEditClose,
-    selectedDeleteId
+    selectedDeleteId, selectedItemId,
+    setSelectedItemId
   };
 };
