@@ -36,8 +36,7 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
         }
       }, [selectedItemId]);
       
-      console.log(data)
-
+     
 
 
       useEffect(() => {
@@ -84,7 +83,6 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
                 });
                 setLoading(false);
             })
-            console.log("oq to mandando",data)
 
     };
 

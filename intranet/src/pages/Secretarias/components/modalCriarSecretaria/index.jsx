@@ -43,8 +43,6 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
     const { errors } = formState;
 
     const handleCriarTelefone = (data) => {
-
-
         setLoading(true);
         axiosApi
             .post('/secretaria/criar-secretaria', data)
@@ -64,7 +62,6 @@ const ModalCriarSecretaria = ({ isOpen, onClose }) => {
             .finally(() => {
                 setLoading(false);
             });
-            console.log("oq to enviando",data)
     };
 
 

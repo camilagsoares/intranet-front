@@ -86,7 +86,7 @@ const TableDepartamentos = (props) => {
     };
 
     const { data, loading } = useApiRequestGet('/departamento/listar-departamentos')
-    console.log(data)
+   
 
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
