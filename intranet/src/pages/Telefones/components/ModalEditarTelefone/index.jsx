@@ -13,78 +13,80 @@ import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { axiosApi, useApiRequestGet } from "../../../../services/api";
+import { toast } from 'react-toastify';
 
 
 const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
 
     const [loading, setLoading] = useState(false);
     const [numero, setNumero] = useState('');
-    const [cargo, setCargo] = useState('');
+    const [cargoId, setCargoId] = useState('');
     const [nome, setNome] = useState('');
-    const [secretaria, setSecretaria] = useState('');
-    const [departamento, setDepartamento] = useState('');
+    // const [secretaria, setSecretaria] = useState('');
+    const [departamentoId, setDepartamentoId] = useState('');
     const [situacao, setSituacao] = useState('');
 
+// console.log(selectedItemId)
+ 
+    const { data, loading: loadingTelefones,refetchData  } = useApiRequestGet(`/telefone/listar-telefone/${selectedItemId}`);
 
-    const { data: dataTelefone, loading: loadingTelefones } = useApiRequestGet(`/telefone/listar-telefone/${selectedItemId}`);
-
-    // const { data, loading: loadingTelefones } = useApiRequestGet(`/telefone/listar-telefones/${selectedItemId}`);
-    // const { data: dataTelefone, loading: loadingTelefones } = useApiRequestGet(
-    //     selectedItemId ? `/telefone/listar-telefone/${selectedItemId}` : null
-    //   );
+    useEffect(() => {
+        if (selectedItemId) {
+          refetchData();
+        }
+      }, [selectedItemId]);
       
-
-
-    // console.log(dataTelefone)
-    // console.log(selectedItemId)
+      console.log(data)
 
 
 
-    // useEffect(() => {
-    //     if (!loadingTelefones && dataTelefone) {
-    //         setNumero(dataTelefone.numero);
-    //         setNome(dataTelefone.nome);
-    //         setCargo(dataTelefone.cargo.nome)
-    //         setSecretaria(dataTelefone.secretaria);
-    //         setDepartamento(dataTelefone.departamento.nome);
-    //         setSituacao(dataTelefone.situacao);
-    //     }
-    // }, [loadingTelefones, dataTelefone]);
+      useEffect(() => {
+        if (!loadingTelefones && data) {
+            setNumero(data?.numero || '');
+            setNome(data?.nome || '');
+            setCargoId(data?.cargoId || '');
+            // setSecretaria(data?.departamento.secretaria.nome || '');
+            setDepartamentoId(data?.departamentoId || '');
+            setSituacao(data?.situacao || '');
+        }
+    }, [loadingTelefones, data]);
+    
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     const data = {
-    //         numero: numero,
-    //         nome: nome,
-    //         cargo: cargo,
-    //         secretaria: secretaria,
-    //         observacao: observacao,
-    //         departamento: departamento,
-    //         situacao: situacao,
-    //     };
+    const editaTelefone = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const data = {
+            numero: numero,
+            nome: nome,
+            cargoId:  parseInt(cargoId,10),
+            // secretaria: secretaria,
+            // observacao: observacao,
+            departamentoId: parseInt(departamentoId,10),
+            situacao: situacao,
+        };
 
-    //     axiosApi
-    //         .put(`/telefone/atualizar-telefone/${selectedItemId}`, data)
-    //         .then(() => {
-    //             toast('Telefone atualizado com sucesso', {
-    //                 type: 'success',
-    //                 autoClose: 3000,
-    //             });
+        axiosApi
+            .put(`/telefone/atualizar-telefone/${selectedItemId}`, data)
+            .then(() => {
+                toast('Telefone atualizado com sucesso', {
+                    type: 'success',
+                    autoClose: 3000,
+                });
 
-    //             setTimeout(() => {
-    //                 setLoading(false);
-    //                 window.location.reload();
-    //             }, 3000);
-    //         })
-    //         .catch((error) => {
-    //             toast(error.message, {
-    //                 type: 'error',
-    //             });
-    //             setLoading(false);
-    //         });
+                setTimeout(() => {
+                    setLoading(false);
+                    window.location.reload();
+                }, 3000);
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                });
+                setLoading(false);
+            })
+            console.log("oq to mandando",data)
 
-    // };
+    };
 
 
 
@@ -119,7 +121,7 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate>
+                <Box component='form' noValidate  onSubmit={editaTelefone}>
 
 
                 <Typography
@@ -164,8 +166,8 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    value={cargo}
-                                    onChange={(e) => setCargo(e.target.value)}
+                                    value={cargoId}
+                                    onChange={(e) => setCargoId(e.target.value)}
                                     fullWidth
                                     required
                                     label='Cargo'
@@ -173,21 +175,11 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
 
                                 />
                             </Grid>
+                         
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
-                                    value={secretaria}
-                                    onChange={(e) => setSecretaria(e.target.value)}
-                                    fullWidth
-                                    required
-                                    label='Secretaria'
-                                    type='text'
-
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    value={departamento}
-                                    onChange={(e) => setDepartamento(e.target.value)}
+                                    value={departamentoId}
+                                    onChange={(e) => setDepartamentoId(e.target.value)}
                                     fullWidth
                                     required
                                     label='Departamento'
