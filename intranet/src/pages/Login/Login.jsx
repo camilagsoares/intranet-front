@@ -1,30 +1,15 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme } from '@mui/material/styles';
 import { ContainerLogin, AlignContainerCenter } from "../../styles/styles"
 import { useApiLogin } from '../../services/api';
-import * as yup from 'yup';
-import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import * as imports from "../../imports/utils"
 import { AuthContext } from '../../contexts/auth.context';
-import { yupResolver } from '@hookform/resolvers/yup';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useState } from "react";
+import * as yup from 'yup';
 
-const defaultTheme = createTheme();
+
+const defaultTheme = imports.createTheme();
 
 export default function Login() {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = imports.useState(true);
 
 
   const schema = yup
@@ -34,13 +19,13 @@ export default function Login() {
     })
     .required();
 
-  const navigate = useNavigate();
+  const navigate = imports.useNavigate();
 
-  const { token, criarSessao } = useContext(AuthContext);
+  const { token, criarSessao } = imports.useContext(AuthContext);
 
 
-  const { register, handleSubmit, formState, reset } = useForm({
-    resolver: yupResolver(schema),
+  const { register, handleSubmit, formState, reset } = imports.useForm({
+    resolver: imports.yupResolver(schema),
     defaultValues: {
       nome: '',
       senha: '',
@@ -56,7 +41,7 @@ export default function Login() {
     handlerSubmitLogin(data);
   };
 
-  useEffect(() => {
+  imports.useEffect(() => {
     if (token) {
       navigate('/');
     };
@@ -64,7 +49,7 @@ export default function Login() {
 
   }, []);
 
-  useEffect(() => {
+  imports.useEffect(() => {
     if (loginData) {
       criarSessao(loginData);
       reset();
@@ -72,7 +57,7 @@ export default function Login() {
     }
   }, [loginData]);
 
-  useEffect(() => { });
+  imports.useEffect(() => { });
 
   return (
   
@@ -80,7 +65,7 @@ export default function Login() {
         <h1 className="text-2xl font-semibold ">
           <AlignContainerCenter>
               <ContainerLogin>
-                <Box
+                <imports.Box
                   sx={{
                     // marginTop: '50%',
                     display: 'flex',
@@ -88,14 +73,14 @@ export default function Login() {
                     alignItems: 'center',
                   }}
                 >
-                  <Avatar sx={{ m: 1, bgcolor: '#367EEB' }}>
-                    <LockOutlinedIcon />
-                  </Avatar>
-                  <Typography component="h1" variant="h5">
+                  <imports.Avatar sx={{ m: 1, bgcolor: '#367EEB' }}>
+                    <imports.LockOutlinedIcon />
+                  </imports.Avatar>
+                  <imports.Typography component="h1" variant="h5">
                     Acesso Administrador
-                  </Typography>
-                  <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(handleEfetuarLogin)}>
-                    <TextField
+                  </imports.Typography>
+                  <imports.Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(handleEfetuarLogin)}>
+                    <imports.TextField
                       {...register('nome')}
                       disabled={loading}
                       required
@@ -108,7 +93,7 @@ export default function Login() {
                       error={!!errors.nome}
                       helperText={errors.nome?.message}
                     />
-                    <TextField
+                    <imports.TextField
                       {...register('senha')}
                       disabled={loading}
                       fullWidth
@@ -120,7 +105,7 @@ export default function Login() {
                       error={!!errors.senha}
                       helperText={errors.senha?.message}
                     />
-                    <Button
+                    <imports.Button
                       disabled={loading}
                       type="submit"
                       fullWidth
@@ -129,10 +114,10 @@ export default function Login() {
                     >
                       {!loading ? 'Entrar' : <CircularProgress color='success' size={26} />}
 
-                    </Button>
+                    </imports.Button>
 
-                  </Box>
-                </Box>
+                  </imports.Box>
+                </imports.Box>
               </ContainerLogin>
           </AlignContainerCenter>
         </h1>
