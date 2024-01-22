@@ -4,7 +4,7 @@ import ModalCriarTelefone from './ModalCriarTelefone/index';
 import ModalDeletarTelefone from './ModalDeletarTelefone/index';
 import ModalEditarTelefone from './ModalEditarTelefone/index';
 import { useModal } from '../modalUtils';
-import * as imports from "../utils";
+import * as imports from "../../../imports/utils";
 
 const TableTelephones = (props) => {
 
