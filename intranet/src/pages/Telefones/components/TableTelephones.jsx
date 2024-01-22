@@ -1,5 +1,4 @@
 import { useApiRequestGet } from "../../../services/api"
-import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
 import ModalCriarTelefone from './ModalCriarTelefone/index';
 import ModalDeletarTelefone from './ModalDeletarTelefone/index';
@@ -84,114 +83,114 @@ const TableTelephones = (props) => {
                 <imports.TableContainer component={imports.Paper}>
                     <imports.Table sx={{ minWidth: 700 }} aria-label='customized table' >
                         <imports.TableHead className='borda-azul'>
-                            <StyledTableRow>
-                                <StyledTableCell align='left' width={112}>
+                            <imports.StyledTableRow>
+                                <imports.StyledTableCell align='left' width={112}>
                                     Número
-                                </StyledTableCell>
+                                </imports.StyledTableCell>
 
 
-                                <StyledTableCell width={192}>Nome</StyledTableCell>
+                                <imports.StyledTableCell width={192}>Nome</imports.StyledTableCell>
 
-                                <StyledTableCell align='left' width={200}>
+                                <imports.StyledTableCell align='left' width={200}>
                                     Cargo
-                                </StyledTableCell>
+                                </imports.StyledTableCell>
 
-                                <StyledTableCell align='left' width={200}>
+                                <imports.StyledTableCell align='left' width={200}>
                                     Secretaria
-                                </StyledTableCell>
+                                </imports.StyledTableCell>
 
-                                <StyledTableCell align='left' width={112}>
+                                <imports.StyledTableCell align='left' width={112}>
                                     Departamento
-                                </StyledTableCell>
+                                </imports.StyledTableCell>
 
 
 
-                                <StyledTableCell align='left' width={112}>
+                                <imports.StyledTableCell align='left' width={112}>
                                     Situação
-                                </StyledTableCell>
+                                </imports.StyledTableCell>
                                 {
                                     isAuthenticated && (
-                                        <StyledTableCell align='left' width={30}>
+                                        <imports.StyledTableCell align='left' width={30}>
                                             Editar
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
                                     )
                                 }
 
                                 {
                                     isAuthenticated && (
-                                        <StyledTableCell align='left' width={30}>
+                                        <imports.StyledTableCell align='left' width={30}>
                                             Deletar
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
                                     )
                                 }
-                            </StyledTableRow>
+                            </imports.StyledTableRow>
                         </imports.TableHead>
 
                         <imports.TableBody>
                             {dadosFiltrados && dadosFiltrados.length ? (
                                 dadosFiltrados?.slice(pagesVisited, pagesVisited + projectsPerPage).map((number) => (
-                                    <StyledTableRow key={number?.id}>
+                                    <imports.StyledTableRow key={number?.id}>
 
-                                        <StyledTableCell align="left" >
+                                        <imports.StyledTableCell align="left" >
                                             {number.numero}
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
 
-                                        <StyledTableCell align="left" >
+                                        <imports.StyledTableCell align="left" >
                                             {number.nome}
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
 
-                                        <StyledTableCell align="left" >
+                                        <imports.StyledTableCell align="left" >
                                             {number.cargo.nome}
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
 
-                                        <StyledTableCell align="left" >
+                                        <imports.StyledTableCell align="left" >
                                             {number.departamento.secretaria.nome}
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
 
-                                        <StyledTableCell align="left" >
+                                        <imports.StyledTableCell align="left" >
                                             {number.departamento.nome}
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
 
 
-                                        <StyledTableCell align="left" >
+                                        <imports.StyledTableCell align="left" >
                                             {number.situacao}
-                                        </StyledTableCell>
+                                        </imports.StyledTableCell>
 
                                         {
                                             isAuthenticated && (
-                                                <StyledTableCell align="left">
+                                                <imports.StyledTableCell align="left">
                                                     <imports.Tooltip title="Editar" arrow>
                                                         <imports.Button  onClick={() => number?.id && handleEditOpen(number.id)}>
                                                             <imports.MdOutlineEdit size={18} color='#68739C' />
                                                         </imports.Button>
                                                     </imports.Tooltip>
-                                                </StyledTableCell>
+                                                </imports.StyledTableCell>
                                             )
                                         }
 
                                         {
                                             isAuthenticated && (
-                                                <StyledTableCell align="left" >
+                                                <imports.StyledTableCell align="left" >
                                                     <imports.Tooltip title='Deletar' arrow>
                                                         <imports.Button onClick={() => handleDeleteOpen(number?.id)}>
                                                             <imports.MdOutlineClose size={18} color='#68739C' />
 
                                                         </imports.Button>
                                                     </imports.Tooltip>
-                                                </StyledTableCell>
+                                                </imports.StyledTableCell>
                                             )
                                         }
 
-                                    </StyledTableRow>
+                                    </imports.StyledTableRow>
                                 ))
                             ) : (
-                                <StyledTableRow >
-                                    <StyledTableCell colSpan={7}>
+                                <imports.StyledTableRow >
+                                    <imports.StyledTableCell colSpan={7}>
 
                                         Nenhum resultado encontrado.
 
-                                    </StyledTableCell>
-                                </StyledTableRow>
+                                    </imports.StyledTableCell>
+                                </imports.StyledTableRow>
                             )}
                         </imports.TableBody>
                     </imports.Table>
