@@ -1,15 +1,11 @@
-import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
 import { Container } from './styles';
-
+import * as imports from "../../imports/utils";
 
 
 const Error = () => {
 
     return (
-        <Box
+        <imports.Box
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -18,23 +14,23 @@ const Error = () => {
             }}
         >
             <Container >
-                <Grid container >
-                    <Grid>
-                        <Typography variant="h1">
+                <imports.Grid container >
+                    <imports.Grid>
+                        <imports.Typography variant="h1">
                             404
-                        </Typography>
-                        <Typography variant="h6">
+                        </imports.Typography>
+                        <imports.Typography variant="h6">
                             A página que você procura não existe.
-                        </Typography>
+                        </imports.Typography>
 
-                        <Link to="/">
-                            <Button variant="contained">Voltar para o início</Button>
-                        </Link>
+                        <imports.Link to="/">
+                            <imports.Button variant="contained">Voltar para o início</imports.Button>
+                        </imports.Link>
 
-                    </Grid>
-                </Grid>
+                    </imports.Grid>
+                </imports.Grid>
             </Container>
-        </Box>
+        </imports.Box>
     )
 }
 

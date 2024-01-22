@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link } from 'react-router-dom';
 
 export {
     FormControlLabel,
@@ -59,7 +60,8 @@ export {
     useEffect,
     React,
     createTheme,
-    Avatar
+    Avatar,
+    Link
 }
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
