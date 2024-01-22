@@ -10,10 +10,10 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
             palette.info.dark,
         color: theme.palette.primary.contrastText,
     },
+
     [`&.${tableCellClasses.body}`]: {
         fontSize: 14,
     },
-
 }));
 
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
