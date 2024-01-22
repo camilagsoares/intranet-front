@@ -33,7 +33,7 @@ export {
     MdOutlineEdit,
     useState,
     useEffect,
-    React 
+    React
 }
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
