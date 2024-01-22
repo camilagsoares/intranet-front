@@ -32,9 +32,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Link } from 'react-router-dom';
 import { useApiRequestGet } from "../services/api";
 import { MdOutlineModeEditOutline } from "react-icons/md";
-
+import Stack from '@mui/material/Stack';
 
 export {
+    Stack,
     FormControlLabel,
     CircularProgress,
     yup,
