@@ -1,30 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import { useApiRequestGet } from "../../../services/api"
 import { TableRowsLoaderSkeleton, StyledTableCell, StyledTableRow } from "../utils"
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
-import Grid from '@mui/material/Grid';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
-import { MdOutlineClose } from "react-icons/md";
-import { MdOutlineEdit } from "react-icons/md";
-import Pagination from '@mui/material/Pagination';
 import ModalCriarTelefone from './ModalCriarTelefone/index';
 import ModalDeletarTelefone from './ModalDeletarTelefone/index';
 import ModalEditarTelefone from './ModalEditarTelefone/index';
-import Tooltip from '@mui/material/Tooltip';
 import { useModal } from '../modalUtils';
+import * as imports from "../utils";
 
 const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
 
-    const [pageNumber, setPageNumber] = useState(0);
+    const [pageNumber, setPageNumber] = imports.useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
 
@@ -32,11 +19,11 @@ const TableTelephones = (props) => {
         setPageNumber(selected);
     };
 
-    useEffect(() => {
+    imports.useEffect(() => {
         setPageNumber(0);
     }, [data]);
 
-    const [searchText, setSearchText] = useState('')
+    const [searchText, setSearchText] = imports.useState('')
 
     const dadosFiltrados = data && data.filter((number) => {
         const textoFiltrado = `${number.numero} ${number.nome} ${number.cargo.nome} ${number.departamento.secretaria.nome} ${number.departamento.nome} ${number.situacao}`
@@ -45,7 +32,7 @@ const TableTelephones = (props) => {
     })
 
     //
-    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [token, setToken] = imports.useState(localStorage.getItem('token'));
 
     const isAuthenticated = !!token;
 
@@ -68,11 +55,11 @@ const TableTelephones = (props) => {
 
 
     return (
-        <React.Fragment>
-            <Box marginY={1} paddingY={2}>
+        <imports.React.Fragment>
+            <imports.Box marginY={1} paddingY={2}>
 
 
-                <Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <imports.Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
                         <SearchIcon />
                         <ContainerInput
@@ -83,20 +70,20 @@ const TableTelephones = (props) => {
                         />
                     </Container>
 
-                    <Grid container justifyContent="flex-end">
+                    <imports.Grid container justifyContent="flex-end">
                         {
                             isAuthenticated && (
-                                <Button onClick={handleOpen} variant='outlined' startIcon={<AddIcon />}>Criar telefone</Button>
+                                <imports.Button onClick={handleOpen} variant='outlined' startIcon={<imports.AddIcon />}>Criar telefone</imports.Button>
                             )
                         }
                         <ModalCriarTelefone isOpen={modalOpen} onClose={handleClose} data={data} />
-                    </Grid>
-                </Box>
+                    </imports.Grid>
+                </imports.Box>
 
 
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label='customized table' >
-                        <TableHead className='borda-azul'>
+                <imports.TableContainer component={imports.Paper}>
+                    <imports.Table sx={{ minWidth: 700 }} aria-label='customized table' >
+                        <imports.TableHead className='borda-azul'>
                             <StyledTableRow>
                                 <StyledTableCell align='left' width={112}>
                                     Número
@@ -138,9 +125,9 @@ const TableTelephones = (props) => {
                                     )
                                 }
                             </StyledTableRow>
-                        </TableHead>
+                        </imports.TableHead>
 
-                        <TableBody>
+                        <imports.TableBody>
                             {dadosFiltrados && dadosFiltrados.length ? (
                                 dadosFiltrados?.slice(pagesVisited, pagesVisited + projectsPerPage).map((number) => (
                                     <StyledTableRow key={number?.id}>
@@ -173,11 +160,11 @@ const TableTelephones = (props) => {
                                         {
                                             isAuthenticated && (
                                                 <StyledTableCell align="left">
-                                                    <Tooltip title="Editar" arrow>
-                                                        <Button  onClick={() => number?.id && handleEditOpen(number.id)}>
-                                                            <MdOutlineEdit size={18} color='#68739C' />
-                                                        </Button>
-                                                    </Tooltip>
+                                                    <imports.Tooltip title="Editar" arrow>
+                                                        <imports.Button  onClick={() => number?.id && handleEditOpen(number.id)}>
+                                                            <imports.MdOutlineEdit size={18} color='#68739C' />
+                                                        </imports.Button>
+                                                    </imports.Tooltip>
                                                 </StyledTableCell>
                                             )
                                         }
@@ -185,12 +172,12 @@ const TableTelephones = (props) => {
                                         {
                                             isAuthenticated && (
                                                 <StyledTableCell align="left" >
-                                                    <Tooltip title='Deletar' arrow>
-                                                        <Button onClick={() => handleDeleteOpen(number?.id)}>
-                                                            <MdOutlineClose size={18} color='#68739C' />
+                                                    <imports.Tooltip title='Deletar' arrow>
+                                                        <imports.Button onClick={() => handleDeleteOpen(number?.id)}>
+                                                            <imports.MdOutlineClose size={18} color='#68739C' />
 
-                                                        </Button>
-                                                    </Tooltip>
+                                                        </imports.Button>
+                                                    </imports.Tooltip>
                                                 </StyledTableCell>
                                             )
                                         }
@@ -206,16 +193,16 @@ const TableTelephones = (props) => {
                                     </StyledTableCell>
                                 </StyledTableRow>
                             )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                        </imports.TableBody>
+                    </imports.Table>
+                </imports.TableContainer>
 
                 <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data}  selectedDeleteId={selectedDeleteId}/>
                 <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data}  selectedItemId={selectedItemId}/>
 
                 {dadosFiltrados && dadosFiltrados.length > 0 && (
-                    <Box display="flex" justifyContent="end" mt={2} >
-                        <Pagination
+                    <imports.Box display="flex" justifyContent="end" mt={2} >
+                        <imports.Pagination
                             color="primary"
                             count={Math.ceil(dadosFiltrados?.length / projectsPerPage)}
                             page={pageNumber + 1}
@@ -225,10 +212,10 @@ const TableTelephones = (props) => {
                             variant="outlined"
                             shape="rounded"
                         />
-                    </Box>
+                    </imports.Box>
                 )}
-            </Box>
-        </React.Fragment>
+            </imports.Box>
+        </imports.React.Fragment>
     );
 };
 
