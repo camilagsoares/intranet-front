@@ -112,7 +112,7 @@ export default function Login() {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      {!loading ? 'Entrar' : <CircularProgress color='success' size={26} />}
+                      {!loading ? 'Entrar' : <imports.CircularProgress color='success' size={26} />}
 
                     </imports.Button>
 
