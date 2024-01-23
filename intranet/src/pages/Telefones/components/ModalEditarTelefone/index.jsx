@@ -83,7 +83,6 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
                 });
                 setLoading(false);
             })
-
     };
 
 
