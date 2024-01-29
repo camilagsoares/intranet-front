@@ -35,7 +35,6 @@ const TableTelephones = (props) => {
 
     const isAuthenticated = !!token;
 
-
     const { modalOpen,
         handleOpen,
         handleClose,
