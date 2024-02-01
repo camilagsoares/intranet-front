@@ -58,7 +58,7 @@ const TableDepartamentos = (props) => {
             <imports.Box marginY={1} paddingY={2}>
                 <imports.Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <imports.Container>
-                        <SearchIcon />
+                    
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."

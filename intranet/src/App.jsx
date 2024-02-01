@@ -11,7 +11,7 @@ import Layout from "./components/Layout";
 import Error from './pages/Error/Error.jsx'
 import { GlobalStyle } from "./styles/global";
 import './index.css'
-
+import Cargos from './pages/Cargos/Cargos.jsx'
 
 const App = () => {
 
@@ -28,6 +28,7 @@ const App = () => {
           <Route path="/departamentos" element={<Departamentos />} />
           <Route path="/secretarias" element={<Secretarias />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cargos" element={<Cargos />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
