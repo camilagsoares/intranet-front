@@ -12,7 +12,6 @@ import Error from './pages/Error/Error.jsx'
 import { GlobalStyle } from "./styles/global";
 import './index.css'
 
-
 const App = () => {
 
   return (
