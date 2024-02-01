@@ -59,7 +59,7 @@ const TableTelephones = (props) => {
 
                 <imports.Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
-                        <SearchIcon />
+                   
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."

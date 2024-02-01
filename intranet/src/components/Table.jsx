@@ -105,7 +105,7 @@ const TableT = (props) => {
 
                 <Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
-                        <SearchIcon />
+
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."
@@ -175,7 +175,7 @@ const TableT = (props) => {
                                         </StyledTableCell>
                                         <StyledTableCell align="left" >
                                             <Button>
-                                                <MdOutlineClose size={18} color='#68739C'/>
+                                                <MdOutlineClose size={18} color='#68739C' />
 
                                             </Button>
                                         </StyledTableCell>

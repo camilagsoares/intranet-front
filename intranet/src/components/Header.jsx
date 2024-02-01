@@ -13,6 +13,8 @@ import ExitToApp from '@mui/icons-material/ExitToAppOutlined';
 import Box from '@mui/material/Box';
 import { MdExitToApp } from "react-icons/md";
 import '../../src/index.css'
+import { MdWorkOutline } from "react-icons/md";
+
 
 const Header = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -27,6 +29,8 @@ const Header = () => {
     { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsTelephone />) },
     { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos", icon: (<BiFolderMinus />) },
     { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias", icon: (<BiSpreadsheet />) },
+    { id: 3, title: "Cargos", src: "User", gap: true, link: "/cargos", icon: (<MdWorkOutline />) },
+
     // { id: 5, title: isAuthenticated ? 'Sair' : "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: isAuthenticated ? (<FiLogOut />) : (<RiAdminLine />) }
   ];
 
