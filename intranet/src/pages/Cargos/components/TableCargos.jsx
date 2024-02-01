@@ -1,14 +1,14 @@
 
 import { ContainerInput, Container, SearchIcon } from "../../../styles/styles"
-import ModalCriarDepartamento from './modalCriarDepartamento';
-import ModalEditarDepartamento from './ModalEditarDepartamento';
-import ModalDeletarDepartamento from './ModalDeletarDepartamento';
+import ModalCriarCargo from './modalCriarCargo/index';
+import ModalEditarCargo from './ModalEditarCargo';
+import ModalDeletarCargo from './modalDeletarCargo';
 import { useModal } from '../components/modalUtils';
 import * as imports from '../../../imports/utils';
 import { StyledTableCell,StyledTableRow } from '../../../imports/utils';
 
 
-const TableDepartamentos = (props) => {
+const TableCargos = (props) => {
 
     const [open, setOpen] = imports.useState(false);
 
@@ -16,7 +16,7 @@ const TableDepartamentos = (props) => {
     const [searchText, setSearchText] = imports.useState('');
 
 
-    const { data, loading } = imports.useApiRequestGet('/departamento/listar-departamentos')
+    const { data, loading } = imports.useApiRequestGet('/cargo/listar-cargos')
    
 
     const projectsPerPage = 6;
@@ -58,7 +58,7 @@ const TableDepartamentos = (props) => {
             <imports.Box marginY={1} paddingY={2}>
                 <imports.Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
-                    
+                  
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."
@@ -68,8 +68,8 @@ const TableDepartamentos = (props) => {
                     </Container>
 
                     <imports.Grid container justifyContent="flex-end">
-                        <imports.Button onClick={handleOpen} variant='outlined' startIcon={<imports.AddIcon />}>Criar departamento</imports.Button>
-                        <ModalCriarDepartamento isOpen={modalOpen} onClose={handleClose} />
+                        <imports.Button onClick={handleOpen} variant='outlined' startIcon={<imports.AddIcon />}>Criar cargo</imports.Button>
+                        <ModalCriarCargo isOpen={modalOpen} onClose={handleClose} />
                     </imports.Grid>
                 </imports.Box>
 
@@ -81,9 +81,8 @@ const TableDepartamentos = (props) => {
                                     Id
                                 </imports.StyledTableCell>
 
-                                <imports.StyledTableCell width={300}>Departamento</imports.StyledTableCell>
+                                <imports.StyledTableCell width={300}>Nome</imports.StyledTableCell>
 
-                                <imports.StyledTableCell width={300}>Secretaria</imports.StyledTableCell>
 
                                 <imports.StyledTableCell align='left' width={20}>
                                     Editar
@@ -105,10 +104,6 @@ const TableDepartamentos = (props) => {
 
                                         <imports.StyledTableCell align="left" >
                                             {number?.nome}
-                                        </imports.StyledTableCell>
-
-                                        <imports.StyledTableCell align="left" >
-                                            {number?.secretaria.nome}
                                         </imports.StyledTableCell>
 
 
@@ -148,8 +143,8 @@ const TableDepartamentos = (props) => {
                     </imports.Table>
                 </imports.TableContainer>
 
-                <ModalDeletarDepartamento isOpen={modalDeleteOpen} onClose={handleDeleteClose} selectedDeleteId={selectedDeleteId} />
-                <ModalEditarDepartamento isOpen={modalEditOpen} onClose={handleEditClose} selectedItemId={selectedItemId}/>
+                <ModalDeletarCargo isOpen={modalDeleteOpen} onClose={handleDeleteClose} selectedDeleteId={selectedDeleteId} />
+                <ModalEditarCargo isOpen={modalEditOpen} onClose={handleEditClose} selectedItemId={selectedItemId}/>
 
                 {filteredData && filteredData.length > 0 && (
                     <imports.Box display="flex" justifyContent="end" mt={2} >
@@ -172,4 +167,4 @@ const TableDepartamentos = (props) => {
 
 
 
-export default TableDepartamentos;
+export default TableCargos;
