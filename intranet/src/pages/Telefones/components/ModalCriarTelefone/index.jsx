@@ -90,38 +90,11 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
     };
 
 
-    /*
-{
-    "id": 1,
-    "nome": "Administração",
-    "criadoEm": "2024-01-05T12:29:59.500Z",
-    "atualizadoEm": "2024-01-05T12:29:59.500Z",
-    "situacao": "ATIVADO",
-    "secretariaId": 6
-} */
+
 
     const { data: listarCargos, loading: loadingListarCargos } = useApiRequestGet('/cargo/listar-cargos');
     const { data: listarDptos, loading: loadingListarDptos } = useApiRequestGet('/departamento/listar-departamentos');
 
-    function formatPhoneNumber(value) {
-        // Remove todos os caracteres não numéricos do valor
-        const cleaned = ('' + value).replace(/\D/g, '');
-
-        // Aplica a formatação para o número de telefone
-        const formattedValue = cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-
-        return formattedValue;
-    }
-
-
-    const [numero, setNumero] = useState('');
-
-    // const handleChange = (event) => {
-    //     const formattedValue = formatPhoneNumber(event.target.value);
-    //     setNumero(formattedValue);
-    // };
-
-    const [showExampleMessage, setShowExampleMessage] = useState(false);
 
     return (
         <Modal
@@ -152,19 +125,13 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             <Grid item xs={12} sm={12} md={12}>
 
-                                {/* <TextField
-                                        {...register('numero')}
-                                            fullWidth
-                                            required
-                                            label='Número'
-                                            type='text'
-                                            error={!!errors.numero}
-                                            helperText={errors.numero?.message}
-                                        /> */}
-                                {/* <InputMask
+
+
+                                <InputMask
                                     mask="(99) 9 9999-9999"
                                     maskChar=" "
                                     {...register('numero')}
+                                    inputRef={register} 
                                 >
                                     {(inputProps) => (
                                         <TextField
@@ -180,29 +147,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                                             }}
                                         />
                                     )}
-                                </InputMask> */}
-
-<InputMask
-    mask="(99) 9 9999-9999"
-    maskChar=" "
-    {...register('numero')}
-    inputRef={register} // Passando a referência diretamente aqui
->
-    {(inputProps) => (
-        <TextField
-            fullWidth
-            required
-            label="Número. Exemplo: (35) 9 9493-9392"
-            type="tel"
-            error={!!errors.numero}
-            helperText={errors.numero?.message}
-            InputProps={{
-                ...inputProps,
-                className: "MuiInputBase-input MuiInput-input"
-            }}
-        />
-    )}
-</InputMask>
+                                </InputMask>
 
                             </Grid>
 
