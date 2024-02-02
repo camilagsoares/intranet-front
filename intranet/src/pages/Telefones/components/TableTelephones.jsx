@@ -184,7 +184,7 @@ const TableTelephones = (props) => {
                                 ))
                             ) : (
                                 <imports.StyledTableRow >
-                                    <imports.StyledTableCell colSpan={7}>
+                                    <imports.StyledTableCell colSpan={8}>
 
                                         Nenhum resultado encontrado.
 

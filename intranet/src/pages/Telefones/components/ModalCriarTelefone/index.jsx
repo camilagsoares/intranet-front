@@ -19,6 +19,8 @@ import { axiosApi, useApiRequestGet } from "../../../../services/api";
 import { toast } from 'react-toastify';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
+import InputMask from 'react-input-mask'
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
@@ -27,8 +29,8 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
 
     const schema = yup
         .object({
-            numero: yup.string().required(),
-            nome: yup.string().required(),
+            numero: yup.string().required("Campo obrigatório"),
+            nome: yup.string().required("Campo obrigatório"),
             situacao: yup.string().max(45, 'Máximo de 45 caracteres').required(requiredField),
             departamentoId: yup.number().required(requiredField),
             cargoId: yup.number().required(requiredField),
@@ -72,7 +74,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
             .finally(() => {
                 setLoading(false);
             });
-      
+
     };
 
 
@@ -101,6 +103,25 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
     const { data: listarCargos, loading: loadingListarCargos } = useApiRequestGet('/cargo/listar-cargos');
     const { data: listarDptos, loading: loadingListarDptos } = useApiRequestGet('/departamento/listar-departamentos');
 
+    function formatPhoneNumber(value) {
+        // Remove todos os caracteres não numéricos do valor
+        const cleaned = ('' + value).replace(/\D/g, '');
+
+        // Aplica a formatação para o número de telefone
+        const formattedValue = cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+
+        return formattedValue;
+    }
+
+
+    const [numero, setNumero] = useState('');
+
+    // const handleChange = (event) => {
+    //     const formattedValue = formatPhoneNumber(event.target.value);
+    //     setNumero(formattedValue);
+    // };
+
+    const [showExampleMessage, setShowExampleMessage] = useState(false);
 
     return (
         <Modal
@@ -111,7 +132,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
         >
             <Box sx={style}>
                 <Box component='form' noValidate onSubmit={handleSubmit(handleCriarTelefone)}>
-                <Typography
+                    <Typography
                         sx={{
                             fontSize: {
                                 lg: 18,
@@ -124,21 +145,65 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                             color: "#27272F"
                         }}
                     >
-                      Criar telefone
+                        Criar telefone
                     </Typography>
-                    
+
                     <DialogContent dividers sx={{ paddingTop: 1 }}>
                         <Grid container columnSpacing={2} rowSpacing={2} marginTop={0.5}>
                             <Grid item xs={12} sm={12} md={12}>
-                                <TextField
+
+                                {/* <TextField
+                                        {...register('numero')}
+                                            fullWidth
+                                            required
+                                            label='Número'
+                                            type='text'
+                                            error={!!errors.numero}
+                                            helperText={errors.numero?.message}
+                                        /> */}
+                                {/* <InputMask
+                                    mask="(99) 9 9999-9999"
+                                    maskChar=" "
                                     {...register('numero')}
-                                    fullWidth
-                                    required
-                                    label='Número'
-                                    type='text'
-                                    error={!!errors.id}
-                                    helperText={errors.id?.message}
-                                />
+                                >
+                                    {(inputProps) => (
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            label="Número. Exemplo: (35) 9 9493-9392"
+                                            type="tel"
+                                            error={!!errors.numero}
+                                            helperText={errors.numero?.message}
+                                            InputProps={{
+                                                ...inputProps,
+                                                className: "MuiInputBase-input MuiInput-input"
+                                            }}
+                                        />
+                                    )}
+                                </InputMask> */}
+
+<InputMask
+    mask="(99) 9 9999-9999"
+    maskChar=" "
+    {...register('numero')}
+    inputRef={register} // Passando a referência diretamente aqui
+>
+    {(inputProps) => (
+        <TextField
+            fullWidth
+            required
+            label="Número. Exemplo: (35) 9 9493-9392"
+            type="tel"
+            error={!!errors.numero}
+            helperText={errors.numero?.message}
+            InputProps={{
+                ...inputProps,
+                className: "MuiInputBase-input MuiInput-input"
+            }}
+        />
+    )}
+</InputMask>
+
                             </Grid>
 
                             <Grid item xs={12} sm={12} md={12}>
@@ -182,7 +247,7 @@ const ModalCriarTelefone = ({ isOpen, onClose, data }) => {
                                                     listarDptos.length &&
                                                     listarDptos.map((secretaria) => (
                                                         <MenuItem key={secretaria.id} value={secretaria.id}>
-                                                       {secretaria.secretaria.sigla}  -   {secretaria.nome}
+                                                            {secretaria.secretaria.sigla}  -   {secretaria.nome}
                                                         </MenuItem>
                                                     ))}
                                             </TextField>

@@ -28,8 +28,8 @@ const Header = () => {
   const Menus = [
     { id: 1, title: "Início", src: "Chart_fill", link: "/", icon: (<BsTelephone />) },
     { id: 2, title: "Departamentos", src: "Chat", link: "/departamentos", icon: (<BiFolderMinus />) },
-    { id: 3, title: "Secretarias", src: "User", gap: true, link: "/secretarias", icon: (<BiSpreadsheet />) },
-    { id: 3, title: "Cargos", src: "User", gap: true, link: "/cargos", icon: (<MdWorkOutline />) },
+    { id: 3, title: "Secretarias", src: "User", link: "/secretarias", icon: (<BiSpreadsheet />) },
+    { id: 3, title: "Cargos", src: "User", link: "/cargos", icon: (<MdWorkOutline />) },
 
     // { id: 5, title: isAuthenticated ? 'Sair' : "Painel Administrador", src: "Calendar", gap: true, link: "/login", icon: isAuthenticated ? (<FiLogOut />) : (<RiAdminLine />) }
   ];
@@ -44,6 +44,7 @@ const Header = () => {
       window.location.reload();
     }
   };
+
 
   return (
     <div className="flex">
@@ -86,7 +87,7 @@ const Header = () => {
                     onClick={() => handleClick(Menu.id)}
                     style={{
                       color: '#F3F4F7',
-                      textTransform: 'lowercase',
+                      // textTransform: 'lowercase',
                       fontWeight: 'normal',
                     }}
                   >
@@ -98,10 +99,10 @@ const Header = () => {
           ))}
 
         </ul>
-        <br />
+        {/* <br /> */}
 
         <Button
-          startIcon={isAuthenticated ? <MdExitToApp style={{ fontSize: '15px', marginLeft: '3px' }} /> : <RiAdminLine style={{ fontSize: '16px' }} />}
+          startIcon={isAuthenticated ? <MdExitToApp style={{ fontSize: '15px', marginLeft: '3px', marginTop: '7px' }} /> : <RiAdminLine style={{ fontSize: '16px' }} />}
           onClick={() => {
             if (isAuthenticated) {
               encerrarSessao();
@@ -113,14 +114,18 @@ const Header = () => {
           className={`${!open && isAuthenticated ? 'hidden ' : ''}`}
           style={{
             color: '#F3F4F7',
-            textTransform: 'lowercase',
+            textTransform: 'none',
             paddingRight: !open ? '210px' : '',
             fontWeight: '300',
             textAlign: 'center',
+
           }}
         >
-          <span className="alignButton">  {isAuthenticated && open && 'Sair'}
-            {!isAuthenticated && open && 'Painel Administrador'}
+          <span className="alignButton">
+            {/* {isAuthenticated && open && 'Sair'}
+            {!isAuthenticated && open && 'Painel Administrador'} */}
+            {isAuthenticated && open && 'Sair'.charAt(0).toUpperCase() + 'Sair'.slice(1)}
+            {!isAuthenticated && open && 'Painel Administrador'.charAt(0).toUpperCase() + 'Painel Administrador'.slice(1)}
           </span>
 
         </Button>

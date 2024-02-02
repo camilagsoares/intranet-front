@@ -66,6 +66,7 @@ const ModalCriarCargo = ({ isOpen, onClose }) => {
             .finally(() => {
                 setLoading(false);
             });
+            console.log(data)
     };
 
 
