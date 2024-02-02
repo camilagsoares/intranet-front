@@ -66,7 +66,7 @@ const ModalEditarSecretaria = ({ isOpen, onClose, selectedItemId }) => {
                     type: 'success',
                     autoClose: 3000,
                 });
-
+                window.location.reload();
                 setTimeout(() => {
                     setLoading(false);
                     window.location.reload();
