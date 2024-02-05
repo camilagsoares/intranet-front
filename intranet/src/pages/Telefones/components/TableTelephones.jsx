@@ -59,7 +59,7 @@ const TableTelephones = (props) => {
 
                 <imports.Box sx={{ p: 1 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Container>
-                   
+
                         <ContainerInput
                             type="text"
                             placeholder="Digite para filtrar..."
@@ -126,7 +126,7 @@ const TableTelephones = (props) => {
                         </imports.TableHead>
 
                         <imports.TableBody>
-                            {dadosFiltrados && dadosFiltrados.length ? (
+                            {searchText && dadosFiltrados && dadosFiltrados.length ? (
                                 dadosFiltrados?.slice(pagesVisited, pagesVisited + projectsPerPage).map((number) => (
                                     <imports.StyledTableRow key={number?.id}>
 
@@ -159,7 +159,7 @@ const TableTelephones = (props) => {
                                             isAuthenticated && (
                                                 <imports.StyledTableCell align="left">
                                                     <imports.Tooltip title="Editar" arrow>
-                                                        <imports.Button  onClick={() => number?.id && handleEditOpen(number.id)}>
+                                                        <imports.Button onClick={() => number?.id && handleEditOpen(number.id)}>
                                                             <imports.MdOutlineEdit size={18} color='#68739C' />
                                                         </imports.Button>
                                                     </imports.Tooltip>
@@ -182,21 +182,22 @@ const TableTelephones = (props) => {
 
                                     </imports.StyledTableRow>
                                 ))
-                            ) : (
-                                <imports.StyledTableRow >
+                            ) : searchText && (!dadosFiltrados || dadosFiltrados.length === 0) ? (
+                                <imports.StyledTableRow>
                                     <imports.StyledTableCell colSpan={8}>
-
                                         Nenhum resultado encontrado.
-
                                     </imports.StyledTableCell>
                                 </imports.StyledTableRow>
-                            )}
+                            ) :
+                                <imports.StyledTableCell colSpan={8}>
+                                    Pesquise a informação desejada.
+                                </imports.StyledTableCell>}
                         </imports.TableBody>
                     </imports.Table>
                 </imports.TableContainer>
 
-                <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data}  selectedDeleteId={selectedDeleteId}/>
-                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data}  selectedItemId={selectedItemId}/>
+                <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data} selectedDeleteId={selectedDeleteId} />
+                <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data} selectedItemId={selectedItemId} />
 
                 {dadosFiltrados && dadosFiltrados.length > 0 && (
                     <imports.Box display="flex" justifyContent="end" mt={2} >
