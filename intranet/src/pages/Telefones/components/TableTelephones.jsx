@@ -23,6 +23,7 @@ const TableTelephones = (props) => {
     }, [data]);
 
     const [searchText, setSearchText] = imports.useState('')
+    const [totalPages, setTotalPages] = imports.useState(0);
 
     const dadosFiltrados = data && data.filter((number) => {
         const textoFiltrado = `${number.numero} ${number.nome} ${number.cargo.nome} ${number.departamento.secretaria.nome} ${number.departamento.nome} ${number.situacao}`
@@ -50,8 +51,12 @@ const TableTelephones = (props) => {
     } = useModal();
 
 
-
-
+    imports.useEffect(() => {
+        if (dadosFiltrados) {
+            setTotalPages(Math.ceil(dadosFiltrados.length / projectsPerPage));
+        }
+    }, [dadosFiltrados, projectsPerPage]);
+    
     return (
         <imports.React.Fragment>
             <imports.Box marginY={1} paddingY={2}>
@@ -199,11 +204,11 @@ const TableTelephones = (props) => {
                 <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data} selectedDeleteId={selectedDeleteId} />
                 <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data} selectedItemId={selectedItemId} />
 
-                {dadosFiltrados && dadosFiltrados.length > 0 && (
+                {searchText && dadosFiltrados && dadosFiltrados.length > 6 && (
                     <imports.Box display="flex" justifyContent="end" mt={2} >
                         <imports.Pagination
                             color="primary"
-                            count={Math.ceil(dadosFiltrados?.length / projectsPerPage)}
+                            count={totalPages}
                             page={pageNumber + 1}
                             onChange={(event, page) => {
                                 changePage({ selected: page - 1 });
