@@ -76,9 +76,11 @@ export default function Login() {
                   <imports.Avatar sx={{ m: 1, bgcolor: '#367EEB' }}>
                     <imports.LockOutlinedIcon />
                   </imports.Avatar>
+                  
                   <imports.Typography component="h1" variant="h5">
                     Acesso Administrador
                   </imports.Typography>
+
                   <imports.Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(handleEfetuarLogin)}>
                     <imports.TextField
                       {...register('nome')}

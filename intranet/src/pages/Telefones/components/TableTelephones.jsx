@@ -18,11 +18,14 @@ const TableTelephones = (props) => {
         setPageNumber(selected);
     };
 
-    imports.useEffect(() => {
-        setPageNumber(0);
-    }, [data]);
+
 
     const [searchText, setSearchText] = imports.useState('')
+
+    imports.useEffect(() => {
+        setPageNumber(0);
+    }, [searchText, data]);
+
     const [totalPages, setTotalPages] = imports.useState(0);
 
     const dadosFiltrados = data && data.filter((number) => {
@@ -56,7 +59,7 @@ const TableTelephones = (props) => {
             setTotalPages(Math.ceil(dadosFiltrados.length / projectsPerPage));
         }
     }, [dadosFiltrados, projectsPerPage]);
-    
+
     return (
         <imports.React.Fragment>
             <imports.Box marginY={1} paddingY={2}>
@@ -194,9 +197,12 @@ const TableTelephones = (props) => {
                                     </imports.StyledTableCell>
                                 </imports.StyledTableRow>
                             ) :
-                                <imports.StyledTableCell colSpan={8}>
-                                    Pesquise a informação desejada.
-                                </imports.StyledTableCell>}
+                                <imports.StyledTableRow>
+                                    <imports.StyledTableCell colSpan={8}>
+                                        Pesquise a informação desejada.
+                                    </imports.StyledTableCell>
+                                </imports.StyledTableRow>}
+
                         </imports.TableBody>
                     </imports.Table>
                 </imports.TableContainer>
@@ -204,7 +210,7 @@ const TableTelephones = (props) => {
                 <ModalDeletarTelefone isOpen={modalDeleteOpen} onClose={handleDeleteClose} data={data} selectedDeleteId={selectedDeleteId} />
                 <ModalEditarTelefone isOpen={modalEditOpen} onClose={handleEditClose} data={data} selectedItemId={selectedItemId} />
 
-                {searchText && dadosFiltrados && dadosFiltrados.length > 6 && (
+                {searchText && dadosFiltrados && dadosFiltrados.length > projectsPerPage && (
                     <imports.Box display="flex" justifyContent="end" mt={2} >
                         <imports.Pagination
                             color="primary"
