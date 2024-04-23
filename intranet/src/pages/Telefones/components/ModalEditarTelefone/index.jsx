@@ -14,7 +14,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { axiosApi, useApiRequestGet } from "../../../../services/api";
 import { toast } from 'react-toastify';
-
+import './style.css'
 
 const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
 
@@ -26,20 +26,29 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
     const [departamentoId, setDepartamentoId] = useState('');
     const [situacao, setSituacao] = useState('');
 
-// console.log(selectedItemId)
- 
-    const { data, loading: loadingTelefones,refetchData  } = useApiRequestGet(`/telefone/listar-telefone/${selectedItemId}`);
+
+    const { data, loading: loadingTelefones, refetchData } = useApiRequestGet(`/telefone/listar-telefone/${selectedItemId}`);
+
+    const { data: dataDptos } = useApiRequestGet('/departamento/listar-departamentos') //id
+
+    const { data: dataCargos } = useApiRequestGet('/cargo/listar-cargos') //id
+
+
+    const handleChangeCargo = (event) => {
+        setCargoId(event.target.value);
+    };
+
 
     useEffect(() => {
         if (selectedItemId) {
-          refetchData();
+            refetchData();
         }
-      }, [selectedItemId]);
-      
-     
+    }, [selectedItemId]);
 
 
-      useEffect(() => {
+
+
+    useEffect(() => {
         if (!loadingTelefones && data) {
             setNumero(data?.numero || '');
             setNome(data?.nome || '');
@@ -49,40 +58,48 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
             setSituacao(data?.situacao || '');
         }
     }, [loadingTelefones, data]);
-    
+
 
     const editaTelefone = (e) => {
         e.preventDefault();
         setLoading(true);
-        const data = {
-            numero: numero,
-            nome: nome,
-            cargoId:  parseInt(cargoId,10),
-            // secretaria: secretaria,
-            // observacao: observacao,
-            departamentoId: parseInt(departamentoId,10),
-            situacao: situacao,
-        };
 
-        axiosApi
-            .put(`/telefone/atualizar-telefone/${selectedItemId}`, data)
-            .then(() => {
-                toast('Telefone atualizado com sucesso', {
-                    type: 'success',
-                    autoClose: 3000,
-                });
+        const departamentoSelecionado = dataDptos.find(departamento => departamento.id === parseInt(departamentoId, 10));
 
-                setTimeout(() => {
+        const cargoSelecionado = dataCargos.find(cargo => cargo.id === parseInt(cargoId, 10));
+
+
+        // Verificar se o departamentoSelecionado é válido
+        if (departamentoSelecionado) {
+            const data = {
+                numero: numero,
+                nome: nome,
+                cargoId: cargoSelecionado.id,
+                departamentoId: departamentoSelecionado.id,
+                situacao: situacao,
+            };
+
+            console.log('Dados enviados para o backend:', data);
+
+            axiosApi
+                .put(`/telefone/atualizar-telefone/${selectedItemId}`, data)
+                .then(() => {
+                    alert('Telefone atualizado com sucesso');
+                    setTimeout(() => {
+                        setLoading(false);
+                        window.location.reload();
+                    }, 1000);
+                })
+                .catch((error) => {
+                    console.log(error);
                     setLoading(false);
-                    window.location.reload();
-                }, 3000);
-            })
-            .catch((error) => {
-                toast(error.message, {
-                    type: 'error',
                 });
-                setLoading(false);
-            })
+        } else {
+            console.error('Departamento selecionado inválido');
+            setLoading(false);
+        }
+        console.log('Dados enviados para o backend:', data);
+
     };
 
 
@@ -110,6 +127,11 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
 } */
 
 
+
+    const handleChangeDepartamento = (event) => {
+        setDepartamentoId(event.target.value);
+    };
+
     return (
         <Modal
             open={isOpen}
@@ -118,10 +140,10 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Box component='form' noValidate  onSubmit={editaTelefone}>
+                <Box component='form' noValidate onSubmit={editaTelefone}>
 
 
-                <Typography
+                    <Typography
                         sx={{
                             fontSize: {
                                 lg: 18,
@@ -162,7 +184,7 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
-                                <TextField
+                                {/* <TextField
                                     value={cargoId}
                                     onChange={(e) => setCargoId(e.target.value)}
                                     fullWidth
@@ -170,11 +192,24 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
                                     label='Cargo'
                                     type='text'
 
-                                />
-                            </Grid>
-                         
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
+                                /> */}
+                                <label htmlFor="departamento-select">Selecione um cargo</label>
+                                <select id="departamento-select" className="custom-select" value={cargoId} onChange={handleChangeCargo} fullWidth required>
+                                    <option value="">Selecione um cargo</option>
+
+                                    {Array.isArray(dataCargos) && dataCargos.map((cargo) => (
+                                        <option key={cargo.id} value={cargo.id}>
+                                            {cargo.nome}
+                                        </option>
+                                    ))}
+                                </select>
+
+
+                          
+                        </Grid>
+
+                        <Grid item xs={12} sm={12} md={12}>
+                            {/* <TextField
                                     value={departamentoId}
                                     onChange={(e) => setDepartamentoId(e.target.value)}
                                     fullWidth
@@ -182,49 +217,58 @@ const ModalEditarTelefone = ({ isOpen, onClose, selectedItemId }) => {
                                     label='Departamento'
                                     type='text'
 
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
-                                <TextField
-                                    value={situacao}
-                                    onChange={(e) => setSituacao(e.target.value)}
-                                    fullWidth
-                                    required
-                                    label='Situação'
-                                    type='text'
-
-                                />
-                            </Grid>
+                                /> */}
+                            <label htmlFor="departamento-select">Selecione um departamento</label>
+                            <select id="departamento-select" className="custom-select" value={departamentoId} onChange={handleChangeDepartamento} required>
+                                <option value="">Selecione um departamento</option>
+                                {Array.isArray(dataDptos) && dataDptos.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.nome}
+                                    </option>
+                                ))}
+                            </select>
                         </Grid>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            // disabled={loading}
-                            startIcon={<Close width={24} />}
-                            variant='outlined'
-                            color='info'
-                            onClick={onClose}
-                            sx={{ minWidth: 156, height: '100%' }}
-                        >
-                            Cancelar
-                        </Button>
-                        <Button
-                            type='submit'
-                            // disabled={loading || isButtonDisabled}
-                            // startIcon={<Save width={24} />}
-                            variant='outlined'
-                            color='success'
-                            sx={{ minWidth: 156, height: '100%' }}
-                        >
-                            Editar
-                            {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
-                        </Button>
-                        {/* <button onClick={onClose}>Fechar Modal</button> */}
+                        <Grid item xs={12} sm={12} md={12}>
+                            <TextField
+                                value={situacao}
+                                onChange={(e) => setSituacao(e.target.value)}
+                                fullWidth
+                                required
+                                label='Situação'
+                                type='text'
 
-                    </DialogActions>
-                </Box>
+                            />
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        // disabled={loading}
+                        startIcon={<Close width={24} />}
+                        variant='outlined'
+                        color='info'
+                        onClick={onClose}
+                        sx={{ minWidth: 156, height: '100%' }}
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        type='submit'
+                        // disabled={loading || isButtonDisabled}
+                        // startIcon={<Save width={24} />}
+                        variant='outlined'
+                        color='success'
+                        sx={{ minWidth: 156, height: '100%' }}
+                    >
+                        Editar
+                        {/* {!loading ? 'Adicionar' : <CircularProgress color='success' size={23} />} */}
+                    </Button>
+                    {/* <button onClick={onClose}>Fechar Modal</button> */}
+
+                </DialogActions>
             </Box>
-        </Modal>
+        </Box>
+        </Modal >
     )
 }
 

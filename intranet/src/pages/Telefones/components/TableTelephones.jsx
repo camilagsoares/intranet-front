@@ -9,7 +9,7 @@ import * as imports from "../../../imports/utils";
 const TableTelephones = (props) => {
 
     const { data, loading } = useApiRequestGet('/telefone/listar-telefones');
-
+    // console.log(data)
     const [pageNumber, setPageNumber] = imports.useState(0);
     const projectsPerPage = 6;
     const pagesVisited = pageNumber * projectsPerPage;
